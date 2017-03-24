@@ -1,0 +1,42 @@
+group 'org.ssh'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    // for jamepad
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    // math
+    compile 'org.nd4j:nd4j-native:0.8.0'
+
+    // rx
+    compile 'io.projectreactor:reactor-core:3.0.5.RELEASE'
+    compile 'io.projectreactor.ipc:reactor-ipc:0.6.1.RELEASE'
+    compile 'io.projectreactor.ipc:reactor-netty:0.6.2.RELEASE'
+    compile 'com.google.code.gson:gson:2.8.0'
+
+    // ipc
+    compile 'com.github.WilliamAHartman:Jamepad:1.2'
+    compile 'com.google.protobuf:protobuf-java:3.2.0'
+
+    // logging
+    compile 'org.slf4j:slf4j-api:1.7.25'
+
+    // ui
+    compile 'com.googlecode.lanterna:lanterna:3.0.0-rc1'
+
+    // system
+    compile 'com.github.dblock:oshi-core:3.2'
+
+    // java impl
+    compile 'org.projectlombok:lombok:1.16.14'
+
+    // tests
+    testCompile 'org.testng:testng:6.11'
+}
