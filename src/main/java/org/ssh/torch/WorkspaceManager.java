@@ -1,19 +1,42 @@
 package org.ssh.torch;
 
+import java.util.List;
 import org.ssh.torch.view.Workspace;
 
-import java.util.List;
-
 /**
- * @author jeroen.dejong
- * @since 01/02/2017.
+ * The Interface WorkspaceManager.
+ *
+ * @author Jeroen de Jong
  */
 public interface WorkspaceManager {
-    Workspace getActiveWorkspace();
 
-    WorkspaceManager setActiveWorkspace(Workspace workspace);
+  /**
+   * Gets active workspace.
+   *
+   * @return the active workspace
+   */
+  Workspace getActiveWorkspace();
 
-    List<Workspace> getWorkspaces();
+  /**
+   * Sets active workspace.
+   *
+   * @param workspace the workspace
+   * @return the active workspace
+   */
+  WorkspaceManager setActiveWorkspace(Workspace workspace);
 
-    WorkspaceManager addWorkspace(Workspace workspace);
+  /**
+   * Gets workspaces.
+   *
+   * @return the workspaces
+   */
+  List<Workspace> getWorkspaces();
+
+  /**
+   * Add workspace workspace manager.
+   *
+   * @param workspace the workspace
+   * @return the workspace manager
+   */
+  WorkspaceManager addWorkspace(Workspace workspace);
 }

@@ -7,31 +7,36 @@ import org.ssh.torch.view.Workspace;
 import org.ssh.torch.view.window.WorkspaceWizardModal;
 
 /**
- * @author jeroen.dejong
- * @since 02/02/2017.
+ * The Class WorkspaceSwitchModal.
+ *
+ * @author Jeroen de Jong
  */
 public class WorkspaceSwitchModal extends BasicModal {
-    public WorkspaceSwitchModal() {
-        super("Other workspaces");
-        final Panel panel = new Panel();
-        ActionListBox listBox = new ActionListBox();
-        listBox.addItem("Add new workspace", () -> {
-            WorkspaceWizardModal workspaceWizard = new WorkspaceWizardModal();
-            workspaceWizard.setCloseWindowWithEscape(true);
-            this.getWorkspace().setActiveWindow(workspaceWizard);
-            this.close();
-        });
-        TorchUI.lit().getWorkspaces().stream()
-                .filter(workspace -> !TorchUI.getActiveWorkspace().equals(workspace))
-                .filter(Workspace::isConstructible)
-                .reduce(listBox,
-                        (list, workspace) ->
-                        list.addItem(list.getItemCount() + ". " + workspace.getTitle(), () -> {
-                            TorchUI.setActiveWorkspace(workspace);
-                            this.close();
-                        }),
-                        (u, t) -> t)
+
+  /**
+   * Instantiates a new Workspace switch modal.
+   */
+  public WorkspaceSwitchModal() {
+    super("Other workspaces");
+    final Panel panel = new Panel();
+    ActionListBox listBox = new ActionListBox();
+    listBox.addItem("Add new workspace", () -> {
+      WorkspaceWizardModal workspaceWizard = new WorkspaceWizardModal();
+      workspaceWizard.setCloseWindowWithEscape(true);
+      this.getWorkspace().setActiveWindow(workspaceWizard);
+      this.close();
+    });
+    TorchUI.lit().getWorkspaces().stream()
+        .filter(workspace -> !TorchUI.getActiveWorkspace().equals(workspace))
+        .filter(Workspace::isConstructible)
+        .reduce(listBox,
+            (list, workspace) ->
+                list.addItem(list.getItemCount() + ". " + workspace.getTitle(), () -> {
+                  TorchUI.setActiveWorkspace(workspace);
+                  this.close();
+                }),
+            (u, t) -> t)
         .addTo(panel);
-        this.setComponent(panel);
-    }
+    this.setComponent(panel);
+  }
 }

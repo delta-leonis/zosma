@@ -15,11 +15,12 @@ import java.util.Set;
  */
 @FunctionalInterface
 public interface Arbiter<A, O> {
-    /**
-     * Arbitrates a {@link Set} of values and returns a single value.
-     *
-     * @param inputMap The set of values to arbitrate.
-     * @return A single value.
-     */
-    A arbitrate(Map<O, A> inputMap);
+
+  /**
+   * Arbitrates a {@link Set} of values and returns a single value.
+   *
+   * @param inputMap The set of values to arbitrate.
+   * @return A single value.
+   */
+  A arbitrate(Map<O, A> inputMap);
 }

@@ -4,9 +4,8 @@ import lombok.Value;
 import org.ssh.benchmarks.DescriptiveMeasurement;
 import org.ssh.ipc.system.SystemComponent;
 import org.ssh.ipc.system.resource.RamInfo;
-import org.ssh.math.statistics.DescriptiveMeasure;
-import org.ssh.math.units.BaseUnit;
-import oshi.hardware.CentralProcessor;
+import org.ssh.math.statistic.DescriptiveMeasure;
+import org.ssh.math.unit.BaseUnit;
 
 /**
  * The Class RamInfoState.
@@ -17,29 +16,36 @@ import oshi.hardware.CentralProcessor;
  */
 @Value
 public class RamInfoState implements RamInfo {
-    private final DescriptiveMeasurement<Long> freeMemory;
-    private final DescriptiveMeasurement<Long> totalMemory;
-    private final DescriptiveMeasurement<Long> usedMemory;
 
-    public static RamInfoState of(Runtime runtime) {
-        return new RamInfoState(
-            new SystemInfoState<>(
-                    SystemComponent.MEMORY,
-                    BaseUnit.BYTE,
-                    DescriptiveMeasure.Summary.DESCRIPTION,
-                    runtime.freeMemory(),
-                    "Total free memory"),
-            new SystemInfoState<>(
-                    SystemComponent.MEMORY,
-                    BaseUnit.BYTE,
-                    DescriptiveMeasure.Summary.DESCRIPTION,
-                    runtime.totalMemory(),
-                    "Total allocated memory"),
-            new SystemInfoState<>(
-                    SystemComponent.MEMORY,
-                    BaseUnit.BYTE,
-                    DescriptiveMeasure.Summary.DESCRIPTION,
-                    runtime.totalMemory() - runtime.freeMemory(),
-                    "Total used memory"));
-    }
+  private final DescriptiveMeasurement<Long> freeMemory;
+  private final DescriptiveMeasurement<Long> totalMemory;
+  private final DescriptiveMeasurement<Long> usedMemory;
+
+  /**
+   * Of ram info state.
+   *
+   * @param runtime the runtime
+   * @return the ram info state
+   */
+  public static RamInfoState of(Runtime runtime) {
+    return new RamInfoState(
+        new SystemInfoState<>(
+            SystemComponent.MEMORY,
+            BaseUnit.BYTE,
+            DescriptiveMeasure.Summary.DESCRIPTION,
+            runtime.freeMemory(),
+            "Total free memory"),
+        new SystemInfoState<>(
+            SystemComponent.MEMORY,
+            BaseUnit.BYTE,
+            DescriptiveMeasure.Summary.DESCRIPTION,
+            runtime.totalMemory(),
+            "Total allocated memory"),
+        new SystemInfoState<>(
+            SystemComponent.MEMORY,
+            BaseUnit.BYTE,
+            DescriptiveMeasure.Summary.DESCRIPTION,
+            runtime.totalMemory() - runtime.freeMemory(),
+            "Total used memory"));
+  }
 }

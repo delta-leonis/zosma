@@ -1,9 +1,17 @@
 package org.ssh.torch.view.model;
 
 /**
- * @author jeroen.dejong
- * @since 11/01/2017.
+ * The Class ViewModel.
+ *
+ * @param <O> the type parameter
+ * @author Jeroen de Jong
  */
 public interface ViewModel<O> {
-    O getObject();
+
+  /**
+   * Gets object.
+   *
+   * @return the object
+   */
+  O getObject();
 }

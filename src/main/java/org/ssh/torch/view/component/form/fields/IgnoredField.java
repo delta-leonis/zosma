@@ -1,10 +1,18 @@
 package org.ssh.torch.view.component.form.fields;
 
 /**
- * Created by jeroen.dejong on 23/02/2017.
+ * The Class IgnoredField.
+ *
+ * @author Jeroen de Jong
  */
 public class IgnoredField extends TextField {
-    public IgnoredField(String randomParameter) {
-        super();
-    }
+
+  /**
+   * Instantiates a new Ignored field.
+   *
+   * @param randomParameter the random parameter
+   */
+  public IgnoredField(String randomParameter) {
+    super();
+  }
 }

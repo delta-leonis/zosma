@@ -11,17 +11,22 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  */
 public class StandardToPolarBasis implements ChangeOfBasis<INDArray> {
 
-    public StandardToPolarBasis(int dimension) {
-    }
+  /**
+   * Instantiates a new Standard to polar basis.
+   *
+   * @param dimension the dimension
+   */
+  public StandardToPolarBasis(int dimension) {
+  }
 
-    @Override
-    public INDArray asMatrix(INDArray input) {
-        // return an input.rows * input.rows matrix
-        return null;
-    }
+  @Override
+  public INDArray asMatrix(INDArray input) {
+    // return an input.rows * input.rows matrix
+    return null;
+  }
 
-    @Override
-    public INDArray change(INDArray input) {
-        return this.asMatrix(input).mmul(input);
-    }
+  @Override
+  public INDArray change(INDArray input) {
+    return this.asMatrix(input).mmul(input);
+  }
 }

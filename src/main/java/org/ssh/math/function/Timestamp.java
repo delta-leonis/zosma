@@ -9,10 +9,11 @@ package org.ssh.math.function;
  */
 @FunctionalInterface
 public interface Timestamp {
-    /**
-     * Returns the last seen time of the timestampable object.
-     *
-     * @return The last seen time of the timestampable object.
-     */
-    double getTimestamp();
+
+  /**
+   * Returns the last seen time of the timestampable object.
+   *
+   * @return The last seen time of the timestampable object.
+   */
+  double getTimestamp();
 }

@@ -25,40 +25,38 @@ package org.ssh.math.algebra;
  * @author Rimon Oz
  */
 public interface Group<F> {
-    /**
-     * Computes the sum of two field elements.
-     *
-     * @param firstElement  The first field element to be added.
-     * @param secondElement The second field element to be added.
-     * @return The sum of the two arguments.
-     */
-    F add(F firstElement, F secondElement);
 
-    /**
-     * Returns the additive inverse of the argument. The additive inverse is
-     * defined as the number which which when added to the original number
-     * results in zero.
-     * For example, the additive inverse of 3 is -3 and the additive inverse of
-     * 3+j is -3-j.
-     *
-     * @param fieldElement The number to compute the additive inverse for.
-     * @return The additive inverse of the argument.
-     */
-    F getAdditiveInverse(F fieldElement);
+  /**
+   * Computes the difference between two field elements.
+   *
+   * @param firstElement  The first field number, which is used as a reference.
+   * @param secondElement The second field number, which is subtracted from the first.
+   * @return The difference between the first and second argument.
+   */
+  default F subtract(F firstElement, F secondElement) {
+    return this.add(
+        firstElement,
+        this.getAdditiveInverse(secondElement));
+  }
 
-    /**
-     * Computes the difference between two field elements.
-     *
-     * @param firstElement  The first field number, which is used as a
-     *                      reference.
-     * @param secondElement The second field number, which is subtracted from
-     *                      the first.
-     * @return The difference between the first and second
-     * argument.
-     */
-    default F subtract(F firstElement, F secondElement) {
-        return this.add(
-                firstElement,
-                this.getAdditiveInverse(secondElement));
-    }
+  /**
+   * Computes the sum of two field elements.
+   *
+   * @param firstElement  The first field element to be added.
+   * @param secondElement The second field element to be added.
+   * @return The sum of the two arguments.
+   */
+  F add(F firstElement, F secondElement);
+
+  /**
+   * Returns the additive inverse of the argument. The additive inverse is
+   * defined as the number which which when added to the original number
+   * results in zero.
+   * For example, the additive inverse of 3 is -3 and the additive inverse of
+   * 3+j is -3-j.
+   *
+   * @param fieldElement The number to compute the additive inverse for.
+   * @return The additive inverse of the argument.
+   */
+  F getAdditiveInverse(F fieldElement);
 }

@@ -12,18 +12,20 @@ import reactor.core.publisher.TopicProcessor;
  * @author Thomas Hakkers
  */
 public class TorchEventPublisher implements Publisher<TorchEvent<?>> {
-    private final TopicProcessor<TorchEvent<?>> topicPublisher = TopicProcessor.create();
-    /**
-     * Adds a {@link TorchEvent}.
-     *
-     * @param torchEvent the torch event
-     */
-    public void addTorchEvent(TorchEvent<?> torchEvent) {
-        this.topicPublisher.onNext(torchEvent);
-    }
 
-    @Override
-    public void subscribe(Subscriber<? super TorchEvent<?>> s) {
-        topicPublisher.subscribe(s);
-    }
+  private final TopicProcessor<TorchEvent<?>> topicPublisher = TopicProcessor.create();
+
+  /**
+   * Adds a {@link TorchEvent}.
+   *
+   * @param torchEvent the torch event
+   */
+  public void addTorchEvent(TorchEvent<?> torchEvent) {
+    this.topicPublisher.onNext(torchEvent);
+  }
+
+  @Override
+  public void subscribe(Subscriber<? super TorchEvent<?>> s) {
+    topicPublisher.subscribe(s);
+  }
 }

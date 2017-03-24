@@ -13,27 +13,29 @@ import java.util.Set;
  */
 @FunctionalInterface
 public interface Graph<V, N extends Graph.Node<V>> {
-    /**
-     * Returns the root {@link Node} of the tree.
-     *
-     * @return The root {@link Node} of the tree.
-     */
-    Set<N> getNodes();
+
+  /**
+   * Returns the root {@link Node} of the tree.
+   *
+   * @return The root {@link Node} of the tree.
+   */
+  Set<N> getNodes();
+
+  /**
+   * The Interface Node.
+   * <p>
+   * This interface describes the functionality of a {@link Graph} node.
+   *
+   * @param <V> The type of object held by the node.
+   */
+  @FunctionalInterface
+  interface Node<V> {
 
     /**
-     * The Interface Node.
-     * <p>
-     * This interface describes the functionality of a {@link Graph} node.
+     * Returns the value embedded in the node.
      *
-     * @param <V> The type of object held by the node.
+     * @return The value embedded in the node.
      */
-    @FunctionalInterface
-    interface Node<V> {
-        /**
-         * Returns the value embedded in the node.
-         *
-         * @return The value embedded in the node.
-         */
-        V getValue();
-    }
+    V getValue();
+  }
 }

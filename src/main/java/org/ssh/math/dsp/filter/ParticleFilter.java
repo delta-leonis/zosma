@@ -1,4 +1,4 @@
-package org.ssh.math.dsp.filters;
+package org.ssh.math.dsp.filter;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 
@@ -8,4 +8,5 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  * @author Rimon Oz
  */
 public interface ParticleFilter extends Filter<INDArray> {
+
 }

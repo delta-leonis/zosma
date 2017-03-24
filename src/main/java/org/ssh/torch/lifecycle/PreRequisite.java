@@ -13,18 +13,19 @@ import lombok.experimental.Delegate;
  */
 @AllArgsConstructor
 public class PreRequisite implements Runnable {
-    /**
-     * The name of the pre-requisite.
-     */
-    String name;
-    /**
-     * The runnable which is executed.
-     */
-    @Delegate
-    Runnable runnable;
 
-    @Override
-    public String toString() {
-        return name;
-    }
+  /**
+   * The name of the pre-requisite.
+   */
+  String name;
+  /**
+   * The runnable which is executed.
+   */
+  @Delegate
+  Runnable runnable;
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

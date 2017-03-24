@@ -7,22 +7,27 @@ import org.ssh.torch.view.component.WorkspaceList;
 import org.ssh.torch.view.window.modal.ConstructorModal;
 
 /**
- * @author jeroen.dejong
- * @since 15/01/2017.
+ * The Class WorkspaceWizardModal.
+ *
+ * @author Jeroen de Jong
  */
 public class WorkspaceWizardModal extends BasicWindow {
-    public WorkspaceWizardModal() {
-        super("Workspace wizard");
-        this.setComponent(
-                new WorkspaceList(
-                        new Reflections("org.ssh.torch.view.workspace").getSubTypesOf(AbstractWorkspace.class),
-                        selectedScene -> {
-                            this.getWorkspace().addWindow(
-                                    new ConstructorModal(selectedScene.getCallableConstructors())
-                            );
-                            this.close();
-                        }
-                )
-        );
-    }
+
+  /**
+   * Instantiates a new Workspace wizard modal.
+   */
+  public WorkspaceWizardModal() {
+    super("Workspace wizard");
+    this.setComponent(
+        new WorkspaceList(
+            new Reflections("org.ssh.torch.view.workspace")
+                .getSubTypesOf(AbstractWorkspace.class),
+            selectedScene -> {
+              this.getWorkspace().addWindow(
+                  new ConstructorModal(selectedScene.getCallableConstructors())
+              );
+              this.close();
+            }
+        ));
+  }
 }

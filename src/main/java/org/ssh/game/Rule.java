@@ -14,11 +14,12 @@ import java.util.function.Predicate;
  * @author Rimon Oz
  */
 public interface Rule<G extends Game, V> extends Predicate<G> {
-    /**
-     * Returns the objects in the {@link Game game state} which are in violation of the rule.
-     *
-     * @param game The {@link Game game state} to check for violators.
-     * @return The objects in the {@link Game game state} which are in violation of the rule.
-     */
-    Set<V> getViolators(G game);
+
+  /**
+   * Returns the objects in the {@link Game game state} which are in violation of the rule.
+   *
+   * @param game The {@link Game game state} to check for violators.
+   * @return The objects in the {@link Game game state} which are in violation of the rule.
+   */
+  Set<V> getViolators(G game);
 }

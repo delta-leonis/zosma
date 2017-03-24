@@ -10,17 +10,19 @@ import reactor.core.scheduler.Schedulers;
 /**
  * The Class RamInfoPublisher.
  *
- * This class describes a {@link org.reactivestreams.Publisher} of {@link org.ssh.ipc.system.resource.RamInfo}.
+ * This class describes a {@link org.reactivestreams.Publisher} of {@link
+ * org.ssh.ipc.system.resource.RamInfo}*.
  *
  * @author Jeroen de Jong
  */
 public class RamInfoPublisher extends SystemInfoPublisher<RamInfo> {
-    @Override
-    public void subscribe(Subscriber<? super org.ssh.ipc.system.resource.RamInfo> subscriber) {
-        Flux.intervalMillis(INTERVAL)
-                .subscribeOn(Schedulers.single())
-                .map(tick -> RamInfoState.of(Runtime.getRuntime()))
-                .distinctUntilChanged()
-                .subscribe(subscriber);
-    }
+
+  @Override
+  public void subscribe(Subscriber<? super org.ssh.ipc.system.resource.RamInfo> subscriber) {
+    Flux.intervalMillis(INTERVAL)
+        .subscribeOn(Schedulers.single())
+        .map(tick -> RamInfoState.of(Runtime.getRuntime()))
+        .distinctUntilChanged()
+        .subscribe(subscriber);
+  }
 }

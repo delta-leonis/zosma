@@ -5,13 +5,15 @@ package org.ssh.math.geometry.motion;
  * <p>
  * This class represents an object (in a 3-dimensional space) which has a position vector.
  *
+ * @param <T> the type parameter
  * @author Rimon Oz
  */
 public interface StationaryObject3D<T> extends StationaryObject2D<T> {
-    /**
-     * Returns the Z-coordinate (or the third coordinate) of the position vector.
-     *
-     * @return The Z-coordinate (or the third coordinate) of the position vector.
-     */
-    double getZ();
+
+  /**
+   * Returns the Z-coordinate (or the third coordinate) of the position vector.
+   *
+   * @return The Z-coordinate (or the third coordinate) of the position vector.
+   */
+  double getZ();
 }

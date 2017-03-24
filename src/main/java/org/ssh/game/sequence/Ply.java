@@ -10,10 +10,11 @@ import org.ssh.game.Game;
  * @author Rimon Oz
  */
 public interface Ply extends Game {
-    /**
-     * Indicates whether the Ply has been played.
-     *
-     * @return True if played, false otherwise.
-     */
-    boolean isHistory();
+
+  /**
+   * Indicates whether the Ply has been played.
+   *
+   * @return True if played, false otherwise.
+   */
+  boolean isHistory();
 }

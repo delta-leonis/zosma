@@ -1,8 +1,7 @@
 package org.ssh.torch.lifecycle;
 
-import org.reactivestreams.Publisher;
-
 import java.util.List;
+import org.reactivestreams.Publisher;
 
 /**
  * The Interface PreRequisiteManager.
@@ -13,34 +12,35 @@ import java.util.List;
  * @author Jeroen de Jong
  */
 public interface PreRequisiteManager extends Publisher<PreRequisite> {
-    /**
-     * Add prerequisite.
-     *
-     * @param message      the message
-     * @param prerequisite the prerequisite
-     */
-    default void addPrerequisite(String message, Runnable prerequisite){
-        this.addPrerequisite(new PreRequisite(message, prerequisite));
-    }
 
-    /**
-     * Add prerequisite.
-     *
-     * @param preRequisite the pre requisite
-     */
-    void addPrerequisite(PreRequisite preRequisite);
+  /**
+   * Add prerequisite.
+   *
+   * @param message      the message
+   * @param prerequisite the prerequisite
+   */
+  default void addPrerequisite(String message, Runnable prerequisite) {
+    this.addPrerequisite(new PreRequisite(message, prerequisite));
+  }
 
-    /**
-     * Gets pre requisites.
-     *
-     * @return the pre requisites
-     */
-    List<PreRequisite> getPreRequisites();
+  /**
+   * Add prerequisite.
+   *
+   * @param preRequisite the pre requisite
+   */
+  void addPrerequisite(PreRequisite preRequisite);
 
-    /**
-     * Publish.
-     *
-     * @param preRequisite the pre requisite
-     */
-    void publish(PreRequisite preRequisite);
+  /**
+   * Gets pre requisites.
+   *
+   * @return the pre requisites
+   */
+  List<PreRequisite> getPreRequisites();
+
+  /**
+   * Publish.
+   *
+   * @param preRequisite the pre requisite
+   */
+  void publish(PreRequisite preRequisite);
 }

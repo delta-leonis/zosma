@@ -8,24 +8,24 @@ package org.ssh.torch;
  * @author Jeroen de Jong
  */
 public enum TorchAction {
-    /**
-     * Resize action.
-     */
-    RESIZE,
-    /**
-     * Switch action.
-     */
-    SWITCH,
-    /**
-     * Created action.
-     */
-    CREATED,
-    /**
-     * Removed action.
-     */
-    REMOVED,
-    /**
-     * Closed action.
-     */
-    CLOSED
+  /**
+   * Resize action.
+   */
+  RESIZE,
+  /**
+   * Switch action.
+   */
+  SWITCH,
+  /**
+   * Created action.
+   */
+  CREATED,
+  /**
+   * Removed action.
+   */
+  REMOVED,
+  /**
+   * Closed action.
+   */
+  CLOSED
 }

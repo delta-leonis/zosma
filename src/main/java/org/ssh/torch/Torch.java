@@ -6,11 +6,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by jeroen.dejong on 19/02/2017.
+ * The Interface Torch.
+ *
+ * @author Jeroen de Jong
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Torch {
-    String name();
-    boolean constructible() default true;
+
+  /**
+   * Name string.
+   *
+   * @return the string
+   */
+  String name();
+
+  /**
+   * Constructible boolean.
+   *
+   * @return the boolean
+   */
+  boolean constructible() default true;
 }

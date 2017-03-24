@@ -1,8 +1,7 @@
 package org.ssh.benchmarks;
 
-import reactor.core.publisher.Flux;
-
 import java.util.function.Function;
+import reactor.core.publisher.Flux;
 
 /**
  * The Interface Probe.
@@ -19,22 +18,23 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface Probe<T, U extends DescriptiveMeasurement<M>, M> {
-    /**
-     * Applies the probe to the {@link Flux}
-     *
-     * @param probeable The probeable {@link Flux}.
-     * @return          The resultant {@link Flux}.
-     */
-    Flux<U> process(Flux<T> probeable);
 
-    /**
-     * Probes the data inside the {@link Flux}.
-     *
-     * @param probeable The probeable {@link Flux}.
-     * @return          The resultant (unaffected) {@link Flux}.
-     */
-    default Flux<T> probe(Flux<T> probeable) {
-        this.process(probeable);
-        return probeable;
-    }
+  /**
+   * Probes the data inside the {@link Flux}.
+   *
+   * @param probeable The probeable {@link Flux}.
+   * @return The resultant (unaffected) {@link Flux}.
+   */
+  default Flux<T> probe(Flux<T> probeable) {
+    this.process(probeable);
+    return probeable;
+  }
+
+  /**
+   * Applies the probe to the {@link Flux}
+   *
+   * @param probeable The probeable {@link Flux}.
+   * @return The resultant {@link Flux}.
+   */
+  Flux<U> process(Flux<T> probeable);
 }

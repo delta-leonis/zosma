@@ -6,4 +6,5 @@ package org.ssh.benchmarks;
  * @author Rimon Oz
  */
 public interface ReportWriter {
+
 }

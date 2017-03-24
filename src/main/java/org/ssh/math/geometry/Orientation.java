@@ -9,17 +9,18 @@ package org.ssh.math.geometry;
  * @author Rimon Oz
  */
 public interface Orientation {
-    /**
-     * Returns the Y-coordinate (or the second coordinate) of the velocity vector.
-     *
-     * @return The Y-coordinate (or the second coordinate) of the velocity vector.
-     */
-    double getOrientationVelocity();
 
-    /**
-     * Returns the Y-coordinate (or the second coordinate) of the velocity vector.
-     *
-     * @return The Y-coordinate (or the second coordinate) of the velocity vector.
-     */
-    double getOrientation();
+  /**
+   * Returns the Y-coordinate (or the second coordinate) of the velocity vector.
+   *
+   * @return The Y-coordinate (or the second coordinate) of the velocity vector.
+   */
+  double getOrientationVelocity();
+
+  /**
+   * Returns the Y-coordinate (or the second coordinate) of the velocity vector.
+   *
+   * @return The Y-coordinate (or the second coordinate) of the velocity vector.
+   */
+  double getOrientation();
 }

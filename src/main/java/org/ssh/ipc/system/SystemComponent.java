@@ -9,11 +9,32 @@ package org.ssh.ipc.system;
  * @author Rimon Oz
  */
 public enum SystemComponent {
-    MEMORY,
-    CPU,
-    POWER,
-    DISK,
-    NETWORK,
-    DISPLAY,
-    BUS
+  /**
+   * Memory system component.
+   */
+  MEMORY,
+  /**
+   * Cpu system component.
+   */
+  CPU,
+  /**
+   * Power system component.
+   */
+  POWER,
+  /**
+   * Disk system component.
+   */
+  DISK,
+  /**
+   * Network system component.
+   */
+  NETWORK,
+  /**
+   * Display system component.
+   */
+  DISPLAY,
+  /**
+   * Bus system component.
+   */
+  BUS
 }

@@ -13,10 +13,11 @@ import java.util.Set;
  */
 @FunctionalInterface
 public interface Polygon<V> {
-    /**
-     * Returns the set of vertices of the polygon.
-     *
-     * @return The set of vertices of the polygon.
-     */
-    Set<V> getVertices();
+
+  /**
+   * Returns the set of vertices of the polygon.
+   *
+   * @return The set of vertices of the polygon.
+   */
+  Set<V> getVertices();
 }

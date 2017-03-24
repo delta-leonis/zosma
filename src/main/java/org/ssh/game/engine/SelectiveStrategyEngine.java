@@ -1,6 +1,10 @@
 package org.ssh.game.engine;
 
-import org.ssh.game.*;
+import org.ssh.game.Agent;
+import org.ssh.game.Command;
+import org.ssh.game.Game;
+import org.ssh.game.SelectiveStrategizer;
+import org.ssh.game.Strategy;
 
 /**
  * The Interface SelectiveStrategyEngine.
@@ -13,7 +17,8 @@ import org.ssh.game.*;
  * @param <G> The type of {@link Game} for which {@link Strategy} is being generated.
  * @author Rimon Oz
  */
-public interface SelectiveStrategyEngine<M, S extends Strategy<? extends Agent, ? extends Command, G>, G extends Game>
-        extends ProcessorEngine<G, S, SelectiveStrategizer<M, S, G>>,
-        SelectiveStrategizer<M, S, G> {
+public interface SelectiveStrategyEngine<M, S extends Strategy, G extends Game>
+    extends ProcessorEngine<G, S, SelectiveStrategizer<M, S, G>>,
+    SelectiveStrategizer<M, S, G> {
+
 }

@@ -8,20 +8,20 @@ package org.ssh.torch;
  * @author Jeroen de Jong
  */
 public enum TorchScope {
-    /**
-     * Component scope.
-     */
-    COMPONENT,
-    /**
-     * Window scope.
-     */
-    WINDOW,
-    /**
-     * Workspace scope.
-     */
-    WORKSPACE,
-    /**
-     * Terminal scope.
-     */
-    TERMINAL
+  /**
+   * Component scope.
+   */
+  COMPONENT,
+  /**
+   * Window scope.
+   */
+  WINDOW,
+  /**
+   * Workspace scope.
+   */
+  WORKSPACE,
+  /**
+   * Terminal scope.
+   */
+  TERMINAL
 }

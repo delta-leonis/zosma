@@ -15,18 +15,20 @@ import org.ssh.math.function.SelectiveScanner;
  * @param <G> The type of {@link Game} for which this strategy is meant.
  * @author Rimon Oz
  */
-public interface SelectiveStrategizer<M, S extends Strategy<? extends Agent, ? extends Command, G>, G extends Game>
-        extends SelectiveScanner<S, G, M>, Strategizer<S, G> {
-    /**
-     * Returns a selection of object(s) of interest for this {@link Strategizer} from the supplied {@link Game}.
-     *
-     * @param game The {@link Game} to extract the object(s) of interest from.
-     * @return The object(s) of interest.
-     */
-    M getSelection(G game);
+public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
+    extends SelectiveScanner<S, G, M>, Strategizer<S, G> {
 
-    @Override
-    default S scan(S previousResult, G input) {
-        return this.scan(previousResult, input, this.getSelection(input));
-    }
+  @Override
+  default S scan(S previousResult, G input) {
+    return this.scan(previousResult, input, this.getSelection(input));
+  }
+
+  /**
+   * Returns a selection of object(s) of interest for this {@link Strategizer} from the supplied
+   * {@link Game}.
+   *
+   * @param game The {@link Game} to extract the object(s) of interest from.
+   * @return The object(s) of interest.
+   */
+  M getSelection(G game);
 }

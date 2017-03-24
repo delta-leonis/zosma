@@ -11,10 +11,11 @@ import java.util.List;
  * @author Jeroen de Jong
  */
 public interface MeasurementContext {
-    /**
-     * Returns the list of recorded measurements.
-     *
-     * @return The list of recorded measurements.
-     */
-    List<DescriptiveMeasurement<?>> getMeasurements();
+
+  /**
+   * Returns the list of recorded measurements.
+   *
+   * @return The list of recorded measurements.
+   */
+  List<DescriptiveMeasurement<?>> getMeasurements();
 }

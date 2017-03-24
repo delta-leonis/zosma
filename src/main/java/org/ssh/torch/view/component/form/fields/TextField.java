@@ -1,37 +1,48 @@
 package org.ssh.torch.view.component.form.fields;
 
 import com.googlecode.lanterna.gui2.TextBox;
-import org.ssh.torch.view.component.form.FormElement;
-
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import org.ssh.torch.view.component.form.FormElement;
 
 /**
- * Created by jeroen.dejong on 16/02/2017.
+ * The Class TextField.
+ *
+ * @author Jeroen de Jong
  */
 public class TextField extends TextBox implements FormElement<String> {
-    public TextField() {
-        this("", ".*");
-    }
 
-    public TextField(String initialContent, String regex) {
-        super(initialContent);
-        this.setValidationPattern(Pattern.compile(regex));
-    }
+  /**
+   * Instantiates a new Text field.
+   */
+  public TextField() {
+    this("", ".*");
+  }
 
-    @Override
-    public Function<String, String> getParser() {
-        return String::new;
-    }
+  /**
+   * Instantiates a new Text field.
+   *
+   * @param initialContent the initial content
+   * @param regex          the regex
+   */
+  public TextField(String initialContent, String regex) {
+    super(initialContent);
+    this.setValidationPattern(Pattern.compile(regex));
+  }
 
-    @Override
-    public String getValue() {
-        return this.getText();
-    }
+  @Override
+  public String getValue() {
+    return this.getText();
+  }
 
-    @Override
-    public TextField setValue(String value) {
-        this.setText(value);
-        return this;
-    }
+  @Override
+  public TextField setValue(String value) {
+    this.setText(value);
+    return this;
+  }
+
+  @Override
+  public Function<String, String> getParser() {
+    return String::new;
+  }
 }

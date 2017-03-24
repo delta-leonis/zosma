@@ -11,10 +11,11 @@ package org.ssh.game;
  */
 @FunctionalInterface
 public interface Agent {
-    /**
-     * The unique identifier of an agent
-     *
-     * @return unique Identifier of an agent
-     */
-    int getId();
+
+  /**
+   * The unique identifier of an agent
+   *
+   * @return unique Identifier of an agent
+   */
+  int getId();
 }

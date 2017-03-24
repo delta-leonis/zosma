@@ -15,13 +15,14 @@ import reactor.core.scheduler.Schedulers;
  * @author Jeroen de Jong
  */
 public class ProcessorInfoPublisher extends SystemInfoPublisher<ProcessorInfo> {
-    @Override
-    public void subscribe(Subscriber<? super ProcessorInfo> subscriber) {
-        Flux.intervalMillis(this.INTERVAL)
-                .subscribeOn(Schedulers.single())
-                .map(tick -> this.hal.getProcessor())
-                .map(ProcessorInfoState::of)
-                .distinctUntilChanged()
-                .subscribe(subscriber);
-    }
+
+  @Override
+  public void subscribe(Subscriber<? super ProcessorInfo> subscriber) {
+    Flux.intervalMillis(this.INTERVAL)
+        .subscribeOn(Schedulers.single())
+        .map(tick -> this.hal.getProcessor())
+        .map(ProcessorInfoState::of)
+        .distinctUntilChanged()
+        .subscribe(subscriber);
+  }
 }

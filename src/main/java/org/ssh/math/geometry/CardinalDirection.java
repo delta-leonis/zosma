@@ -8,8 +8,20 @@ package org.ssh.math.geometry;
  * @author Rimon Oz
  */
 public enum CardinalDirection {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST;
+  /**
+   * North cardinal direction.
+   */
+  NORTH,
+  /**
+   * East cardinal direction.
+   */
+  EAST,
+  /**
+   * South cardinal direction.
+   */
+  SOUTH,
+  /**
+   * West cardinal direction.
+   */
+  WEST;
 }

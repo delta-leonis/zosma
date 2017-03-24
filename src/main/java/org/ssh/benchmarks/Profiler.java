@@ -1,8 +1,7 @@
 package org.ssh.benchmarks;
 
-import org.reactivestreams.Subscriber;
-
 import java.util.Set;
+import org.reactivestreams.Subscriber;
 
 /**
  * The Interface Profiler.
@@ -15,19 +14,20 @@ import java.util.Set;
  * @author Rimon Oz
  */
 public interface Profiler<U extends DescriptiveMeasurement<M>, M> extends Subscriber<U> {
-    /**
-     * Returns the probes inside this profiler.
-     *
-     * @return The probes inside this profiler.
-     */
-    Set<Probe> getProbes();
 
-    /**
-     * Applies the profiler with the supplied {@link Probe}.
-     *
-     * @param <T>   The type of data flowing into the {@link Probe}.
-     * @param probe The probe to apply.
-     * @return      The probe itself, modified using the {@link Profiler}.
-     */
-    <T> Probe<T, U, M> with(Probe<T, U, M> probe);
+  /**
+   * Returns the probes inside this profiler.
+   *
+   * @return The probes inside this profiler.
+   */
+  Set<Probe> getProbes();
+
+  /**
+   * Applies the profiler with the supplied {@link Probe}.
+   *
+   * @param <T>   The type of data flowing into the {@link Probe}.
+   * @param probe The probe to apply.
+   * @return The probe itself, modified using the {@link Profiler}.
+   */
+  <T> Probe<T, U, M> with(Probe<T, U, M> probe);
 }

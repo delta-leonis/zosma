@@ -12,13 +12,14 @@ import org.reactivestreams.Subscription;
  * @author Jeroen de Jong
  */
 public interface EventSubscriber<T> extends EventHandler<T>, Subscriber<TorchEvent<?>> {
-    @Override
-    default void onSubscribe(Subscription s) {
-        s.request(Long.MAX_VALUE);
-    }
 
-    @Override
-    default void onError(Throwable t){
-        // ignoring may be irresponsible, but i'm gangster like that
-    }
+  @Override
+  default void onSubscribe(Subscription s) {
+    s.request(Long.MAX_VALUE);
+  }
+
+  @Override
+  default void onError(Throwable t) {
+    // ignoring may be irresponsible, but i'm gangster like that
+  }
 }

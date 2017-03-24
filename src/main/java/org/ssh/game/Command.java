@@ -10,4 +10,5 @@ package org.ssh.game;
  * @author Rimon Oz
  */
 public interface Command {
+
 }

@@ -1,4 +1,4 @@
-package org.ssh.math.dsp.filters;
+package org.ssh.math.dsp.filter;
 
 import org.ssh.math.function.Scanner;
 
@@ -12,4 +12,5 @@ import org.ssh.math.function.Scanner;
  * @author Rimon Oz
  */
 public interface Filter<T> extends Scanner<T, T> {
+
 }

@@ -15,6 +15,7 @@ import org.ssh.math.function.Scanner;
  * @author Rimon Oz
  */
 @FunctionalInterface
-public interface Strategizer<S extends Strategy<? extends Agent, ? extends Command, G>, G extends Game>
-        extends Scanner<S, G> {
+public interface Strategizer<S extends Strategy, G extends Game>
+    extends Scanner<S, G> {
+
 }

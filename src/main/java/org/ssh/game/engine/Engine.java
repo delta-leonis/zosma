@@ -1,9 +1,8 @@
 package org.ssh.game.engine;
 
+import java.util.Set;
 import org.reactivestreams.Publisher;
 import org.ssh.game.Arbiter;
-
-import java.util.Set;
 
 /**
  * The Interface Engine.
@@ -17,10 +16,11 @@ import java.util.Set;
  * @author Rimon Oz
  */
 public interface Engine<O, P> extends Arbiter<O, P>, Publisher<O> {
-    /**
-     * Returns a set of the engine's parts.
-     *
-     * @return A set of the engine's parts.
-     */
-    Set<P> getParts();
+
+  /**
+   * Returns a set of the engine's parts.
+   *
+   * @return A set of the engine's parts.
+   */
+  Set<P> getParts();
 }

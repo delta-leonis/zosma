@@ -1,17 +1,18 @@
 package org.ssh.math.geometry.motion;
 
 /**
- * The Class MovingObject.
- * <p>
- * This class represents an object (in an n-dimensional space) which has a position and velocity vector.
+ * The Class MovingObject. <p> This class represents an object (in an n-dimensional space) which has
+ * a position and velocity vector.
  *
+ * @param <T> the type parameter
  * @author Rimon Oz
  */
 public interface MovingObject<T> extends StationaryObject<T> {
-    /**
-     * Returns the velocity vector of the moving object.
-     *
-     * @return The velocity vector of the moving object.
-     */
-    T getVelocity();
+
+  /**
+   * Returns the velocity vector of the moving object.
+   *
+   * @return The velocity vector of the moving object.
+   */
+  T getVelocity();
 }

@@ -12,4 +12,5 @@ package org.ssh.game.engine;
  * @author Rimon Oz
  */
 public interface IdentityEngine<I, P> extends ProcessorEngine<I, I, P> {
+
 }

@@ -1,10 +1,16 @@
 package org.ssh.torch.view.component.form.fields;
 
 /**
- * Created by jeroen.dejong on 19/02/2017.
+ * The Class FloatField.
+ *
+ * @author Jeroen de Jong
  */
 public class FloatField extends DecimalField<Float> {
-    public FloatField(){
-        super(Float::valueOf);
-    }
+
+  /**
+   * Instantiates a new Float field.
+   */
+  public FloatField() {
+    super(Float::valueOf);
+  }
 }

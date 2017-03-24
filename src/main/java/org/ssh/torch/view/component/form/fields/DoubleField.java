@@ -1,10 +1,15 @@
 package org.ssh.torch.view.component.form.fields;
 
 /**
- * Created by jeroen.dejong on 19/02/2017.
+ * The Class DoubleField.
+ *
+ * @author Jeroen de Jong
  */
 public class DoubleField extends DecimalField<Double> {
-    public DoubleField(){
-        super(Double::valueOf);
-    }
+  /**
+   * Instantiates a new Double field.
+   */
+  public DoubleField() {
+    super(Double::valueOf);
+  }
 }

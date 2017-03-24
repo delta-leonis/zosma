@@ -1,26 +1,32 @@
 package org.ssh.torch.view.window.modal;
 
+import java.util.Collection;
 import org.ssh.torch.view.component.ConstructorList;
 import org.ssh.torch.view.model.reflect.ConstructorViewModel;
 
-import java.util.Collection;
-
 /**
- * Created by jeroen.dejong on 23/02/2017.
+ * The Class ConstructorModal.
+ *
+ * @author Jeroen de Jong
  */
 public class ConstructorModal extends BasicModal {
-    public ConstructorModal(Collection<ConstructorViewModel> constructors) {
-        super("Select constructor: ");
-        this.setComponent(
-                new ConstructorList(
-                        constructors,
-                        constructor -> {
-                            this.getWorkspace().addWindow(
-                                    new ParameterFormModal(constructor)
-                            );
-                            this.close();
-                        }
-                )
-        );
-    }
+
+  /**
+   * Instantiates a new Constructor modal.
+   *
+   * @param constructors the constructors
+   */
+  public ConstructorModal(Collection<ConstructorViewModel> constructors) {
+    super("Select constructor: ");
+    this.setComponent(
+        new ConstructorList(
+            constructors,
+            constructor -> {
+              this.getWorkspace().addWindow(
+                  new ParameterFormModal(constructor)
+              );
+              this.close();
+            }
+        ));
+  }
 }

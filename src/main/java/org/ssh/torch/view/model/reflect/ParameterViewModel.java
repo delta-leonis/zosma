@@ -1,36 +1,58 @@
 package org.ssh.torch.view.model.reflect;
 
+import java.lang.reflect.Parameter;
+import java.util.Optional;
 import lombok.Value;
 import lombok.experimental.Delegate;
 import org.ssh.torch.Default;
 import org.ssh.torch.view.model.ViewModel;
 
-import java.lang.reflect.Parameter;
-import java.util.Optional;
-
 /**
- * @author jeroen.dejong
- * @since 13/01/2017.
+ * The Class ParameterViewModel.
+ *
+ * @author Jeroen de Jong
  */
 @Value
 public class ParameterViewModel implements ViewModel<Parameter> {
-    @Delegate
-    Parameter object;
 
-    public Optional<String> getDefault() {
-        return Optional.ofNullable(object.getAnnotation(Default.class))
-                .map(Default::value);
-    }
+  @Delegate
+  Parameter object;
 
-    public String getDefault(String fallback){
-        return getDefault().orElse(fallback);
-    }
+  /**
+   * Gets default.
+   *
+   * @param fallback the fallback
+   * @return the default
+   */
+  public String getDefault(String fallback) {
+    return getDefault().orElse(fallback);
+  }
 
-    public String getTypeName() {
-        return this.getType().getSimpleName();
-    }
+  /**
+   * Gets default.
+   *
+   * @return the default
+   */
+  public Optional<String> getDefault() {
+    return Optional.ofNullable(object.getAnnotation(Default.class))
+        .map(Default::value);
+  }
 
-    public String getDescription() {
-        return String.format("%s: %s", this.getName(), this.getTypeName());
-    }
+  /**
+   * Gets description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return String.format("%s: %s", this.getName(), this.getTypeName());
+  }
+
+  /**
+   * Gets type name.
+   *
+   * @return the type name
+   */
+  public String getTypeName() {
+    return this.getType().getSimpleName();
+  }
 }

@@ -1,11 +1,10 @@
 package org.ssh.torch.event.notification;
 
+import java.util.function.Consumer;
+import java.util.logging.Level;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import lombok.experimental.NonFinal;
-
-import java.util.function.Consumer;
-import java.util.logging.Level;
 
 /**
  * The Class Notification.
@@ -14,39 +13,42 @@ import java.util.logging.Level;
  *
  * @author Jeroen de Jong
  */
-@Value @AllArgsConstructor @NonFinal
+@Value
+@AllArgsConstructor
+@NonFinal
 public class Notification {
-    Level level;
-    String message;
-    Consumer<Notification> acceptAction;
-    Consumer<Notification> dismissAction;
-    @NonFinal
-    private boolean read;
 
-    /**
-     * Instantiates a new Notification.
-     *
-     * @param level         the level
-     * @param message       the message
-     * @param dismissAction the dismiss action
-     */
-    public Notification(Level level, String message, Consumer<Notification> dismissAction) {
-        this(level, message, null, dismissAction, false);
-    }
+  Level level;
+  String message;
+  Consumer<Notification> acceptAction;
+  Consumer<Notification> dismissAction;
+  @NonFinal
+  private boolean read;
 
-    /**
-     * Determines whether the notification has been read.
-     *
-     * @return True if unread, false otherwise.
-     */
-    public Boolean isUnRead() {
-        return !this.isRead();
-    }
+  /**
+   * Instantiates a new Notification.
+   *
+   * @param level         the level
+   * @param message       the message
+   * @param dismissAction the dismiss action
+   */
+  public Notification(Level level, String message, Consumer<Notification> dismissAction) {
+    this(level, message, null, dismissAction, false);
+  }
 
-    /**
-     * Reads the notification.
-     */
-    public void read() {
-        this.read = true;
-    }
+  /**
+   * Determines whether the notification has been read.
+   *
+   * @return True if unread, false otherwise.
+   */
+  public Boolean isUnRead() {
+    return !this.isRead();
+  }
+
+  /**
+   * Reads the notification.
+   */
+  public void read() {
+    this.read = true;
+  }
 }

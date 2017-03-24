@@ -1,10 +1,16 @@
 package org.ssh.torch.view.component.form.fields;
 
 /**
- * Created by jeroen.dejong on 19/02/2017.
+ * The Class LongField.
+ *
+ * @author Jeroen de Jong
  */
 public class LongField extends NumberField<Long> {
-    public LongField(){
-        super(Long::valueOf);
-    }
+
+  /**
+   * Instantiates a new Long field.
+   */
+  public LongField() {
+    super(Long::valueOf);
+  }
 }

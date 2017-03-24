@@ -34,40 +34,42 @@ package org.ssh.math.algebra;
  * @author Rimon Oz
  */
 public interface Ring<F> extends Group<F> {
-    /**
-     * Computes the product of two field elements.
-     *
-     * @param firstElement  The first field element to be multiplied.
-     * @param secondElement The second field element to be multiplied.
-     * @return The product of the two arguments.
-     */
-    F multiply(F firstElement, F secondElement);
 
-    /**
-     * Returns the multiplicative inverse of the argument. The multiplicative
-     * inverse is defined as the number which when multiplied with the original
-     * number results in zero.
-     * For example, the additive inverse of 3 is 1/3 and the additive inverse of
-     * 3+j is 1/(3+j).
-     *
-     * @param fieldElement The number to compute the multiplicative inverse
-     *                     for.
-     * @return The multiplicative inverse of the argument.
-     */
-    <E extends Exception> F getMultiplicativeInverse(F fieldElement) throws E;
+  /**
+   * Computes the quotient of two field elements.
+   *
+   * @param <E>           the type parameter
+   * @param firstElement  The first field number, which functions as the numerator.
+   * @param secondElement The second field number, which functions as the denominator.
+   * @return The quotient of the two arguments.
+   * @throws E the e
+   */
+  default <E extends Exception> F divide(F firstElement, F secondElement) throws E {
+    return this.multiply(
+        firstElement,
+        this.getMultiplicativeInverse(secondElement));
+  }
 
-    /**
-     * Computes the quotient of two field elements.
-     *
-     * @param firstElement  The first field number, which functions as the
-     *                      numerator.
-     * @param secondElement The second field number, which functions as the
-     *                      denominator.
-     * @return The quotient of the two arguments.
-     */
-    default <E extends Exception>F divide(F firstElement, F secondElement) throws E {
-        return this.multiply(
-                firstElement,
-                this.getMultiplicativeInverse(secondElement));
-    }
+  /**
+   * Computes the product of two field elements.
+   *
+   * @param firstElement  The first field element to be multiplied.
+   * @param secondElement The second field element to be multiplied.
+   * @return The product of the two arguments.
+   */
+  F multiply(F firstElement, F secondElement);
+
+  /**
+   * Returns the multiplicative inverse of the argument. The multiplicative
+   * inverse is defined as the number which when multiplied with the original
+   * number results in zero.
+   * For example, the additive inverse of 3 is 1/3 and the additive inverse of
+   * 3+j is 1/(3+j).
+   *
+   * @param <E>          the type parameter
+   * @param fieldElement The number to compute the multiplicative inverse for.
+   * @return The multiplicative inverse of the argument.
+   * @throws E the e
+   */
+  <E extends Exception> F getMultiplicativeInverse(F fieldElement) throws E;
 }

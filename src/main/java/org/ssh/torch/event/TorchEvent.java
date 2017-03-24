@@ -19,65 +19,66 @@ import org.ssh.torch.view.Workspace;
  */
 @Value
 public class TorchEvent<T> {
-    @Getter
-    private TorchScope scope;
 
-    private T context;
+  @Getter
+  private TorchScope scope;
 
-    @Getter
-    private TorchAction action;
+  private T context;
 
-    /**
-     * Returns the context.
-     *
-     * @param <O> The type of the context.
-     * @return    The context.
-     */
-    public <O> O getContext(){
-        return (O)context;
-    }
+  @Getter
+  private TorchAction action;
 
-    /**
-     * Creates an event for {@link Window}.
-     *
-     * @param window the window
-     * @param action the action
-     * @return the torch event
-     */
-    public static TorchEvent<Window> of(Window window, TorchAction action) {
-        return new TorchEvent<>(TorchScope.WINDOW, window, action);
-    }
+  /**
+   * Creates an event for {@link Window}.
+   *
+   * @param window the window
+   * @param action the action
+   * @return the torch event
+   */
+  public static TorchEvent<Window> of(Window window, TorchAction action) {
+    return new TorchEvent<>(TorchScope.WINDOW, window, action);
+  }
 
-    /**
-     * Creates an event for {@link Component}.
-     *
-     * @param window the window
-     * @param action the action
-     * @return the torch event
-     */
-    public static TorchEvent<Component> of(Component window, TorchAction action) {
-        return new TorchEvent<>(TorchScope.COMPONENT, window, action);
-    }
+  /**
+   * Creates an event for {@link Component}.
+   *
+   * @param window the window
+   * @param action the action
+   * @return the torch event
+   */
+  public static TorchEvent<Component> of(Component window, TorchAction action) {
+    return new TorchEvent<>(TorchScope.COMPONENT, window, action);
+  }
 
-    /**
-     * Creates an event for {@link Workspace}.
-     *
-     * @param window the window
-     * @param action the action
-     * @return the torch event
-     */
-    public static TorchEvent<Workspace> of(Workspace window, TorchAction action) {
-        return new TorchEvent<>(TorchScope.WORKSPACE, window, action);
-    }
+  /**
+   * Creates an event for {@link Workspace}.
+   *
+   * @param window the window
+   * @param action the action
+   * @return the torch event
+   */
+  public static TorchEvent<Workspace> of(Workspace window, TorchAction action) {
+    return new TorchEvent<>(TorchScope.WORKSPACE, window, action);
+  }
 
-    /**
-     * Creates an event for {@link Terminal}.
-     *
-     * @param window the window
-     * @param action the action
-     * @return the torch event
-     */
-    public static TorchEvent<Terminal> of(Terminal window, TorchAction action) {
-        return new TorchEvent<>(TorchScope.TERMINAL, window, action);
-    }
+  /**
+   * Creates an event for {@link Terminal}.
+   *
+   * @param window the window
+   * @param action the action
+   * @return the torch event
+   */
+  public static TorchEvent<Terminal> of(Terminal window, TorchAction action) {
+    return new TorchEvent<>(TorchScope.TERMINAL, window, action);
+  }
+
+  /**
+   * Returns the context.
+   *
+   * @param <O> The type of the context.
+   * @return The context.
+   */
+  public <O> O getContext() {
+    return (O) context;
+  }
 }

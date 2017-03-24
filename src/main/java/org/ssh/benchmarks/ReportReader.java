@@ -8,11 +8,12 @@ import org.ssh.benchmarks.report.Report;
  * @author Rimon Oz
  */
 public interface ReportReader {
-    /**
-     * Reads a report from file.
-     *
-     * @param fileName The location of the file.
-     * @return         The parsed {@link Report}.
-     */
-    Report readReport(String fileName);
+
+  /**
+   * Reads a report from file.
+   *
+   * @param fileName The location of the file.
+   * @return The parsed {@link Report}.
+   */
+  Report readReport(String fileName);
 }

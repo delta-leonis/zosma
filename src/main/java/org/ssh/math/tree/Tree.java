@@ -5,29 +5,33 @@ import java.util.Collection;
 /**
  * The Interface Tree.
  *
+ * @param <V> the type parameter
+ * @param <N> the type parameter
  * @author Rimon Oz
  */
 public interface Tree<V, N extends Tree.Node<V>> extends Graph<V, N> {
-    /**
-     * Returns the root {@link Node} of the tree.
-     *
-     * @return The root {@link Node} of the tree.
-     */
-    N getRoot();
+
+  /**
+   * Returns the root {@link Node} of the tree.
+   *
+   * @return The root {@link Node} of the tree.
+   */
+  N getRoot();
+
+  /**
+   * The Interface Node.
+   * <p>
+   * This interface describes the functionality of a {@link Tree} node.
+   *
+   * @param <V> The type of object held by the node.
+   */
+  interface Node<V> extends Graph.Node<V> {
 
     /**
-     * The Interface Node.
-     * <p>
-     * This interface describes the functionality of a {@link Tree} node.
+     * Returns the node's children.
      *
-     * @param <V> The type of object held by the node.
+     * @return The node's children.
      */
-    interface Node<V> extends Graph.Node<V> {
-        /**
-         * Returns the node's children.
-         *
-         * @return The node's children.
-         */
-        Collection<? extends Node<V>> getChildren();
-    }
+    Collection<? extends Node<V>> getChildren();
+  }
 }

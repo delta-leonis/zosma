@@ -10,17 +10,18 @@ package org.ssh.benchmarks;
  * @author Jeroen de Jong
  */
 public interface RangedMeasurement<M> extends DescriptiveMeasurement<M> {
-    /**
-     * Returns the maximum value which can be measured.
-     *
-     * @return The maximum value which can be measured.
-     */
-    M getMax();
 
-    /**
-     * Returns the minimum value which can be measured.
-     *
-     * @return The minimum value which can be measured.
-     */
-    M getMin();
+  /**
+   * Returns the maximum value which can be measured.
+   *
+   * @return The maximum value which can be measured.
+   */
+  M getMax();
+
+  /**
+   * Returns the minimum value which can be measured.
+   *
+   * @return The minimum value which can be measured.
+   */
+  M getMin();
 }
