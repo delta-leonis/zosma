@@ -19,11 +19,11 @@ public class Rotation {
    * @param rotation the rotation
    * @return the ind array
    */
-  public static INDArray planarCartesian(INDArray input, float rotation) {
+  public static INDArray planarCartesian(INDArray input, double rotation) {
     return Nd4j.create(
-        new float[]{
-            (float) StrictMath.cos(rotation), (-1f) * (float) StrictMath.sin(rotation),
-            (float) StrictMath.sin(rotation), (float) StrictMath.cos(rotation)
+        new double[]{
+            StrictMath.cos(rotation), -1d * StrictMath.sin(rotation),
+            StrictMath.sin(rotation), StrictMath.cos(rotation)
         },
         new int[]{2, 2}).mmul(input);
   }
