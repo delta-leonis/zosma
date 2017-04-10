@@ -1,4 +1,4 @@
-package org.ssh.math.dsp.filter;
+package org.ssh.math.filter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,7 +137,6 @@ public class KalmanFilterPerformanceTest {
 
   @Value
   private class AggregateState {
-
     private final Distribution<INDArray> filteredState;
     private final Distribution<INDArray> unfilteredState;
   }

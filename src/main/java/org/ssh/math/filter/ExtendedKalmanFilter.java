@@ -1,4 +1,4 @@
-package org.ssh.math.dsp.filter;
+package org.ssh.math.filter;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

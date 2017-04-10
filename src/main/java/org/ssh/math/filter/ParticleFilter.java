@@ -1,4 +1,4 @@
-package org.ssh.math.dsp.filter;
+package org.ssh.math.filter;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 
