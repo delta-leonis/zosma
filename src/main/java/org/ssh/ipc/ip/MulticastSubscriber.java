@@ -3,7 +3,10 @@ package org.ssh.ipc.ip;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.util.Arrays;
+import java.util.stream.Stream;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Subscriber;
@@ -15,6 +18,7 @@ import org.reactivestreams.Subscription;
  * This class describes a {@link Subscriber} of {@link DatagramPacket} which
  * publishes these packets on multicast.
  *
+ * @author Rimon Oz
  * @author Jeroen de Jong
  */
 @Value
@@ -40,15 +44,11 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
    * @param address The {@link InetAddress address} on which the subscriber needs to listen.
    * @param port    The port on which the subscriber needs to listen.
    */
-  public MulticastSubscriber(InetAddress address, int port) {
+  public MulticastSubscriber(InetAddress address, int port) throws IOException {
     this.address = address;
     this.port = port;
-    try {
-      this.socket = new MulticastSocket(port);
-      this.socket.joinGroup(address);
-    } catch (Exception exception) {
-      throw new RuntimeException(exception);
-    }
+    this.socket = new MulticastSocket(port);
+    this.socket.joinGroup(address);
   }
 
   @Override
@@ -62,8 +62,8 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
       datagramPacket.setAddress(this.getAddress());
       datagramPacket.setPort(this.getPort());
       this.getSocket().send(datagramPacket);
-    } catch (IOException exception) {
-      log.warn("Could not send packet to multicast "
+    } catch (Exception exception) {
+      log.error("Could not send packet to multicast "
           + this.getAddress().getHostAddress()
           + ":" + this.getPort());
       this.onError(exception);
@@ -77,6 +77,6 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
 
   @Override
   public void onComplete() {
-    log.trace("No more data to transmit! Completed!");
+    log.info("No more data to transmit! Completed!");
   }
 }

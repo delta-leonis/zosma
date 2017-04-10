@@ -9,7 +9,6 @@ import java.util.Set;
  *
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Game {
 
   /**
@@ -18,4 +17,12 @@ public interface Game {
    * @return A set of {@link Rule} which dictate the validity of a game state.
    */
   Set<Rule<Game, Agent>> getRules();
+
+  /**
+   * Returns the initial game state, ie. the state of the game as it is in the moment at which
+   * the game is started.
+   *
+   * @return The initial state of the game.
+   */
+  Game getInitialState();
 }
