@@ -32,7 +32,7 @@ import reactor.core.scheduler.Schedulers;
 public abstract class ControllerEngine<
     A extends Agent,
     S extends Strategy,
-    G extends Game> implements MapEngine<Set<A>, S, Integer> {
+    G extends Game> implements MapEngine<Set<A>, S, Integer>, Publisher<S> {
 
   /**
    * The Controllers.

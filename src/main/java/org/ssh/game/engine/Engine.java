@@ -15,7 +15,7 @@ import org.ssh.game.Arbiter;
  * @param <P> The type of engine part.
  * @author Rimon Oz
  */
-public interface Engine<O, P> extends Arbiter<O, P>, Publisher<O> {
+public interface Engine<O, P> extends Arbiter<O, P> {
 
   /**
    * Returns a set of the engine's parts.
