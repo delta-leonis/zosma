@@ -20,11 +20,12 @@ dependencies {
     compile 'io.projectreactor:reactor-core:3.0.5.RELEASE'
     compile 'io.projectreactor.ipc:reactor-ipc:0.6.1.RELEASE'
     compile 'io.projectreactor.ipc:reactor-netty:0.6.2.RELEASE'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'org.reactivestreams:reactive-streams:1.0.0'
 
     // ipc
     compile 'com.github.WilliamAHartman:Jamepad:1.2'
     compile 'com.google.protobuf:protobuf-java:3.2.0'
+    compile 'com.google.code.gson:gson:2.8.0'
 
     // logging
     compile 'org.slf4j:slf4j-api:1.7.25'

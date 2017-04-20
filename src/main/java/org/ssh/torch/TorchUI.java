@@ -6,8 +6,8 @@ import org.ssh.torch.event.TorchEvent;
 import org.ssh.torch.event.TorchEventPublisher;
 import org.ssh.torch.event.notification.Notification;
 import org.ssh.torch.event.notification.NotificationPublisher;
-import org.ssh.torch.view.Workspace;
 import org.ssh.torch.view.MainWorkspace;
+import org.ssh.torch.view.Workspace;
 
 /**
  * The Class TorchUI.

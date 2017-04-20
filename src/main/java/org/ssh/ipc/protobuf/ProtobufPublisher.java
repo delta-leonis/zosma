@@ -41,7 +41,8 @@ public class ProtobufPublisher<M extends GeneratedMessage> implements Publisher<
   @Override
   public void subscribe(Subscriber<? super M> subscriber) {
     Flux.from(new NettyMulticastPublisher(this.getAddress(), this.getPort()))
-        .map(datagramPacket -> Arrays.copyOfRange(datagramPacket.getData(), 0, datagramPacket.getLength()))
+        .map(datagramPacket -> Arrays
+            .copyOfRange(datagramPacket.getData(), 0, datagramPacket.getLength()))
         .map(LambdaExceptions.rethrowFunction(getParser()::parseFrom))
         .subscribe(subscriber);
   }

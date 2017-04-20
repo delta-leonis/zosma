@@ -50,16 +50,16 @@ public class MulticastPublisher implements Publisher<DatagramPacket> {
   @Override
   public void subscribe(Subscriber<? super DatagramPacket> subscriber) {
     Flux.<DatagramPacket>create(emitter -> {
-          while (!socket.isClosed()) {
-            try {
-              DatagramPacket packet = new DatagramPacket(new byte[BUFFER_SIZE], BUFFER_SIZE);
-              socket.receive(packet);
-            } catch (IOException exception) {
-              emitter.error(exception);
-            }
-          }
-          emitter.complete();
-        })
+      while (!socket.isClosed()) {
+        try {
+          DatagramPacket packet = new DatagramPacket(new byte[BUFFER_SIZE], BUFFER_SIZE);
+          socket.receive(packet);
+        } catch (IOException exception) {
+          emitter.error(exception);
+        }
+      }
+      emitter.complete();
+    })
         .subscribeOn(Schedulers.single())
         .subscribe(subscriber);
   }

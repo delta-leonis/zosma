@@ -9,7 +9,6 @@ import org.reactivestreams.Subscriber;
 import org.ssh.torch.LifeCycle;
 import org.ssh.torch.Torch;
 import org.ssh.torch.lifecycle.PreRequisite;
-import org.ssh.torch.view.AbstractWorkspace;
 import org.ssh.torch.view.window.SplashScreen;
 import org.ssh.torch.view.window.WorkspaceWizardModal;
 import reactor.core.publisher.Flux;
