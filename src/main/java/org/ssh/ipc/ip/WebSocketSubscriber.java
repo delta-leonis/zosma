@@ -14,7 +14,7 @@ import reactor.ipc.netty.http.server.HttpServer;
 /**
  * The Class WebSocketSubscriber.
  *
- * This class subscribes on a stream of {@link Jsonable JSONifiable} data and publishes it to a
+ * This class subscribes on a stream of {@link JsonSerializable JSONifiable} data and publishes it to a
  * websocket
  *
  * @param <J> the type parameter
@@ -29,7 +29,7 @@ public class WebSocketSubscriber<J extends JsonSerializable> implements Subscrib
   private final TopicProcessor<String> outputPublisher = TopicProcessor.create();
 
   /**
-   * Creates a new subscriber which receives {@link Jsonable JSONifiable} data and emits it
+   * Creates a new subscriber which receives {@link JsonSerializable JSONifiable} data and emits it
    * on a websocket.
    *
    * @param uri  The URI of the websocket (eg. '/route').

@@ -1,0 +1,17 @@
+image: java:8-jdk
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+pages:
+  script:
+  - ./gradlew javadoc
+  - mv ./build/docs/javadoc/ ./public
+  artifacts:
+    paths:
+    - public
