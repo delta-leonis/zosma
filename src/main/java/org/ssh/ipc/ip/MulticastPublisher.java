@@ -39,6 +39,7 @@ public class MulticastPublisher implements Publisher<DatagramPacket> {
    *
    * @param address The address to which messages are published as an {@link InetAddress}.
    * @param port    The port on which the messages are published.
+   * @throws IOException If port cannot be opened
    */
   public MulticastPublisher(InetAddress address, int port) throws IOException {
     this.socket = new MulticastSocket(null);

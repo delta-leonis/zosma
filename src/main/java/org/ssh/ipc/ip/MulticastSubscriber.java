@@ -40,6 +40,7 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
    *
    * @param address The {@link InetAddress address} on which the subscriber needs to listen.
    * @param port    The port on which the subscriber needs to listen.
+   * @throws IOException if socket cannot be opened
    */
   public MulticastSubscriber(InetAddress address, int port) throws IOException {
     this.address = address;
