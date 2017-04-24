@@ -11,6 +11,12 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+    destinationDir = file("$rootDir/public")
+}
+
 dependencies {
     // math
     compile 'org.nd4j:nd4j-native:0.8.0'

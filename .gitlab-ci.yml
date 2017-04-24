@@ -10,10 +10,9 @@ cache:
 
 pages:
   script:
-  - ./gradlew javadoc
-  - mv ./build/docs/javadoc/ ./public
+   - ./gradlew javadoc
   artifacts:
     paths:
     - public
   only:
-  - master
+   - master
