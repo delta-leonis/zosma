@@ -1,7 +1,6 @@
 package org.ssh.game;
 
 import org.reactivestreams.Subscriber;
-import org.ssh.math.function.Scanner;
 
 /**
  * The Interface Strategizer.
@@ -15,7 +14,15 @@ import org.ssh.math.function.Scanner;
  * @author Rimon Oz
  */
 @FunctionalInterface
-public interface Strategizer<S extends Strategy, G extends Game>
-    extends Scanner<S, G> {
+public interface Strategizer<S extends Strategy, G extends Game> {
 
+  /**
+   * Computes a {@link Strategy} based on the previously computed {@link Strategy} and
+   * most recent {@link Game game state}.
+   *
+   * @param previousResult The previously returned {@link Strategy}.
+   * @param input          The newest {@link Game game state}.
+   * @return               The newly computed {@link Strategy}.
+   */
+  S strategize(final S previousResult, final G input);
 }

@@ -1,7 +1,7 @@
 package org.ssh.game.engine;
 
 /**
- * The Interface IdentityEngine.
+ * The Interface IdentityMemoryEngine.
  * <p>
  * This interface describes the functionality of an identity engine, that is
  * an engine which takes an input stream of a specific type and provides an
@@ -11,6 +11,6 @@ package org.ssh.game.engine;
  * @param <P> The type of engine part.
  * @author Rimon Oz
  */
-public interface IdentityEngine<I, P> extends ProcessorEngine<I, I, P> {
+public interface IdentityMemoryEngine<I, P> extends MemoryEngine<I, I, P> {
 
 }

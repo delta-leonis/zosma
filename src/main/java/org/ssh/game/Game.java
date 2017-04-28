@@ -9,20 +9,13 @@ import java.util.Set;
  *
  * @author Rimon Oz
  */
-public interface Game {
+@FunctionalInterface
+public interface Game<G extends Game, A extends Agent> {
 
   /**
-   * Returns a set of {@link Rule} which dictate the validity of a game state.
+   * Returns a set of {@link Rule rules} which dictate the validity of a game state.
    *
-   * @return A set of {@link Rule} which dictate the validity of a game state.
+   * @return A set of {@link Rule rules} which dictate the validity of a game state.
    */
-  Set<Rule<Game, Agent>> getRules();
-
-  /**
-   * Returns the initial game state, ie. the state of the game as it is in the moment at which
-   * the game is started.
-   *
-   * @return The initial state of the game.
-   */
-  Game getInitialState();
+  Set<Rule<G, A>> getRules();
 }

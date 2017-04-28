@@ -6,7 +6,7 @@ import org.ssh.math.function.Scanner;
 import reactor.core.publisher.Flux;
 
 /**
- * The Interface ProcessorEngine.
+ * The Interface MemoryEngine.
  * <p>
  * This interface describes the functionality of an engine which accepts inputs
  * and processes them into outputs.
@@ -16,13 +16,13 @@ import reactor.core.publisher.Flux;
  * @param <P> The type of engine parts.
  * @author Rimon Oz
  */
-public interface ProcessorEngine<I, O, P>
+public interface MemoryEngine<I, O, P>
     extends Engine<O, P>, Function<Publisher<I>, Publisher<O>>, Scanner<O, I> {
 
   @Override
   default Publisher<O> apply(final Publisher<I> inputPublisher) {
     return Flux.from(inputPublisher)
-        .scan(this.getInitialState(), this::scan);
+        .scan(this.getInitialOutput(), this::scan);
   }
 
   /**
@@ -30,5 +30,5 @@ public interface ProcessorEngine<I, O, P>
    *
    * @return The null-object (or the initial state) of the engine.
    */
-  O getInitialState();
+  O getInitialOutput();
 }

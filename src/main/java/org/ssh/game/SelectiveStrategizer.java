@@ -1,7 +1,6 @@
 package org.ssh.game;
 
 import org.reactivestreams.Subscriber;
-import org.ssh.math.function.SelectiveScanner;
 
 /**
  * The Interface SelectiveStrategizer.
@@ -16,12 +15,23 @@ import org.ssh.math.function.SelectiveScanner;
  * @author Rimon Oz
  */
 public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
-    extends SelectiveScanner<S, G, M>, Strategizer<S, G> {
+    extends Strategizer<S, G> {
 
   @Override
-  default S scan(S previousResult, G input) {
-    return this.scan(previousResult, input, this.getSelection(input));
+  default S strategize(final S previousResult, final G input) {
+    return this.strategize(previousResult, input, this.getSelection(input));
   }
+
+  /**
+   * Applies the strategizing operation to the previously returned strategy, the newly
+   * acquired game state, and the objects of interest which can be extracted from the game state.
+   *
+   * @param previousResult The previously returned {@link Strategy}.
+   * @param input          The next {@link Game game state}.
+   * @param subjects       The objects of interest in the {@link Game}.
+   * @return the v
+   */
+  S strategize(final S previousResult, final G input, final M subjects);
 
   /**
    * Returns a selection of object(s) of interest for this {@link Strategizer} from the supplied
@@ -30,5 +40,5 @@ public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
    * @param game The {@link Game} to extract the object(s) of interest from.
    * @return The object(s) of interest.
    */
-  M getSelection(G game);
+  M getSelection(final G game);
 }
