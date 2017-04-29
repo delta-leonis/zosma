@@ -69,11 +69,6 @@ public class PSDControllerConvergenceTest {
                       previousState.getResiduals().get(0),
                       previousState.getResiduals().get(1)));
             })
-        .map(controlledState -> {
-          log.info("Current: " + controlledState.getState().toString()
-              + "; Control: " + controlledState.getControlSignal());
-          return controlledState;
-        })
         .subscribe();
 
   }

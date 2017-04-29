@@ -25,49 +25,49 @@ import reactor.core.publisher.Flux;
 @Slf4j
 public class KalmanFilterPerformanceTest {
 
-  private final static float NOISE_RANGE = 10f;
-  private final static int POINTS = 10000;
+  private final static double NOISE_RANGE = 10f;
+  private final static int POINTS = 1000;
   private final INDArray stateTransitionMatrix = Nd4j.create(
-      new float[]{
+      new double[]{
           1, 0,
           0.5f, 0
       },
       new int[]{2, 2});
   private final INDArray measurementTransitionMatrix = Nd4j.create(
-      new float[]{
+      new double[]{
           1, 0,
           0, 1
       },
       new int[]{2, 2});
   private final INDArray measurementCovarianceMatrix = Nd4j.create(
-      new float[]{
+      new double[]{
           0, 0,
           0, 0.01f
       },
       new int[]{2, 2});
   private final INDArray controlTransitionMatrix = Nd4j.create(
-      new float[]{
+      new double[]{
           1, 0,
           0, 1
       },
       new int[]{2, 2});
   private final INDArray controlInputVector = Nd4j.create(
-      new float[]{
-          0.00f,
-          0.00f
+      new double[]{
+          0.01f,
+          0.01f
       },
       new int[]{2, 1});
   private final INDArray processCovariance = Nd4j.create(
-      new float[]{
+      new double[]{
           0.001f, 0,
           0, 0.1f
       },
       new int[]{2, 2});
   private final List<INDArray> testData = IntStream.range(0, POINTS).sequential()
       .mapToObj(index -> Nd4j.create(
-          new float[]{
+          new double[]{
               2 * index,
-              index + NOISE_RANGE * ((float) Math.random()) - NOISE_RANGE / 2f
+              index + NOISE_RANGE * ((double) Math.random()) - NOISE_RANGE / 2f
           },
           new int[]{2, 1}))
       .collect(Collectors.toList());
@@ -88,21 +88,12 @@ public class KalmanFilterPerformanceTest {
                         this.measurementTransitionMatrix,
                         this.controlTransitionMatrix,
                         this.controlInputVector,
-                        this.measurementCovarianceMatrix,
+                        this.processCovariance,
                         new SimpleDistribution(
                             nextMeasurement,
-                            previousFilteredState.getFilteredState().getCovariance()),
+                            this.measurementCovarianceMatrix),
                         previousFilteredState.getFilteredState()),
-                    new SimpleDistribution(
-                        nextMeasurement,
-                        previousFilteredState.getFilteredState().getCovariance())))
-        .map(aggregateState -> {
-          log.info("Before: " + aggregateState.getUnfilteredState().getMean()
-              + " " + aggregateState.getUnfilteredState().getMean().shapeInfoToString());
-          log.info("After:  " + aggregateState.getFilteredState().getMean()
-              + " " + aggregateState.getFilteredState().getMean().shapeInfoToString());
-          return aggregateState;
-        })
+                    previousFilteredState.getFilteredState()))
         .subscribe();
   }
 
