@@ -20,7 +20,7 @@ public class WorkspaceWizardModal extends BasicWindow {
     super("Workspace wizard");
     this.setComponent(
         new WorkspaceList(
-            new Reflections("org.ssh.torch.view.workspace")
+            new Reflections("org.ssh.torch.workspace")
                 .getSubTypesOf(AbstractWorkspace.class),
             selectedScene -> {
               this.getWorkspace().addWindow(

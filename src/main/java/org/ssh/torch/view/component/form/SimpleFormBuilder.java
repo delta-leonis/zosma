@@ -26,7 +26,7 @@ public class SimpleFormBuilder implements FormBuilder {
   public SimpleFormBuilder() {
     buttons = new LinkedHashMap<>();
     elements = new LinkedHashMap<>();
-    supportedTypes = new Reflections(this.getClass().getPackage() + ".fields")
+    supportedTypes = new Reflections(this.getClass().getPackage().getName() + ".fields")
         .getSubTypesOf(FormElement.class).stream()
         .filter(aClass -> !Modifier.isAbstract(aClass.getModifiers()))
         .map(FormElementClassViewModel::new)
