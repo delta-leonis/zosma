@@ -74,5 +74,4 @@ public class RealRingUnitTest {
   public void getMultiplicativeInverse() throws Exception {
 
   }
-
 }
