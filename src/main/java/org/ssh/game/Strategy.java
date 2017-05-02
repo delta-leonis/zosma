@@ -22,7 +22,7 @@ public interface Strategy<
     G extends Game> {
 
   /**
-   * Returns the instructions encapsulated by this strategy.
+   * Returns the instructions encapsulated by this engine.
    *
    * @return A {@link Map} of instructions.
    */

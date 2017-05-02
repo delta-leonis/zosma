@@ -28,8 +28,6 @@ public interface NoisyFeedbackAI<S extends Strategy, G extends Game, P>
         .sampleMillis(this.getGameProcessorInterval())
         .doOnNext(this.getGameProcessor()::onNext)
         .transform(this::apply)
-        .delayElementsMillis(this.getStrategyTransmissionDelay())
-        .delayElementsMillis(this.getStrategyExecutionDelay())
         .map(this::applyNoise)
         .subscribe(this.getStrategyProcessor());
   }

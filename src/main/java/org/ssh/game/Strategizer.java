@@ -10,7 +10,7 @@ import org.reactivestreams.Subscriber;
  * {@link Strategy} based on that {@link Game}.
  *
  * @param <S> The type of {@link Strategy} emitted by this strategizer.
- * @param <G> The type of {@link Game} for which this strategy is meant.
+ * @param <G> The type of {@link Game} for which this engine is meant.
  * @author Rimon Oz
  */
 @FunctionalInterface

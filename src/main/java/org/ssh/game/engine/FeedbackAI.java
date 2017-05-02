@@ -48,8 +48,6 @@ public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S,
         .sampleMillis(this.getGameProcessorInterval())
         .doOnNext(this.getGameProcessor()::onNext)
         .transform(this::apply)
-        .delayElementsMillis(this.getStrategyTransmissionDelay())
-        .delayElementsMillis(this.getStrategyExecutionDelay())
         .subscribe(this.getStrategyProcessor());
   }
 
@@ -68,16 +66,4 @@ public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S,
    * game states}.
    */
   long getGameProcessorInterval();
-
-  /**
-   * @return The time it takes for the {@link Strategy} to travel over the network on which
-   * the {@link org.ssh.game.Agent agents} listen.
-   */
-  long getStrategyTransmissionDelay();
-
-  /**
-   * @return The time it takes for the {@link org.ssh.game.Agent agents} to parse the
-   * {@link Strategy} and execute it.
-   */
-  long getStrategyExecutionDelay();
 }

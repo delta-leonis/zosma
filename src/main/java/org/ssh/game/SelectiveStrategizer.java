@@ -11,7 +11,7 @@ import org.reactivestreams.Subscriber;
  *
  * @param <M> The type of object used to identify an engine part.
  * @param <S> The type of {@link Strategy} emitted by this strategizer.
- * @param <G> The type of {@link Game} for which this strategy is meant.
+ * @param <G> The type of {@link Game} for which this strategizer is meant.
  * @author Rimon Oz
  */
 public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
@@ -23,7 +23,7 @@ public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
   }
 
   /**
-   * Applies the strategizing operation to the previously returned strategy, the newly
+   * Applies the strategizing operation to the previously returned engine, the newly
    * acquired game state, and the objects of interest which can be extracted from the game state.
    *
    * @param previousResult The previously returned {@link Strategy}.
