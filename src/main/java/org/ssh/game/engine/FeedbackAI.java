@@ -39,11 +39,11 @@ public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S,
    * @param newestStrategy    The newest {@link Strategy} computed by the AI.
    * @return                  The newest {@link Game game state} by applying the {@link Strategy}.
    */
-  G simulate(final G previousGameState, final S newestStrategy);
+  G project(final G previousGameState, final S newestStrategy);
 
   @Override
   default void play() {
-    Flux.combineLatest(this.getGameProcessor(), this.getStrategyProcessor(), this::simulate)
+    Flux.combineLatest(this.getGameProcessor(), this.getStrategyProcessor(), this::project)
         .startWith(this.getInitialGame())
         .sampleMillis(this.getGameProcessorInterval())
         .doOnNext(this.getGameProcessor()::onNext)

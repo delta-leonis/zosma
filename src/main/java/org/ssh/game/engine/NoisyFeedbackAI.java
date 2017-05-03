@@ -23,7 +23,7 @@ public interface NoisyFeedbackAI<S extends Strategy, G extends Game, P>
 
   @Override
   default void play() {
-    Flux.combineLatest(this.getGameProcessor(), this.getStrategyProcessor(), this::simulate)
+    Flux.combineLatest(this.getGameProcessor(), this.getStrategyProcessor(), this::project)
         .startWith(this.getInitialGame())
         .sampleMillis(this.getGameProcessorInterval())
         .doOnNext(this.getGameProcessor()::onNext)
