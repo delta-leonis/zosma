@@ -11,6 +11,9 @@ group 'org.ssh'
 version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
+if (!isFamily(FAMILY_WINDOWS) && !isFamily(FAMILY_MAC) && !isFamily(FAMILY_UNIX))
+    throw new GradleException("Unsupported operating system!")
+
 repositories {
     mavenCentral()
     // for jamepad
@@ -22,13 +25,13 @@ javadoc {
     classpath = configurations.compile
 }
 dependencies {
-
-
     // math
     compile 'org.nd4j:nd4j-native:0.8.0'
     if (isFamily(FAMILY_WINDOWS))
         compile 'org.nd4j:nd4j-native:0.8.0:windows-x86_64'
-    else
+    else if (isFamily(FAMILY_MAC))
+        compile 'org.nd4j:nd4j-native:0.8.0:macosx-x86_64'
+    else if (isFamily(FAMILY_UNIX))
         compile 'org.nd4j:nd4j-native:0.8.0:linux-x86_64'
 
     // rx
