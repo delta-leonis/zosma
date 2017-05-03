@@ -1,3 +1,5 @@
+import static org.apache.tools.ant.taskdefs.condition.Os.*
+
 plugins {
     id 'com.github.ksoichiro.console.reporter' version '0.5.0'
 }
@@ -19,11 +21,15 @@ javadoc {
     source = sourceSets.main.allJava
     classpath = configurations.compile
 }
-
 dependencies {
+
+
     // math
     compile 'org.nd4j:nd4j-native:0.8.0'
-    compile 'org.nd4j:nd4j-native:0.8.0:linux-x86_64'
+    if (isFamily(FAMILY_WINDOWS))
+        compile 'org.nd4j:nd4j-native:0.8.0:windows-x86_64'
+    else
+        compile 'org.nd4j:nd4j-native:0.8.0:linux-x86_64'
 
     // rx
     compile 'io.projectreactor:reactor-core:3.0.5.RELEASE'
