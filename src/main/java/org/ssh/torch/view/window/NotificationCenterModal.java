@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-import org.ssh.torch.event.notification.Notification;
+import org.ssh.ipc.event.notification.Notification;
 import org.ssh.torch.view.component.NotificationComponent;
 import org.ssh.torch.view.model.NotificationViewModel;
 import org.ssh.torch.view.window.modal.BasicModal;

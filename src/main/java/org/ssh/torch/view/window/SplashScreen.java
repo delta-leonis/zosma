@@ -5,18 +5,19 @@ import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.ProgressBar;
 import java.util.Collections;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-import org.ssh.torch.LifeCycle;
-import org.ssh.torch.lifecycle.PreRequisite;
+import org.ssh.ipc.Zosma;
+import org.ssh.ipc.event.LifeCycleEvent;
+import org.ssh.ipc.event.LifeCycleEvent.State;
+import org.ssh.torch.lifecycle.Prerequisite;
 import org.ssh.torch.view.BasicWindow;
+import org.ssh.torch.view.MainWorkspace;
 
 /**
  * The Class SplashScreen.
  *
  * @author Jeroen de Jong
  */
-public class SplashScreen extends BasicWindow implements Subscriber<PreRequisite> {
+public class SplashScreen extends BasicWindow {
 
   private static final String ZOSMA_ASCII_LOGO =
       "sdSSSSSSSbs    sSSs_sSSs      sSSs   .S_SsS_S.    .S_SSSs   \n" +
@@ -43,41 +44,29 @@ public class SplashScreen extends BasicWindow implements Subscriber<PreRequisite
    *
    * @param object the object
    */
-  public SplashScreen(LifeCycle object) {
+  public SplashScreen(int prerequisiteCount) {
     this.setHints(Collections.singletonList(Hint.CENTERED));
 
-    this.progressBar = new ProgressBar(0, object.getPreRequisites().size());
+    this.progressBar = new ProgressBar(0, prerequisiteCount);
     this.loadingLabel = new Label("");
     this.setComponent(
         new Panel()
             .addComponent(new Label(ZOSMA_ASCII_LOGO))
             .addComponent(this.progressBar)
-            .addComponent(this.loadingLabel)
-    );
+            .addComponent(this.loadingLabel));
 
-    object.subscribe(this);
+    Zosma.listen(LifeCycleEvent.class)
+        .filter(thing -> thing.getState().equals(State.PREREQUISITE))
+        .filter(thing -> thing.getContext().getClass().equals(MainWorkspace.class))
+        .take(prerequisiteCount)
+        .doOnComplete(this::close)
+        .subscribe(this::updateLoadingStatus);
   }
 
-  @Override
-  public void onSubscribe(Subscription s) {
-    s.request(Long.MAX_VALUE);
-  }
-
-  @Override
-  public void onNext(PreRequisite loadingMessage) {
+  public void updateLoadingStatus(LifeCycleEvent<Prerequisite, MainWorkspace> loadingMessage) {
     this.progressBar.setPreferredWidth(this.getPreferredSize().getColumns());
-    this.loadingLabel.setText(loadingMessage.toString());
+    this.loadingLabel.setText(loadingMessage.getSource().toString());
     this.progressBar.setValue(this.progressBar.getValue() + 1);
-  }
-
-  @Override
-  public void onError(Throwable t) {
-    this.loadingLabel.setText("An error occurred!");
-  }
-
-  @Override
-  public void onComplete() {
-    this.close();
   }
 
   @Override

@@ -1,18 +1,17 @@
 package org.ssh.torch.view;
 
 import com.googlecode.lanterna.screen.Screen;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.reactivestreams.Subscriber;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.ssh.torch.LifeCycle;
 import org.ssh.torch.Torch;
-import org.ssh.torch.lifecycle.PreRequisite;
+import org.ssh.torch.lifecycle.Prerequisite;
 import org.ssh.torch.view.window.SplashScreen;
 import org.ssh.torch.view.window.WorkspaceWizardModal;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.TopicProcessor;
 
 /**
  * The Class MainWorkspace.
@@ -230,8 +229,6 @@ public class MainWorkspace extends AbstractWorkspace implements LifeCycle {
       "Renaming Packages",
       "Eating Chinese Food"
   );
-  private List<PreRequisite> preRequisites = new ArrayList<>();
-  private TopicProcessor<PreRequisite> topicProcessor = TopicProcessor.create();
 
   /**
    * Instantiates a new Main workspace.
@@ -245,6 +242,13 @@ public class MainWorkspace extends AbstractWorkspace implements LifeCycle {
 
   @Override
   protected void construct() {
+    this.addWindow(new SplashScreen(this.getPreRequisites().size()));
+
+    this.start();
+  }
+
+  @Override
+  public List<Prerequisite> getPreRequisites() {
     Runnable sleep = () -> {
       try {
         Thread.sleep(500);
@@ -252,34 +256,15 @@ public class MainWorkspace extends AbstractWorkspace implements LifeCycle {
       }
     };
 
-    Flux.range(0, 3)
-        .map(LOADING_MESSAGES::get)
-        .map(message -> new PreRequisite(message, sleep))
-        .subscribe(this::addPrerequisite);
-    this.addPrerequisite("Loading WorkspaceWizard",
-        () -> this.addWindow(new WorkspaceWizardModal()));
-    this.addPrerequisite("Completing flux", topicProcessor::onComplete);
-    this.addWindow(new SplashScreen(this));
-
-    this.start();
-  }
-
-  @Override
-  public void addPrerequisite(PreRequisite preRequisite) {
-    this.preRequisites.add(preRequisite);
-  }
-
-  public List<PreRequisite> getPreRequisites() {
-    return Collections.unmodifiableList(this.preRequisites);
-  }
-
-  @Override
-  public void publish(PreRequisite preRequisite) {
-    this.topicProcessor.onNext(preRequisite);
-  }
-
-  @Override
-  public void subscribe(Subscriber<? super PreRequisite> s) {
-    topicProcessor.subscribe(s);
+    return Stream.concat(
+        IntStream.range(0, 3)
+            .mapToObj(LOADING_MESSAGES::get)
+            .map(message -> new Prerequisite(message, sleep)),
+        Stream.of(
+            new Prerequisite("Loading WorkspaceWizard",
+                () -> this.addWindow(new WorkspaceWizardModal())),
+            new Prerequisite("Completing flux",
+                sleep)))
+        .collect(Collectors.toList());
   }
 }

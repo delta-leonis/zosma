@@ -9,8 +9,10 @@ import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.terminal.Terminal;
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
-import org.ssh.torch.TorchAction;
-import org.ssh.torch.TorchScope;
+import org.ssh.ipc.Zosma;
+import org.ssh.ipc.event.TorchEvent;
+import org.ssh.ipc.event.torch.TerminalEvent;
+import org.ssh.ipc.event.torch.WorkspaceEvent;
 import org.ssh.torch.view.Workspace;
 
 /**
@@ -40,17 +42,24 @@ public class TopInformationWindow extends org.ssh.torch.view.BasicWindow {
     this.setSize(new TerminalSize(80, 2));
     this.setPosition(new TerminalPosition(0, 0));
 
-    this.<Terminal>addEventListener(TorchScope.TERMINAL, TorchAction.RESIZE, (terminal) -> {
-      try {
-        // Update size of this window
-        this.setSize(terminal.getTerminalSize().withRows(2));
-      } catch (Exception exception) {
-      }
-    });
+    Zosma.listen(TerminalEvent.class)
+        .filter(TorchEvent::isResized)
+        .map(TorchEvent::getSource)
+        .subscribe(this::updateSize);
 
-    this.<Workspace>addEventListener(TorchScope.WORKSPACE, TorchAction.SWITCH, (workspace) ->
-        this.currentWorkspaceLabel.setText(workspace.getTitle())
-    );
+    Zosma.listen(WorkspaceEvent.class)
+        .filter(TorchEvent::isSwitched)
+        .map(TorchEvent::getSource)
+        .map(Workspace::getTitle)
+        .subscribe(this.currentWorkspaceLabel::setText);
+  }
+
+  private void updateSize(Terminal terminal) {
+    try {
+      // Update size of this window
+      this.setSize(terminal.getTerminalSize().withRows(2));
+    } catch (Exception exception) {
+    }
   }
 
   @Override

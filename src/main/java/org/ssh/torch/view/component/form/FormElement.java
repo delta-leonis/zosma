@@ -24,9 +24,7 @@ public interface FormElement<T> extends Interactable {
    * @param value the value
    * @return the value
    */
-  default FormElement setValue(String value) {
-    return setValue(getParser().apply(value));
-  }
+  FormElement setValue(T value);
 
   /**
    * Sets value.
@@ -34,7 +32,9 @@ public interface FormElement<T> extends Interactable {
    * @param value the value
    * @return the value
    */
-  FormElement setValue(T value);
+  default FormElement setValue(String value) {
+    return setValue(getParser().apply(value));
+  }
 
   /**
    * Gets parser.

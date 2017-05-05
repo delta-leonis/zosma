@@ -11,36 +11,12 @@ import org.reactivestreams.Publisher;
  *
  * @author Jeroen de Jong
  */
-public interface PreRequisiteManager extends Publisher<PreRequisite> {
-
-  /**
-   * Add prerequisite.
-   *
-   * @param message      the message
-   * @param prerequisite the prerequisite
-   */
-  default void addPrerequisite(String message, Runnable prerequisite) {
-    this.addPrerequisite(new PreRequisite(message, prerequisite));
-  }
-
-  /**
-   * Add prerequisite.
-   *
-   * @param preRequisite the pre requisite
-   */
-  void addPrerequisite(PreRequisite preRequisite);
+public interface PreRequisiteManager {
 
   /**
    * Gets pre requisites.
    *
    * @return the pre requisites
    */
-  List<PreRequisite> getPreRequisites();
-
-  /**
-   * Publish.
-   *
-   * @param preRequisite the pre requisite
-   */
-  void publish(PreRequisite preRequisite);
+  List<Prerequisite> getPreRequisites();
 }

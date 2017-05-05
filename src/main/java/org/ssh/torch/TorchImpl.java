@@ -8,10 +8,12 @@ import com.googlecode.lanterna.terminal.TerminalFactory;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Consumer;
 import lombok.Getter;
-import org.ssh.torch.event.EventSubscriber;
-import org.ssh.torch.event.TorchEvent;
+import org.ssh.ipc.Zosma;
+import org.ssh.ipc.event.TorchEvent;
+import org.ssh.ipc.event.TorchEvent.Action;
+import org.ssh.ipc.event.torch.TerminalEvent;
+import org.ssh.ipc.event.torch.WorkspaceEvent;
 import org.ssh.torch.view.Workspace;
 import org.ssh.torch.view.window.NotificationCenterModal;
 
@@ -20,7 +22,7 @@ import org.ssh.torch.view.window.NotificationCenterModal;
  *
  * @author Jeroen de Jong
  */
-public final class TorchImpl implements WorkspaceManager, EventSubscriber<TorchImpl> {
+public final class TorchImpl implements WorkspaceManager {
 
   /**
    * The {@link com.googlecode.lanterna.terminal.Terminal terminal object}.
@@ -40,8 +42,6 @@ public final class TorchImpl implements WorkspaceManager, EventSubscriber<TorchI
   // TODO this should be deleted
   private NotificationCenterModal notificationWindow = new NotificationCenterModal();
 
-  private List<Consumer<TorchEvent<?>>> eventListeners = new CopyOnWriteArrayList<>();
-
   /**
    * Constructs a new window manager.
    */
@@ -53,13 +53,15 @@ public final class TorchImpl implements WorkspaceManager, EventSubscriber<TorchI
       this.screen = new VirtualScreen(new TerminalScreen(this.terminal));
       this.screen.startScreen();
       this.terminal.addResizeListener((terminal, newSize) ->
-          TorchUI.dispatchTorchEvent(TorchEvent.of(this.terminal, TorchAction.RESIZE))
-      );
+          Zosma.broadcast(new TerminalEvent(Action.RESIZED, this.terminal)));
     } catch (Exception exception) {
       throw new RuntimeException("Houston....", exception);
     }
 
-    this.addEventListener(TorchScope.WORKSPACE, TorchAction.CREATED, this::setActiveWorkspace);
+    Zosma.listen(WorkspaceEvent.class)
+        .filter(WorkspaceEvent::isCreated)
+        .map(TorchEvent::getSource)
+        .subscribe(this::setActiveWorkspace);
   }
 
   @Override
@@ -75,7 +77,7 @@ public final class TorchImpl implements WorkspaceManager, EventSubscriber<TorchI
     }
     this.activeWorkspace = workspace;
     workspace.getWorkspaceThread().resume();
-    TorchUI.dispatchTorchEvent(TorchEvent.of(this.activeWorkspace, TorchAction.SWITCH));
+    Zosma.broadcast(new WorkspaceEvent(Action.SWITCHED, this.activeWorkspace));
     return this;
   }
 
@@ -88,27 +90,5 @@ public final class TorchImpl implements WorkspaceManager, EventSubscriber<TorchI
   public WorkspaceManager addWorkspace(Workspace workspace) {
     this.workspaces.add(workspace);
     return this;
-  }
-
-  @Override
-  public TorchImpl addEventListener(Consumer<TorchEvent<?>> listener) {
-    this.eventListeners.add(listener);
-    return this;
-  }
-
-  @Override
-  public List<Consumer<TorchEvent<?>>> getEventListeners() {
-    return Collections.unmodifiableList(this.eventListeners);
-  }
-
-  @Override
-  public void onNext(TorchEvent<?> torchEvent) {
-    getEventListeners().forEach(listener -> listener.accept(torchEvent));
-    this.getWorkspaces().forEach(workspace -> workspace.process(torchEvent));
-  }
-
-  @Override
-  public void onComplete() {
-    this.onNext(TorchEvent.of(terminal, TorchAction.CLOSED));
   }
 }

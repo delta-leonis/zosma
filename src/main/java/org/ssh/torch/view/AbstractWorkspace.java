@@ -9,17 +9,11 @@ import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import lombok.Getter;
+import org.ssh.ipc.event.notification.Notification;
 import org.ssh.torch.TorchUI;
 import org.ssh.torch.WorkspaceThread;
-import org.ssh.torch.event.EventHandler;
-import org.ssh.torch.event.TorchEvent;
-import org.ssh.torch.event.notification.Notification;
 import org.ssh.torch.view.window.TopInformationWindow;
 import org.ssh.torch.view.window.modal.WorkspaceSwitchModal;
 
@@ -35,7 +29,6 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
   private static Theme resetTheme;
   @Getter
   private final String title;
-  private List<Consumer<TorchEvent<?>>> eventListeners = new CopyOnWriteArrayList<>();
 
   /**
    * Instantiates a new Abstract workspace.
@@ -107,25 +100,12 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
       }
       return true;
     });
-    // TODO revise, maybe use events or something
+
     getWorkspaceThread().start(); // initialize thread
     getWorkspaceThread().pause();
     getWorkspaceThread().invokeLater(this::construct);
 
-    // pass all events through to the windows as well
-    this.addEventListener(event ->
-        this.getWindows().stream()
-            .filter(EventHandler.class::isInstance)
-            .map(EventHandler.class::cast)
-            .forEach(window -> window.process(event)));
-
     this.addWindow(new TopInformationWindow());
-  }
-
-  @Override
-  public Workspace addEventListener(Consumer<TorchEvent<?>> listener) {
-    this.eventListeners.add(listener);
-    return this;
   }
 
   @Override
@@ -143,11 +123,6 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
     }
     super.setActiveWindow(activeWindow);
     return this;
-  }
-
-  @Override
-  public List<Consumer<TorchEvent<?>>> getEventListeners() {
-    return Collections.unmodifiableList(this.eventListeners);
   }
 
   /**

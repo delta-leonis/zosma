@@ -15,7 +15,6 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.ssh.game.Agent;
 import org.ssh.game.Command;
-import org.ssh.game.Game;
 import org.ssh.game.Strategy;
 import org.ssh.game.engine.MapEngine;
 import org.ssh.game.engine.Turk;

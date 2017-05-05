@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Value;
 import lombok.experimental.Delegate;
-import org.ssh.torch.event.notification.Notification;
+import org.ssh.ipc.event.notification.Notification;
 
 /**
  * The Class NotificationViewModel.

@@ -1,9 +1,8 @@
 package org.ssh.torch.view.window.modal;
 
-import org.ssh.torch.TorchAction;
-import org.ssh.torch.TorchUI;
-import org.ssh.torch.event.TorchEvent;
-import org.ssh.torch.view.Workspace;
+import org.ssh.ipc.Zosma;
+import org.ssh.ipc.event.TorchEvent.Action;
+import org.ssh.ipc.event.torch.WorkspaceEvent;
 import org.ssh.torch.view.component.form.ConstructorForm;
 import org.ssh.torch.view.model.reflect.ConstructorViewModel;
 
@@ -25,10 +24,9 @@ public class ParameterFormModal extends BasicModal {
             constructor,
             formData -> {
               this.close();
-              TorchUI.dispatchTorchEvent(TorchEvent.of(
-                  constructor.<Workspace>create(formData),
-                  TorchAction.CREATED
-              ));
+              Zosma.broadcast(new WorkspaceEvent(
+                  Action.CREATED,
+                  constructor.create(formData)));
             }
         ));
   }

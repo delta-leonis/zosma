@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.Delegate;
 
 /**
- * The Class PreRequisite.
+ * The Class Prerequisite.
  *
  * This class describes a pre-requisite, that is a thread which must be called
  * and completed before continuing.
@@ -12,17 +12,17 @@ import lombok.experimental.Delegate;
  * @author Jeroen De Jong
  */
 @AllArgsConstructor
-public class PreRequisite implements Runnable {
+public class Prerequisite implements Runnable {
 
   /**
    * The name of the pre-requisite.
    */
-  String name;
+  private final String name;
   /**
    * The runnable which is executed.
    */
   @Delegate
-  Runnable runnable;
+  private final Runnable runnable;
 
   @Override
   public String toString() {

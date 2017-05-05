@@ -1,4 +1,4 @@
-package org.ssh.torch.event.notification;
+package org.ssh.ipc.event.notification;
 
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;

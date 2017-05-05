@@ -2,10 +2,8 @@ package org.ssh.torch;
 
 import com.googlecode.lanterna.screen.Screen;
 import java.util.List;
-import org.ssh.torch.event.TorchEvent;
-import org.ssh.torch.event.TorchEventPublisher;
-import org.ssh.torch.event.notification.Notification;
-import org.ssh.torch.event.notification.NotificationPublisher;
+import org.ssh.ipc.event.notification.Notification;
+import org.ssh.ipc.event.notification.NotificationPublisher;
 import org.ssh.torch.view.MainWorkspace;
 import org.ssh.torch.view.Workspace;
 
@@ -17,8 +15,6 @@ import org.ssh.torch.view.Workspace;
 public class TorchUI {
 
   private static final NotificationPublisher notificationPublisher = new NotificationPublisher();
-  // TODO Eventbus and fix all dependencies and stuff
-  private static final TorchEventPublisher torchEventPublisher = new TorchEventPublisher();
   private static final TorchImpl INSTANCE = createTorch();
 
   private TorchUI() {
@@ -33,7 +29,6 @@ public class TorchUI {
 //        Flux.from(notificationPublisher)
 //            .map(NotificationViewModel::new)
 //            .subscribe(torch.getNotificationWindow());
-    torchEventPublisher.subscribe(torch);
     return torch;
   }
 
@@ -82,15 +77,6 @@ public class TorchUI {
    */
   public static void notify(Notification notification) {
     notificationPublisher.addNotification(notification);
-  }
-
-  /**
-   * Dispatch torch event.
-   *
-   * @param event the event
-   */
-  public static void dispatchTorchEvent(TorchEvent event) {
-    torchEventPublisher.addTorchEvent(event);
   }
 
   /**

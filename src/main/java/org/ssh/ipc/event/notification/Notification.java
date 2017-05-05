@@ -1,4 +1,4 @@
-package org.ssh.torch.event.notification;
+package org.ssh.ipc.event.notification;
 
 import java.util.function.Consumer;
 import java.util.logging.Level;

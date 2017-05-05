@@ -4,14 +4,13 @@ import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import java.util.Optional;
 import org.ssh.torch.Torch;
 import org.ssh.torch.WorkspaceThread;
-import org.ssh.torch.event.EventHandler;
 
 /**
  * The Interface Workspace.
  *
  * @author Jeroen de Jong
  */
-public interface Workspace extends WindowBasedTextGUI, EventHandler<Workspace> {
+public interface Workspace extends WindowBasedTextGUI {
 
   /**
    * Gets title.
