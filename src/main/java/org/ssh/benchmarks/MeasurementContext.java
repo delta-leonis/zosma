@@ -13,8 +13,6 @@ import java.util.List;
 public interface MeasurementContext {
 
   /**
-   * Returns the list of recorded measurements.
-   *
    * @return The list of recorded measurements.
    */
   List<DescriptiveMeasurement<?>> getMeasurements();

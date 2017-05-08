@@ -7,7 +7,7 @@ import org.ssh.ipc.event.TorchEvent;
 /**
  * The Class ComponentEvent
  *
- * This class describes an {@link TorchEvent<Component> event} fired by a {@link Component}.
+ * This class describes an {@link TorchEvent event} fired by a {@link Component}.
  *
  * @author Jeroen de Jong
  */

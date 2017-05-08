@@ -35,7 +35,9 @@ public class Zosma {
    * Retrieves the {@link Flux stream} associated with the supplied {@link Class}.
    * @param eventType The {@link Class} of the {@link Event}.
    * @param <E>       The type of {@link Event} which parametrizes the {@link Flux}.
-   * @return
+   * @return The {@link Flux stream} for the supplied {@link Class eventType}, null if no
+   *  such {@link Flux stream} exists.
+   * @throws NullPointerException if the specified key is null
    */
   public static <E extends Event> Flux<E> listen(Class<E> eventType) {
     if (!listenerMap.containsKey(eventType))

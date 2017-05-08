@@ -42,7 +42,7 @@ public class SplashScreen extends BasicWindow {
   /**
    * Instantiates a new Splash screen.
    *
-   * @param object the object
+   * @param prerequisiteCount Number of prerequisite events to expect.
    */
   public SplashScreen(int prerequisiteCount) {
     this.setHints(Collections.singletonList(Hint.CENTERED));
@@ -63,9 +63,14 @@ public class SplashScreen extends BasicWindow {
         .subscribe(this::updateLoadingStatus);
   }
 
-  public void updateLoadingStatus(LifeCycleEvent<Prerequisite, MainWorkspace> loadingMessage) {
+  /**
+   * Updates the loading status with the information contained in the supplied {@link LifeCycleEvent}
+   * from a {@link MainWorkspace}.
+   * @param mainWorkspaceEvent The {@link LifeCycleEvent}.
+   */
+  public void updateLoadingStatus(LifeCycleEvent<Prerequisite, MainWorkspace> mainWorkspaceEvent) {
     this.progressBar.setPreferredWidth(this.getPreferredSize().getColumns());
-    this.loadingLabel.setText(loadingMessage.getSource().toString());
+    this.loadingLabel.setText(mainWorkspaceEvent.getSource().toString());
     this.progressBar.setValue(this.progressBar.getValue() + 1);
   }
 

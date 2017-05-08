@@ -60,6 +60,7 @@ dependencies {
 
     // tests
     testCompile 'org.testng:testng:6.11'
+    testCompile 'io.projectreactor.addons:reactor-test:3.0.7.RELEASE'
 }
 
 test {

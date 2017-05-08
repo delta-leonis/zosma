@@ -7,7 +7,7 @@ import org.ssh.ipc.event.TorchEvent;
 /**
  * The Class TerminalEvent
  *
- * This class describes an {@link TorchEvent<Terminal> event} fired by a Terminal.
+ * This class describes an {@link TorchEvent event} fired by a Terminal.
  *
  * @author Jeroen de Jong
  */

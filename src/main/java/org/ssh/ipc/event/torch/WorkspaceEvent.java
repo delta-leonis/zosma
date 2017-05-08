@@ -7,7 +7,7 @@ import org.ssh.torch.view.Workspace;
 /**
  * The Class WorkspaceEvent
  *
- * This class describes an {@link TorchEvent<Workspace> event} fired by a Workspace.
+ * This class describes an {@link TorchEvent event} fired by a Workspace.
  *
  * @author Jeroen de Jong
  */

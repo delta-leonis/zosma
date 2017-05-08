@@ -12,7 +12,7 @@ package org.ssh.ipc.serialization;
 public interface Writer<O> {
 
   /**
-   * Write a given object to a type of {@link O}.
+   * Write a given object to a type of {@code <O>}.
    * @param input The object to be serialized.
    * @param <I>   The type of object used as an input.
    * @return The output of the write method.

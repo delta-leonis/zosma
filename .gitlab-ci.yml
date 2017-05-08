@@ -15,6 +15,7 @@ cache:
 test:
   script:
    - ./gradlew test
+   - ./gradlew javadoc
    - ./gradlew jacocoTestReport
   artifacts:
     paths:

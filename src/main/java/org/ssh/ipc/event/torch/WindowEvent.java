@@ -7,7 +7,7 @@ import org.ssh.torch.view.Window;
 /**
  * The Class WindowEvent
  *
- * This class describes an {@link TorchEvent<Window> event} fired by a Window.
+ * This class describes an {@link TorchEvent event} fired by a Window.
  *
  * @author Jeroen de Jong
  */

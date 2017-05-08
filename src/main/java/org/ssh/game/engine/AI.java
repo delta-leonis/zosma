@@ -2,6 +2,7 @@ package org.ssh.game.engine;
 
 import java.util.function.Function;
 import org.reactivestreams.Publisher;
+import org.ssh.benchmarks.Probeable;
 import org.ssh.game.Game;
 import org.ssh.game.Strategy;
 import reactor.core.publisher.Flux;
@@ -19,14 +20,16 @@ public interface AI<
     S extends Strategy,
     G extends Game,
     P>
-    extends Turk<S, P>, Function<Publisher<G>, Publisher<S>> {
+    extends Turk<S, P>, Function<Publisher<G>, Publisher<S>>, Probeable {
   /**
    * Starts the AI and makes it play a game.
    */
   default void play() {
     Flux.from(this.getGamePublisher())
         .startWith(this.getInitialGame())
+        .doOnNext(createProbeTarget("AI Input"))
         .transform(this::apply)
+        .doOnNext(createProbeTarget("AI Output"))
         .subscribe(this.getStrategySubscriber());
   }
 

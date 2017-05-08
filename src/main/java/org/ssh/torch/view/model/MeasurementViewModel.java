@@ -14,7 +14,6 @@ import org.ssh.benchmarks.RangedMeasurement;
 @Value
 public class MeasurementViewModel<M>
     implements RangedMeasurement<M>, ViewModel<DescriptiveMeasurement<M>> {
-
   M min;
   M max;
   @Delegate
