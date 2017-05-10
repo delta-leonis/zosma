@@ -19,7 +19,9 @@ import org.ssh.math.function.LambdaExceptions;
  */
 @Slf4j
 public class JsonWriter implements Writer<String> {
-  /** Internal gson class used for writing the objects. */
+  /**
+   * Internal gson class used for writing the objects.
+   */
   private final Gson gson;
 
   public JsonWriter() {

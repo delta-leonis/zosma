@@ -15,13 +15,14 @@ import org.reflections.Reflections;
  * @author Ryan Meulenkamp
  * @author Jeroen de Jong
  */
-public interface WriteHandler<I extends java.io.Serializable> {
+public interface WriteHandler<I> {
 
   /**
    * @return The type of object to which this {@link WriteHandler} can be applied.
    */
   default Set<Class<? extends I>> getTypes() {
-    Type type = new TypeToken<I>(getClass()) { }.getType();
+    Type type = new TypeToken<I>(getClass()) {
+    }.getType();
     return new Reflections("org.ssh").getSubTypesOf((Class<I>) type);
   }
 }

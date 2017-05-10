@@ -34,6 +34,17 @@ public class WebSocketSubscriber implements Subscriber<Serializable> {
    * Creates a new subscriber which receives {@link Serializable} data and emits it
    * on a websocket.
    *
+   * @param uri  The URI of the websocket (eg. '/route').
+   * @param port The port of the websocket (eg. 1337).
+   */
+  public WebSocketSubscriber(final String uri, final int port) {
+    this(new JsonWriter(), uri, port);
+  }
+
+  /**
+   * Creates a new subscriber which receives {@link Serializable} data and emits it
+   * on a websocket.
+   *
    * @param writer The writer for serializing received Serializables
    * @param uri    The URI  of the websocket (eg. '/route').
    * @param port   The port of the websocket (eg. 1337).
@@ -53,17 +64,6 @@ public class WebSocketSubscriber implements Subscriber<Serializable> {
                 : out.sendNotFound())
         .subscribeOn(Schedulers.single())
         .subscribe();
-  }
-
-  /**
-   * Creates a new subscriber which receives {@link Serializable} data and emits it
-   * on a websocket.
-   *
-   * @param uri  The URI of the websocket (eg. '/route').
-   * @param port The port of the websocket (eg. 1337).
-   */
-  public WebSocketSubscriber(final String uri, final int port) {
-    this(new JsonWriter(), uri, port);
   }
 
   @Override

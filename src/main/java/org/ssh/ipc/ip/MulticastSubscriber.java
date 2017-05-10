@@ -42,7 +42,7 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
    * @param port    The port on which the subscriber needs to listen.
    * @throws IOException if socket cannot be opened
    */
-  public MulticastSubscriber(InetAddress address, int port) throws IOException {
+  public MulticastSubscriber(final InetAddress address, final int port) throws IOException {
     this.address = address;
     this.port = port;
     this.socket = new MulticastSocket(port);
@@ -50,12 +50,12 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
   }
 
   @Override
-  public void onSubscribe(Subscription subscription) {
+  public void onSubscribe(final Subscription subscription) {
     subscription.request(Long.MAX_VALUE);
   }
 
   @Override
-  public void onNext(DatagramPacket datagramPacket) {
+  public void onNext(final DatagramPacket datagramPacket) {
     try {
       datagramPacket.setAddress(this.getAddress());
       datagramPacket.setPort(this.getPort());
@@ -69,7 +69,7 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
   }
 
   @Override
-  public void onError(Throwable throwable) {
+  public void onError(final Throwable throwable) {
     log.error("Encountered an error! " + throwable.getMessage());
   }
 

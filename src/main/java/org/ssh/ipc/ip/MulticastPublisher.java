@@ -1,67 +1,63 @@
 package org.ssh.ipc.ip;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.socket.InternetProtocolFamily;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.MulticastSocket;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
+import reactor.ipc.netty.udp.UdpClient;
 
 /**
  * The Class MulticastPublisher.
- *
- * This class describes a {@link Publisher} of {@link DatagramPacket} received
- * from multicast.
  *
  * @author Rimon Oz
  * @author Jeroen de Jong
  */
 @Slf4j
 @Value
-public class MulticastPublisher implements Publisher<DatagramPacket> {
-
+public class MulticastPublisher<O> implements Publisher<O> {
   /**
-   * The size of the buffer.
+   * Address to listen to
    */
-  public static final int BUFFER_SIZE = 1024;
+  private final InetAddress address;
   /**
-   * The {@link MulticastSocket socket}.
+   * Port to listen to
    */
-  private final MulticastSocket socket;
-
+  private final int port;
   /**
-   * Constructs a new MulticastPublisher.
-   *
-   * @param address The address to which messages are published as an {@link InetAddress}.
-   * @param port    The port on which the messages are published.
-   * @throws IOException If port cannot be opened
+   * Function used to convert byte[] to target type
    */
-  public MulticastPublisher(InetAddress address, int port) throws IOException {
-    this.socket = new MulticastSocket(null);
-    this.socket.setReuseAddress(true);
-    this.socket.bind(new InetSocketAddress(address, port));
-    this.socket.joinGroup(address);
-  }
+  private final Function<byte[], O> parser;
 
   @Override
-  public void subscribe(Subscriber<? super DatagramPacket> subscriber) {
-    Flux.<DatagramPacket>create(emitter -> {
-      while (!socket.isClosed()) {
-        try {
-          DatagramPacket packet = new DatagramPacket(new byte[BUFFER_SIZE], BUFFER_SIZE);
-          socket.receive(packet);
-        } catch (IOException exception) {
-          emitter.error(exception);
-        }
-      }
-      emitter.complete();
-    })
-        .subscribeOn(Schedulers.single())
-        .subscribe(subscriber);
+  public void subscribe(final Subscriber<? super O> subscriber) {
+    try {
+      final List<NetworkInterface> interfaces = Collections
+          .list(NetworkInterface.getNetworkInterfaces());
+
+      UdpClient
+          .create(opts -> opts.option(ChannelOption.SO_REUSEADDR, true)
+              .connect(this.port)
+              .protocolFamily(InternetProtocolFamily.IPv4))
+          .newHandler((in, out) -> {
+            Flux.fromIterable(interfaces)
+                .flatMap(iface -> in.join(this.address, iface))
+                .thenMany(in.receive().asByteArray())
+                .map(parser)
+                .subscribe(subscriber);
+            return Flux.never();
+          })
+          .subscribe();
+    } catch (SocketException exception) {
+      Flux.<O>error(exception).subscribe(subscriber);
+    }
   }
 }
