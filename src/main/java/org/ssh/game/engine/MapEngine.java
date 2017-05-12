@@ -1,7 +1,6 @@
 package org.ssh.game.engine;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.ssh.game.Arbiter;
 
 /**

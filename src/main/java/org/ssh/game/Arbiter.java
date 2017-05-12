@@ -1,7 +1,6 @@
 package org.ssh.game;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The Interface Arbiter.

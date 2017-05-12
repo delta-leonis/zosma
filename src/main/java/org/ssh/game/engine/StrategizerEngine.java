@@ -1,11 +1,7 @@
 package org.ssh.game.engine;
 
 import java.util.stream.Collectors;
-import org.ssh.game.Agent;
-import org.ssh.game.Command;
-import org.ssh.game.Game;
-import org.ssh.game.Strategizer;
-import org.ssh.game.Strategy;
+import org.ssh.game.*;
 
 /**
  * The Interface StrategizerEngine.

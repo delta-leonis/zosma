@@ -1,8 +1,7 @@
 package org.ssh.game.engine;
 
 import org.reactivestreams.Publisher;
-import org.ssh.game.Game;
-import org.ssh.game.Strategy;
+import org.ssh.game.*;
 import reactor.core.publisher.Flux;
 
 /**
@@ -37,5 +36,5 @@ public interface NoisyFeedbackAI<S extends Strategy, G extends Game, P>
    * @param strategy The {@link Strategy} to apply noise to.
    * @return The noisy {@link Strategy}.
    */
-  S applyNoise(S strategy);
+  S applyNoise(final S strategy);
 }

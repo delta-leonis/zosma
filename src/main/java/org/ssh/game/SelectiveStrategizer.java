@@ -29,16 +29,14 @@ public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
    * @param previousResult The previously returned {@link Strategy}.
    * @param input          The next {@link Game game state}.
    * @param subjects       The objects of interest in the {@link Game}.
-   * @return the v
+   * @return The newly computed {@link Strategy}.
    */
   S strategize(final S previousResult, final G input, final M subjects);
 
   /**
-   * Returns a selection of object(s) of interest for this {@link Strategizer} from the supplied
-   * {@link Game}.
-   *
    * @param game The {@link Game} to extract the object(s) of interest from.
-   * @return The object(s) of interest.
+   * @return A selection of object(s) of interest for this {@link Strategizer} from the supplied
+   * {@link Game}.
    */
   M getSelection(final G game);
 }

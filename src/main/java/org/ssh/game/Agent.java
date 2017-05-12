@@ -13,9 +13,7 @@ package org.ssh.game;
 public interface Agent {
 
   /**
-   * The unique identifier of an agent
-   *
-   * @return unique Identifier of an agent
+   * @return Unique identifier of an agent
    */
   int getId();
 }

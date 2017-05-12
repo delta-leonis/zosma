@@ -13,8 +13,6 @@ import java.util.Set;
 public interface Game<G extends Game, A extends Agent> {
 
   /**
-   * Returns a set of {@link Rule rules} which dictate the validity of a game state.
-   *
    * @return A set of {@link Rule rules} which dictate the validity of a game state.
    */
   Set<Rule<G, A>> getRules();
