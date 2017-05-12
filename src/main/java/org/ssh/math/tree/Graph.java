@@ -15,8 +15,6 @@ import java.util.Set;
 public interface Graph<V, N extends Graph.Node<V>> {
 
   /**
-   * Returns the root {@link Node} of the tree.
-   *
    * @return The root {@link Node} of the tree.
    */
   Set<N> getNodes();
@@ -32,8 +30,6 @@ public interface Graph<V, N extends Graph.Node<V>> {
   interface Node<V> {
 
     /**
-     * Returns the value embedded in the node.
-     *
      * @return The value embedded in the node.
      */
     V getValue();

@@ -32,12 +32,12 @@ public interface PSDController {
    * @return The new control vector, adjusted by the controller.
    */
   static INDArray apply(
-      INDArray previousControl,
-      List<INDArray> residuals,
-      double proportionalFactor,
-      double summationFactor,
-      double differenceFactor,
-      double deltaTime
+      final INDArray previousControl,
+      final List<INDArray> residuals,
+      final double proportionalFactor,
+      final double summationFactor,
+      final double differenceFactor,
+      final double deltaTime
   ) {
     return previousControl
         .add(residuals.get(0).mul(

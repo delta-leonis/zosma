@@ -8,7 +8,7 @@ import java.util.function.BiConsumer;
  * <p>
  * This interface describes the functionality of a finite state machine.
  *
- * @param <S> the type parameter
+ * @param <S> The type of {@link State}
  * @author Rimon Oz
  */
 public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends Graph<String, S> {
@@ -21,7 +21,7 @@ public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends 
    * @param to   The state to transition to.
    * @return True if successful, false otherwise.
    */
-  default boolean transition(S from, S to) {
+  default boolean transition(final S from, final S to) {
     if (this.getStateTransitionTable().contains(from, to)) {
       this.getStateTransitionTable().get(from, to).accept(from, to);
       return true;
@@ -31,8 +31,6 @@ public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends 
   }
 
   /**
-   * Returns the state transition table.
-   *
    * @return The state transition table.
    */
   Table<S, S, BiConsumer<S, S>> getStateTransitionTable();

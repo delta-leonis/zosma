@@ -5,15 +5,13 @@ import java.util.Collection;
 /**
  * The Interface Tree.
  *
- * @param <V> the type parameter
- * @param <N> the type parameter
+ * @param <V> The type of object stored inside the {@link Tree.Node}.
+ * @param <N> The type of {@link Tree.Node}.
  * @author Rimon Oz
  */
 public interface Tree<V, N extends Tree.Node<V>> extends Graph<V, N> {
 
   /**
-   * Returns the root {@link Node} of the tree.
-   *
    * @return The root {@link Node} of the tree.
    */
   N getRoot();
@@ -28,8 +26,6 @@ public interface Tree<V, N extends Tree.Node<V>> extends Graph<V, N> {
   interface Node<V> extends Graph.Node<V> {
 
     /**
-     * Returns the node's children.
-     *
      * @return The node's children.
      */
     Collection<? extends Node<V>> getChildren();

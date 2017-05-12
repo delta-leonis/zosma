@@ -1,12 +1,10 @@
 package org.ssh.math.filter;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.function.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.inverse.InvertMatrix;
-import org.ssh.math.statistic.Distribution;
-import org.ssh.math.statistic.SimpleDistribution;
+import org.ssh.math.statistic.*;
 
 /**
  * The Class ExtendedKalmanFilter. <p> This class contains the functionality for an extended Kalman
@@ -36,13 +34,13 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
    * @return The filtered state.
    */
   static Distribution<INDArray> apply(
-      INDArray stateTransitionMatrix,
-      INDArray measurementTransitionMatrix,
-      INDArray controlTransitionMatrix,
-      INDArray controlInput,
-      INDArray processCovariance,
-      Distribution<INDArray> observationNoise,
-      Distribution<INDArray> state
+      final INDArray stateTransitionMatrix,
+      final INDArray measurementTransitionMatrix,
+      final INDArray controlTransitionMatrix,
+      final INDArray controlInput,
+      final INDArray processCovariance,
+      final Distribution<INDArray> observationNoise,
+      final Distribution<INDArray> state
   ) {
     return apply((stateMean, controlVector) ->
             stateTransitionMatrix
@@ -78,35 +76,35 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
    * @return The filtered state.
    */
   static Distribution<INDArray> apply(
-      BiFunction<INDArray, INDArray, INDArray> stateTransition,
-      Function<INDArray, INDArray> measurementTransition,
-      INDArray stateTransitionJacobian,
-      INDArray measurementTransitionJacobian,
-      INDArray controlInput,
-      INDArray processCovariance,
-      Distribution<INDArray> observationNoise,
-      Distribution<INDArray> state
+      final BiFunction<INDArray, INDArray, INDArray> stateTransition,
+      final Function<INDArray, INDArray> measurementTransition,
+      final INDArray stateTransitionJacobian,
+      final INDArray measurementTransitionJacobian,
+      final INDArray controlInput,
+      final INDArray processCovariance,
+      final Distribution<INDArray> observationNoise,
+      final Distribution<INDArray> state
   ) {
-    INDArray projectedState = stateTransition.apply(state.getMean(), controlInput);
+    final INDArray projectedState = stateTransition.apply(state.getMean(), controlInput);
 
-    INDArray projectedErrorCovariance = stateTransitionJacobian
+    final INDArray projectedErrorCovariance = stateTransitionJacobian
         .mmul(state.getMean()
             .mmul(stateTransitionJacobian.transpose()))
         .add(processCovariance);
 
-    INDArray kalmanGain = projectedErrorCovariance
+    final INDArray kalmanGain = projectedErrorCovariance
         .mmul(measurementTransitionJacobian.transpose()
             .mmul(InvertMatrix.invert(measurementTransitionJacobian
                 .mmul(projectedErrorCovariance
                     .mmul(measurementTransitionJacobian.transpose()))
                 .add(observationNoise.getCovariance()), false)));
 
-    INDArray estimatedState = projectedState
+    final INDArray estimatedState = projectedState
         .add(kalmanGain
             .mmul(measurementTransition.apply(state.getMean())
                 .sub(measurementTransition.apply(projectedState))));
 
-    INDArray estimatedErrorCovariance = Nd4j.eye(estimatedState.rows())
+    final INDArray estimatedErrorCovariance = Nd4j.eye(estimatedState.rows())
         .sub(kalmanGain.
             mul(measurementTransitionJacobian))
         .mmul(projectedErrorCovariance);

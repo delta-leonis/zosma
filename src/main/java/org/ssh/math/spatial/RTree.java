@@ -1,76 +1,63 @@
 package org.ssh.math.spatial;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.ssh.math.tree.Tree;
 
 /**
  * The Interface RTree.
  *
- * @param <V> the type parameter
- * @param <O> the type parameter
+ * @param <V> The type of vector.
+ * @param <O> The type of object stored in the {@link RTree.Node}.
  * @author Rimon Oz
  */
 public interface RTree<V, O> extends Tree<O, RTree.Node<V, O>> {
 
   /**
-   * Gets facilities.
-   *
-   * @return the facilities
+   * @return The facilities, or objects in the space.
    */
   Set<Node<V, O>> getFacilities();
 
   /**
-   * Gets nearest neighbor.
-   *
-   * @param object the object
-   * @return the nearest neighbor
+   * @param object The object to find the nearest neighbor of.
+   * @return The nearest neighbor of the supplied object.
    */
-  RTree.Node<V, O> getNearestNeighbor(O object);
+  RTree.Node<V, O> getNearestNeighbor(final O object);
 
   /**
-   * Gets nearest neighbors.
-   *
-   * @param objects the objects
-   * @return the nearest neighbors
+   * @param objects The object to find the nearest neighbors of.
+   * @return The nearest neighbors of the supplied object.
    */
-  Map<V, Node<V, O>> getNearestNeighbors(Set<O> objects);
+  Set<RTree.Node<V, O>> getNearestNeighbors(final Set<O> objects);
 
   /**
-   * Gets maximum nearest neighbor distance.
-   *
-   * @param facility the facility
-   * @return the maximum nearest neighbor distance
+   * @param facility The facility to find the maximum nearest neighbor distance of.
+   * @return The maximum nearest neighbor distance of the supplied facility.
    */
-  double getMaximumNearestNeighborDistance(O facility);
+  double getMaximumNearestNeighborDistance(final O facility);
 
   /**
-   * Gets maximum nearest neighbor distance.
-   *
-   * @param facility the facility
-   * @return the maximum nearest neighbor distance
+   * @param facility The set of facilities to find the maximum nearest neighbor distance of.
+   * @return The maximum nearest neighbor distance of the supplied facilities.
    */
-  double getMaximumNearestNeighborDistance(Set<O> facility);
+  double getMaximumNearestNeighborDistance(final Set<O> facility);
 
   /**
-   * The interface Node.
+   * The Interface RTree.Node.
    *
-   * @param <V> the type parameter
-   * @param <O> the type parameter
+   * This interface represents a facility in an {@link RTree}.
+   *
+   * @param <V> The type of vector.
+   * @param <O> The type of object stored in this {@link Node}.
    */
   interface Node<V, O> extends Tree.Node<O> {
 
     /**
-     * Gets position.
-     *
-     * @return the position
+     * @return The position vector of the facility.
      */
     V getPosition();
 
     /**
-     * Gets size.
-     *
-     * @return the size
+     * @return The size of the facility.
      */
     V getSize();
   }

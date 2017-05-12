@@ -10,21 +10,17 @@ package org.ssh.math.geometry;
 public interface TensorField<V> {
 
   /**
-   * Returns the tensor in the point to which the position vector points.
-   *
    * @param positionVector The position vector which points to the point at which the potential is
    *                       measured.
    * @return The potential in the point to which the position vector points.
    */
-  V getTensor(V positionVector);
+  V getTensor(final V positionVector);
 
   /**
-   * Returns the covariant derivative of the tensor field in the point to which the position
-   * vector points.
-   *
    * @param positionVector The position vector which points to the point at which the potential is
    *                       measured.
-   * @return The potential in the point to which the position vector points.
+   * @return the covariant derivative of the tensor field in the point to which the position vector
+   * points.
    */
-  V getCovariantDerivative(V positionVector);
+  V getCovariantDerivative(final V positionVector);
 }

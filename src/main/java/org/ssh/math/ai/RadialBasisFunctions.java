@@ -1,8 +1,7 @@
 package org.ssh.math.ai;
 
 import lombok.experimental.UtilityClass;
-import org.ssh.math.geometry.Norm;
-import org.ssh.math.geometry.Trigonometry;
+import org.ssh.math.geometry.*;
 import org.ssh.math.statistic.distribution.GaussianDistribution;
 
 
@@ -31,8 +30,11 @@ public class RadialBasisFunctions {
    * @return The value of the inverse quadratic RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseQuadratic(Norm norm,
-      V input, Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double inverseQuadratic(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return 1d / (1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
   }
 
@@ -48,8 +50,11 @@ public class RadialBasisFunctions {
    * @return The value of the inverse multiquadric RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadric(Norm norm,
-      V input, Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadric(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return 1d / StrictMath
         .sqrt(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
   }
@@ -65,8 +70,10 @@ public class RadialBasisFunctions {
    * @return The value of the thin plate spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double thinPlateSpline(Norm norm,
-      V input) {
+  public static <N extends Number, V extends Iterable<N>> double thinPlateSpline(
+      final Norm norm,
+      final V input
+  ) {
     return RadialBasisFunctions.polyharmonicSpline(norm, input, 2);
   }
 
@@ -82,8 +89,11 @@ public class RadialBasisFunctions {
    * @return The value of the polyharmonic spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double polyharmonicSpline(Norm norm,
-      V input, int k) {
+  public static <N extends Number, V extends Iterable<N>> double polyharmonicSpline(
+      final Norm norm,
+      final V input,
+      final int k
+  ) {
     double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k);
     if (k % 2 == 0) {
       return exponentiatedEuclidianNorm * StrictMath.log(exponentiatedEuclidianNorm);
@@ -103,8 +113,11 @@ public class RadialBasisFunctions {
    * @param epsilon The scaling factor.
    * @return The value of the Gaussian RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double gaussianDerivative(Norm norm,
-      V input, Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double gaussianDerivative(
+      final Norm norm,
+      final V input,
+      Number epsilon
+  ) {
     return -2d * norm.calculateNorm(input)
         * StrictMath.pow(epsilon.doubleValue(), 2)
         * RadialBasisFunctions.gaussian(norm, input, epsilon);
@@ -120,8 +133,11 @@ public class RadialBasisFunctions {
    * @param epsilon The scaling factor.
    * @return The value of the Gaussian RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double gaussian(Norm norm, V input,
-      Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double gaussian(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return StrictMath
         .exp(-1d * StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
   }
@@ -137,8 +153,11 @@ public class RadialBasisFunctions {
    * @param epsilon The scaling factor.
    * @return The value of the multiquadric RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double multiQuadricDerivative(Norm norm,
-      V input, Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double multiQuadricDerivative(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return norm.calculateNorm(input) * StrictMath.pow(epsilon.doubleValue(), 2)
         / StrictMath
         .sqrt(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
@@ -157,7 +176,10 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double inverseQuadraticDerivative(
-      Norm norm, V input, Number epsilon) {
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return (-2d * norm.calculateNorm(input) * StrictMath.pow(epsilon.doubleValue(), 2))
         / StrictMath
         .pow(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2), 2);
@@ -176,7 +198,10 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadricDerivative(
-      Norm norm, V input, Number epsilon) {
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return (-1d * norm.calculateNorm(input) * StrictMath.pow(epsilon.doubleValue(), 2))
         / StrictMath
         .pow(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2),
@@ -195,7 +220,9 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double thinPlateSplineDerivative(
-      Norm norm, V input) {
+      final Norm norm,
+      final V input
+  ) {
     return RadialBasisFunctions.polyharmonicSplineDerivative(norm, input, 2);
   }
 
@@ -212,7 +239,10 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double polyharmonicSplineDerivative(
-      Norm norm, V input, int k) {
+      final Norm norm,
+      final V input,
+      final int k
+  ) {
     double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k - 1);
     if (k % 2 == 0) {
       return exponentiatedEuclidianNorm * (k * StrictMath.log(norm.calculateNorm(input) + 1));
@@ -232,8 +262,11 @@ public class RadialBasisFunctions {
    * @param epsilon The scaling factor.
    * @return The value of the Gaussian RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double gaussianIntegral(Norm norm,
-      V input, Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double gaussianIntegral(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return StrictMath.sqrt(Math.PI) * (GaussianDistribution
         .erf(norm.calculateNorm(input) * epsilon.doubleValue()))
         / (2d * epsilon.doubleValue());
@@ -251,8 +284,11 @@ public class RadialBasisFunctions {
    * @param epsilon The scaling factor.
    * @return The value of the multiquadric RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double multiQuadricIntegral(Norm norm,
-      V input, Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double multiQuadricIntegral(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     double euclidianNorm = norm.calculateNorm(input);
     return (euclidianNorm * epsilon.doubleValue() * RadialBasisFunctions
         .multiQuadric(norm, input, epsilon)
@@ -270,8 +306,11 @@ public class RadialBasisFunctions {
    * @param epsilon The scaling factor.
    * @return The value of the multiquadric RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double multiQuadric(Norm norm, V input,
-      Number epsilon) {
+  public static <N extends Number, V extends Iterable<N>> double multiQuadric(
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return StrictMath
         .sqrt(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
   }
@@ -289,7 +328,10 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double inverseQuadraticIntegral(
-      Norm norm, V input, Number epsilon) {
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return Trigonometry.atanh(norm.calculateNorm(input) * epsilon.doubleValue())
         / epsilon.doubleValue();
   }
@@ -307,7 +349,10 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadricIntegral(
-      Norm norm, V input, Number epsilon) {
+      final Norm norm,
+      final V input,
+      final Number epsilon
+  ) {
     return Trigonometry.asinh(norm.calculateNorm(input) * epsilon.doubleValue())
         / epsilon.doubleValue();
   }
@@ -324,7 +369,9 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double thinPlateSplineIntegral(
-      Norm norm, V input) {
+      final Norm norm,
+      final V input
+  ) {
     return RadialBasisFunctions.polyharmonicSplineIntegral(norm, input, 2);
   }
 
@@ -341,7 +388,10 @@ public class RadialBasisFunctions {
    * points.
    */
   public static <N extends Number, V extends Iterable<N>> double polyharmonicSplineIntegral(
-      Norm norm, V input, int k) {
+      final Norm norm,
+      final V input,
+      final int k
+  ) {
     double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k + 1);
     if (k % 2 == 0) {
       return

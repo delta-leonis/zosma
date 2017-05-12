@@ -14,11 +14,9 @@ package org.ssh.math.function;
 public interface Scanner<V, I> {
 
   /**
-   * Scan v.
-   *
-   * @param previousResult the previous result
-   * @param input          the input
-   * @return the v
+   * @param previousResult The previously computed value.
+   * @param input          The newest input.
+   * @return The value computed using the previously computed value and the newest input.
    */
-  V scan(V previousResult, I input);
+  V scan(final V previousResult, final I input);
 }

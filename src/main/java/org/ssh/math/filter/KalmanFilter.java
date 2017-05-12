@@ -3,8 +3,7 @@ package org.ssh.math.filter;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.inverse.InvertMatrix;
-import org.ssh.math.statistic.Distribution;
-import org.ssh.math.statistic.SimpleDistribution;
+import org.ssh.math.statistic.*;
 import org.ssh.math.statistic.distribution.GaussianDistribution;
 
 /**
@@ -46,33 +45,33 @@ public interface KalmanFilter extends Filter<INDArray> {
    * @return The filtered state.
    */
   static Distribution<INDArray> apply(
-      INDArray stateTransitionMatrix,
-      INDArray measurementTransitionMatrix,
-      INDArray controlTransitionMatrix,
-      INDArray controlInputVector,
-      INDArray processCovariance,
-      Distribution<INDArray> measurement,
-      Distribution<INDArray> previousState
+      final INDArray stateTransitionMatrix,
+      final INDArray measurementTransitionMatrix,
+      final INDArray controlTransitionMatrix,
+      final INDArray controlInputVector,
+      final INDArray processCovariance,
+      final Distribution<INDArray> measurement,
+      final Distribution<INDArray> previousState
   ) {
-    INDArray projectedState = stateTransitionMatrix.mmul(previousState.getMean())
+    final INDArray projectedState = stateTransitionMatrix.mmul(previousState.getMean())
         .add(controlTransitionMatrix.mmul(controlInputVector));
 
-    INDArray projectedErrorCovariance =
+    final INDArray projectedErrorCovariance =
         stateTransitionMatrix
             .mmul(previousState.getCovariance().mmul(stateTransitionMatrix.transpose()))
             .add(processCovariance);
 
-    INDArray kalmanGain = projectedErrorCovariance.mmul(measurementTransitionMatrix.transpose()
+    final INDArray kalmanGain = projectedErrorCovariance.mmul(measurementTransitionMatrix.transpose()
         .mmul(InvertMatrix.invert(measurementTransitionMatrix
             .mmul(projectedErrorCovariance
                 .mmul(measurementTransitionMatrix.transpose()))
             .add(measurement.getCovariance()), false)));
 
-    INDArray estimatedState = projectedState
+    final INDArray estimatedState = projectedState
         .add(kalmanGain
             .mmul(measurement.getMean().sub(measurementTransitionMatrix.mmul(projectedState))));
 
-    INDArray estimatedErrorCovariance =
+    final INDArray estimatedErrorCovariance =
         (Nd4j.eye(estimatedState.rows()).sub(kalmanGain.mmul(measurementTransitionMatrix)))
             .mmul(projectedErrorCovariance);
 

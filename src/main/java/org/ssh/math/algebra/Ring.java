@@ -36,28 +36,24 @@ package org.ssh.math.algebra;
 public interface Ring<F> extends Group<F> {
 
   /**
-   * Computes the quotient of two field elements.
-   *
    * @param <E>           the type parameter
    * @param firstElement  The first field number, which functions as the numerator.
    * @param secondElement The second field number, which functions as the denominator.
    * @return The quotient of the two arguments.
-   * @throws E the e
+   * @throws E The type of exception thrown when division is undefined.
    */
-  default <E extends Exception> F divide(F firstElement, F secondElement) throws E {
+  default <E extends Exception> F divide(final F firstElement, final F secondElement) throws E {
     return this.multiply(
         firstElement,
         this.getMultiplicativeInverse(secondElement));
   }
 
   /**
-   * Computes the product of two field elements.
-   *
    * @param firstElement  The first field element to be multiplied.
    * @param secondElement The second field element to be multiplied.
    * @return The product of the two arguments.
    */
-  F multiply(F firstElement, F secondElement);
+  F multiply(final F firstElement, final F secondElement);
 
   /**
    * Returns the multiplicative inverse of the argument. The multiplicative
@@ -71,5 +67,5 @@ public interface Ring<F> extends Group<F> {
    * @return The multiplicative inverse of the argument.
    * @throws E the e
    */
-  <E extends Exception> F getMultiplicativeInverse(F fieldElement) throws E;
+  <E extends Exception> F getMultiplicativeInverse(final F fieldElement) throws E;
 }

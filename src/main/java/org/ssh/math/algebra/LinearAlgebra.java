@@ -25,7 +25,7 @@ public class LinearAlgebra {
    * @param subject The potential positive definite matrix.
    * @return True is the matrix is positive definite, false otherwise.
    */
-  public static boolean isPositiveDefinite(INDArray subject) {
+  public static boolean isPositiveDefinite(final INDArray subject) {
     return LinearAlgebra.isHermitian(subject)
         && BooleanIndexing.and(
         Eigen.eigenvalues(subject),
@@ -40,7 +40,7 @@ public class LinearAlgebra {
    * @param subject The potential Hermitian matrix.
    * @return True if the matrix is Hermitian, false otherwise.
    */
-  public static boolean isHermitian(INDArray subject) {
+  public static boolean isHermitian(final INDArray subject) {
     return BooleanIndexing.and(subject.eq(subject.transpose()), Conditions.equals(0d));
   }
 
@@ -52,7 +52,7 @@ public class LinearAlgebra {
    * @param subject The potential positive semi-definite matrix.
    * @return True is the matrix is positive semi-definite, false otherwise.
    */
-  public static boolean isPositiveSemiDefinite(INDArray subject) {
+  public static boolean isPositiveSemiDefinite(final INDArray subject) {
     return LinearAlgebra.isHermitian(subject)
         && BooleanIndexing.and(
         Eigen.eigenvalues(subject),
@@ -67,7 +67,7 @@ public class LinearAlgebra {
    * @param subject The potential negative definite matrix.
    * @return True is the matrix is negative definite, false otherwise.
    */
-  public static boolean isNegativeDefinite(INDArray subject) {
+  public static boolean isNegativeDefinite(final INDArray subject) {
     return LinearAlgebra.isHermitian(subject)
         && BooleanIndexing.and(
         Eigen.eigenvalues(subject),
@@ -82,7 +82,7 @@ public class LinearAlgebra {
    * @param subject The potential negative semi-definite matrix.
    * @return True is the matrix is negative semi-definite, false otherwise.
    */
-  public static boolean isNegativeSemiDefinite(INDArray subject) {
+  public static boolean isNegativeSemiDefinite(final INDArray subject) {
     return LinearAlgebra.isHermitian(subject)
         && BooleanIndexing.and(
         Eigen.eigenvalues(subject),

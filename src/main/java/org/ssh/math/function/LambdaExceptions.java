@@ -1,9 +1,6 @@
 package org.ssh.math.function;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * Utility class to handle checked exceptions in lambdas. <p> From <a

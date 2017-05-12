@@ -56,26 +56,21 @@ public class GaussianDistribution implements Distribution<INDArray> {
   }
 
   /**
-   * From distribution.
-   *
-   * @param samples the samples
-   * @return the distribution
+   * @param samples The samples to compute a Gaussian distribution from.
+   * @return The Gaussian distribution representing the supplied samples.
    */
-//    @Override
-  public Distribution<INDArray> from(Collection<INDArray> samples) {
+  public static Distribution<INDArray> from(final Collection<INDArray> samples) {
     return new GaussianDistribution(
         calculateMean(samples),
         calculateCovariance(samples));
   }
 
   /**
-   * Calculates the Gaussian mean of the supplied {@link Collection} as an {@link INDArray}.
-   *
    * @param collection The {@link Collection} to calculate the mean for as an {@link INDArray}.
-   * @return The mean as an {@link INDArray}.
+   * @return The Gaussian mean of the supplied {@link Collection} as an {@link INDArray}.
    */
   public static INDArray calculateMean(Collection<INDArray> collection) {
-    int dimension = collection.iterator().next().rows();
+    final int dimension = collection.iterator().next().rows();
 
     return collection.stream()
         .reduce(Nd4j.zeros(dimension, 1), INDArray::add)
@@ -83,16 +78,14 @@ public class GaussianDistribution implements Distribution<INDArray> {
   }
 
   /**
-   * Calculates the Gaussian covariance of the supplied {@link Collection} as an {@link INDArray}.
-   *
    * @param collection The {@link Collection} to calculate the covariance for as an {@link
    *                   INDArray}.
-   * @return The covariance as an {@link INDArray}.
+   * @return The Gaussian covariance of the supplied {@link Collection} as an {@link INDArray}.
    */
   public static INDArray calculateCovariance(Collection<INDArray> collection) {
-    int dimension = collection.iterator().next().rows();
+    final int dimension = collection.iterator().next().rows();
 
-    INDArray sampleMean = GaussianDistribution.calculateMean(collection);
+    final INDArray sampleMean = GaussianDistribution.calculateMean(collection);
 
     return collection.stream()
         .reduce(Nd4j.zeros(dimension, dimension),
@@ -104,14 +97,11 @@ public class GaussianDistribution implements Distribution<INDArray> {
   }
 
   /**
-   * From distribution.
-   *
-   * @param mean       the mean
-   * @param covariance the covariance
-   * @return the distribution
+   * @param mean       The mean of the Gaussian distribution.
+   * @param covariance The covariance of the Gaussian distribution.
+   * @return A {@link Distribution} with the supplied mean and covariance.
    */
-//    @Override
-  public Distribution<INDArray> from(INDArray mean, INDArray covariance) {
+  public static Distribution<INDArray> from(INDArray mean, INDArray covariance) {
     return new GaussianDistribution(mean, covariance);
   }
 }

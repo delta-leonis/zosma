@@ -8,22 +8,22 @@ package org.ssh.math.algebra;
 public class RealRing implements Ring<Double> {
 
   @Override
-  public Double add(Double firstElement, Double secondElement) {
+  public Double add(final Double firstElement, final Double secondElement) {
     return firstElement + secondElement;
   }
 
   @Override
-  public Double getAdditiveInverse(Double fieldElement) {
+  public Double getAdditiveInverse(final Double fieldElement) {
     return (-1d) * fieldElement;
   }
 
   @Override
-  public Double multiply(Double firstElement, Double secondElement) {
+  public Double multiply(final Double firstElement, final Double secondElement) {
     return firstElement * secondElement;
   }
 
   @Override
-  public Double getMultiplicativeInverse(Double fieldElement) throws Exception {
+  public Double getMultiplicativeInverse(final Double fieldElement) throws Exception {
     if (fieldElement == 0) {
       throw new ArithmeticException();
     }

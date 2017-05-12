@@ -33,20 +33,16 @@ package org.ssh.math.algebra;
 public interface Lattice<F> {
 
   /**
-   * And f.
-   *
-   * @param leftElement   the left element
-   * @param secondElement the second element
-   * @return the f
+   * @param leftElement   The first argument to the and-operation.
+   * @param secondElement The second argument to the and-operation.
+   * @return The result of applying the and-operation to the two arguments.
    */
-  F and(F leftElement, F secondElement);
+  F and(final F leftElement, final F secondElement);
 
   /**
-   * Or f.
-   *
-   * @param leftElement   the left element
-   * @param secondElement the second element
-   * @return the f
+   * @param leftElement   The first argument to the or-operation.
+   * @param secondElement The second argument to the or-operation.
+   * @return The result of applying the or-operation to the two arguments.
    */
-  F or(F leftElement, F secondElement);
+  F or(final F leftElement, final F secondElement);
 }

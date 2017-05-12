@@ -13,11 +13,9 @@ import org.nd4j.linalg.factory.Nd4j;
 public class Rotation {
 
   /**
-   * Planar cartesian ind array.
-   *
-   * @param input    the input
-   * @param rotation the rotation
-   * @return the ind array
+   * @param input    The input vector.
+   * @param rotation The rotation (in radians).
+   * @return The vector rotated by the specified rotation.
    */
   public static INDArray planarCartesian(INDArray input, double rotation) {
     return Nd4j.create(

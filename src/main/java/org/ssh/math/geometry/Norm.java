@@ -11,12 +11,10 @@ package org.ssh.math.geometry;
 public interface Norm {
 
   /**
-   * Calculates the norm of the supplied vector.
-   *
-   * @param <V>   The type of vector
-   * @param <N>   the type parameter
-   * @param input the input
-   * @return the double
+   * @param <V>   The type of vector.
+   * @param <N>   The type of number in the vector.
+   * @param input The vector to compute the norm of.
+   * @return The norm of the vector.
    */
-  <V extends Iterable<N>, N extends Number> double calculateNorm(V input);
+  <V extends Iterable<N>, N extends Number> double calculateNorm(final V input);
 }

@@ -27,9 +27,9 @@ public interface Boid<T> {
    * the flock exhibits flocking behavior.
    */
   T respond(
-      MovingObject<T> currentBoid,
-      Set<? extends MovingObject<T>> otherBoids,
-      double avoidanceScale,
-      double velocityRange,
-      double centeringScale);
+      final MovingObject<T> currentBoid,
+      final Set<? extends MovingObject<T>> otherBoids,
+      final double avoidanceScale,
+      final double velocityRange,
+      final double centeringScale);
 }

@@ -12,13 +12,11 @@ import org.nd4j.linalg.factory.Nd4j;
 public interface MovingAverageFilter extends Filter<INDArray> {
 
   /**
-   * Apply ind array.
-   *
-   * @param buffer the buffer
-   * @return ind array
+   * @param buffer The buffer to average.
+   * @return The average of the {@link INDArray} in the buffer.
    */
   static INDArray apply(
-      List<INDArray> buffer
+      final List<INDArray> buffer
   ) {
     return buffer.stream()
         .reduce(INDArray::add)

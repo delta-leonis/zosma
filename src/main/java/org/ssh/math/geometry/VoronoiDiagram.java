@@ -13,10 +13,8 @@ package org.ssh.math.geometry;
 public interface VoronoiDiagram<V, O extends Polygon<V>> {
 
   /**
-   * Returns the Voronoi-cell to which the endpoint of the supplied vector belongs.
-   *
    * @param vector The vector to find a matching Voronoi-cell for.
-   * @return The Voronoi-cell belonging to the vector.
+   * @return The Voronoi-cell to which the endpoint of the supplied vector belongs.
    */
-  O getCellFor(V vector);
+  O getCellFor(final V vector);
 }

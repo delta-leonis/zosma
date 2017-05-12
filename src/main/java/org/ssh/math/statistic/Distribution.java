@@ -12,15 +12,11 @@ package org.ssh.math.statistic;
 public interface Distribution<V> {
 
   /**
-   * Returns the mean of the distribution.
-   *
    * @return The mean of the distribution.
    */
   V getMean();
 
   /**
-   * Returns the covariance of the distribution.
-   *
    * @return The covariance of the distribution.
    */
   V getCovariance();

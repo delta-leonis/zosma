@@ -18,11 +18,11 @@ public interface SimpleBoid extends Boid<INDArray> {
 
   @Override
   default INDArray respond(
-      MovingObject<INDArray> currentBoid,
-      Set<? extends MovingObject<INDArray>> otherBoids,
-      double avoidanceScale,
-      double velocityRange,
-      double centeringScale
+      final MovingObject<INDArray> currentBoid,
+      final Set<? extends MovingObject<INDArray>> otherBoids,
+      final double avoidanceScale,
+      final double velocityRange,
+      final double centeringScale
   ) {
     return SimpleBoid.collisionAvoidance(currentBoid, otherBoids, avoidanceScale)
         .add(SimpleBoid.velocityMatching(currentBoid, otherBoids, velocityRange))
@@ -41,9 +41,9 @@ public interface SimpleBoid extends Boid<INDArray> {
    * the specific boid steers away from other boids in the flock.
    */
   static INDArray collisionAvoidance(
-      MovingObject<INDArray> currentBoid,
-      Set<? extends MovingObject<INDArray>> otherBoids,
-      double scalingFactor
+      final MovingObject<INDArray> currentBoid,
+      final Set<? extends MovingObject<INDArray>> otherBoids,
+      final double scalingFactor
   ) {
     return otherBoids.stream()
         .filter(boid -> !boid.equals(currentBoid))
@@ -70,9 +70,9 @@ public interface SimpleBoid extends Boid<INDArray> {
    * the specific boid matches its velocity vector with other boids within its range.
    */
   static INDArray velocityMatching(
-      MovingObject<INDArray> currentBoid,
-      Set<? extends MovingObject<INDArray>> otherBoids,
-      double range
+      final MovingObject<INDArray> currentBoid,
+      final Set<? extends MovingObject<INDArray>> otherBoids,
+      final double range
   ) {
     return otherBoids.stream()
         .filter(boid -> !boid.equals(currentBoid))
@@ -101,9 +101,9 @@ public interface SimpleBoid extends Boid<INDArray> {
    * the flock stays together.
    */
   static INDArray flockCentering(
-      MovingObject<INDArray> currentBoid,
-      Set<? extends MovingObject<INDArray>> otherBoids,
-      double scalingFactor
+      final MovingObject<INDArray> currentBoid,
+      final Set<? extends MovingObject<INDArray>> otherBoids,
+      final double scalingFactor
   ) {
     return otherBoids.stream()
         .filter(boid -> !boid.equals(currentBoid))

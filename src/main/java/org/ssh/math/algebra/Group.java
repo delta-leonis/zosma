@@ -33,7 +33,7 @@ public interface Group<F> {
    * @param secondElement The second field number, which is subtracted from the first.
    * @return The difference between the first and second argument.
    */
-  default F subtract(F firstElement, F secondElement) {
+  default F subtract(final F firstElement, final F secondElement) {
     return this.add(
         firstElement,
         this.getAdditiveInverse(secondElement));
@@ -46,7 +46,7 @@ public interface Group<F> {
    * @param secondElement The second field element to be added.
    * @return The sum of the two arguments.
    */
-  F add(F firstElement, F secondElement);
+  F add(final F firstElement, final F secondElement);
 
   /**
    * Returns the additive inverse of the argument. The additive inverse is
@@ -58,5 +58,5 @@ public interface Group<F> {
    * @param fieldElement The number to compute the additive inverse for.
    * @return The additive inverse of the argument.
    */
-  F getAdditiveInverse(F fieldElement);
+  F getAdditiveInverse(final F fieldElement);
 }
