@@ -1,17 +1,11 @@
 package org.ssh.torch.view;
 
 import com.googlecode.lanterna.screen.Screen;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import org.ssh.torch.LifeCycle;
-import org.ssh.torch.Torch;
+import java.util.*;
+import java.util.stream.*;
+import org.ssh.torch.*;
 import org.ssh.torch.lifecycle.Prerequisite;
-import org.ssh.torch.view.window.SplashScreen;
-import org.ssh.torch.view.window.WorkspaceWizardModal;
+import org.ssh.torch.view.window.*;
 
 /**
  * The Class MainWorkspace.
@@ -235,7 +229,7 @@ public class MainWorkspace extends AbstractWorkspace implements LifeCycle {
    *
    * @param screen the screen
    */
-  public MainWorkspace(Screen screen) {
+  public MainWorkspace(final Screen screen) {
     super("MainWorkspace", screen);
     Collections.shuffle(LOADING_MESSAGES);
   }

@@ -2,20 +2,20 @@ package org.ssh.torch.view.model;
 
 import lombok.Value;
 import lombok.experimental.Delegate;
-import org.ssh.benchmarks.DescriptiveMeasurement;
-import org.ssh.benchmarks.RangedMeasurement;
+import org.ssh.benchmarks.*;
 
 /**
  * The Class MeasurementViewModel.
  *
- * @param <M> the type parameter
+ * @param <M> The type of value in the measurement.
  * @author Jeroen de Jong
  */
 @Value
 public class MeasurementViewModel<M>
     implements RangedMeasurement<M>, ViewModel<DescriptiveMeasurement<M>> {
-  M min;
-  M max;
+  private final M min;
+  private final M max;
   @Delegate
-  DescriptiveMeasurement<M> object;
+  private final DescriptiveMeasurement<M> object;
+  private final long timestamp = System.currentTimeMillis();
 }

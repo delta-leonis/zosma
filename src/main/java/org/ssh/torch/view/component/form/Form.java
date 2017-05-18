@@ -1,16 +1,14 @@
 package org.ssh.torch.view.component.form;
 
-import com.googlecode.lanterna.gui2.BorderLayout;
-import com.googlecode.lanterna.gui2.Button;
-import com.googlecode.lanterna.gui2.Label;
-import com.googlecode.lanterna.gui2.Panel;
-import java.util.List;
-import java.util.Map;
+import com.googlecode.lanterna.gui2.*;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * The type Form.
+ * The Class Form.
+ *
+ * @author Jeroen de Jong
  */
 public class Form extends Panel {
 
@@ -30,15 +28,17 @@ public class Form extends Panel {
   }
 
   /**
-   * Of form.
+   * Creates a form using the supplied elements and buttons.
    *
    * @param elements the elements
    * @param buttons  the buttons
    * @return the form
    */
-  public static Form of(Map<String, FormElement<?>> elements,
-      Map<String, Consumer<List<FormElement<?>>>> buttons) {
-    Form form = new Form();
+  public static Form of(
+      final Map<String, FormElement<?>> elements,
+      final Map<String, Consumer<List<FormElement<?>>>> buttons
+  ) {
+    final Form form = new Form();
     // create buttons
     buttons.entrySet().stream()
         .map(entry -> new Button(entry.getKey(),
@@ -50,9 +50,7 @@ public class Form extends Panel {
   }
 
   /**
-   * Gets form data.
-   *
-   * @return the form data
+   * @return The data inside the form.
    */
   public synchronized List<FormElement<?>> getFormData() {
     return this.elements.getChildren().stream()
@@ -68,7 +66,7 @@ public class Form extends Panel {
    * @param element the element
    * @return the form
    */
-  public synchronized Form addComponent(String label, FormElement<?> element) {
+  public synchronized Form addComponent(final String label, final FormElement<?> element) {
     this.labels.addComponent(new Label(label));
     this.elements.addComponent(element);
     return this;
@@ -80,7 +78,7 @@ public class Form extends Panel {
    * @param button the button
    * @return the form
    */
-  public synchronized Form addComponent(Button button) {
+  public synchronized Form addComponent(final Button button) {
     this.buttons.addComponent(button);
     return this;
   }

@@ -19,12 +19,11 @@ public class ConstructorForm extends Panel {
    * @param onSubmit    the on submit
    */
   public ConstructorForm(
-      ConstructorViewModel constructor,
-      Consumer<List<FormElement<?>>> onSubmit
+      final ConstructorViewModel constructor,
+      final Consumer<List<FormElement<?>>> onSubmit
   ) {
     constructor.getParameterPresenters().stream()
         .reduce((FormBuilder) new SimpleFormBuilder(),
-            // TODO uitzoeken waarom java zo kanker is
             (form, param) -> form
                 .addField(param.getName(), param.getType(), param.getDefault("")),
             (u, t) -> t)

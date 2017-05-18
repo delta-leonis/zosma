@@ -2,10 +2,8 @@ package org.ssh.torch;
 
 import com.googlecode.lanterna.screen.Screen;
 import java.util.List;
-import org.ssh.ipc.event.notification.Notification;
-import org.ssh.ipc.event.notification.NotificationPublisher;
-import org.ssh.torch.view.MainWorkspace;
-import org.ssh.torch.view.Workspace;
+import org.ssh.ipc.event.notification.*;
+import org.ssh.torch.view.*;
 
 /**
  * The Class TorchUI.
@@ -38,7 +36,7 @@ public class TorchUI {
    * @param workspace the workspace
    * @return the workspace manager
    */
-  public static WorkspaceManager addWorkspace(Workspace workspace) {
+  public static WorkspaceManager addWorkspace(final Workspace workspace) {
     return TorchUI.lit().addWorkspace(workspace);
   }
 
@@ -66,7 +64,7 @@ public class TorchUI {
    * @param workspace the workspace
    * @return the active workspace
    */
-  public static WorkspaceManager setActiveWorkspace(Workspace workspace) {
+  public static WorkspaceManager setActiveWorkspace(final Workspace workspace) {
     return TorchUI.lit().setActiveWorkspace(workspace);
   }
 
@@ -75,7 +73,7 @@ public class TorchUI {
    *
    * @param notification the notification
    */
-  public static void notify(Notification notification) {
+  public static void notify(final Notification notification) {
     notificationPublisher.addNotification(notification);
   }
 
@@ -102,7 +100,7 @@ public class TorchUI {
    *
    * @param args the input arguments
    */
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     TorchUI.lit(); // light them spul
   }
 }

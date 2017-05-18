@@ -1,17 +1,18 @@
 package org.ssh.torch.view.model;
 
 /**
- * The Class ViewModel.
+ * The Interface ViewModel.
  *
- * @param <O> the type parameter
+ * This interface describes the functionality of a view-model, which is a model which can be
+ * rendered by torch.
+ *
+ * @param <O> The type of object which is described by this view-model.
  * @author Jeroen de Jong
  */
 public interface ViewModel<O> {
 
   /**
-   * Gets object.
-   *
-   * @return the object
+   * @return The object which is described by this view-model.
    */
   O getObject();
 }

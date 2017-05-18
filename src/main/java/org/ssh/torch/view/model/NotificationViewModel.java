@@ -1,11 +1,8 @@
 package org.ssh.torch.view.model;
 
-import com.googlecode.lanterna.gui2.Button;
-import com.googlecode.lanterna.gui2.Label;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.googlecode.lanterna.gui2.*;
+import java.util.*;
+import java.util.stream.*;
 import lombok.Value;
 import lombok.experimental.Delegate;
 import org.ssh.ipc.event.notification.Notification;

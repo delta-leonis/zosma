@@ -1,16 +1,14 @@
 package org.ssh.torch.view.window;
 
 
-import com.googlecode.lanterna.gui2.Label;
-import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.ProgressBar;
+import com.googlecode.lanterna.gui2.*;
 import java.util.Collections;
 import org.ssh.ipc.Zosma;
 import org.ssh.ipc.event.LifeCycleEvent;
 import org.ssh.ipc.event.LifeCycleEvent.State;
 import org.ssh.torch.lifecycle.Prerequisite;
 import org.ssh.torch.view.BasicWindow;
-import org.ssh.torch.view.MainWorkspace;
+import org.ssh.torch.view.*;
 
 /**
  * The Class SplashScreen.
@@ -44,7 +42,7 @@ public class SplashScreen extends BasicWindow {
    *
    * @param prerequisiteCount Number of prerequisite events to expect.
    */
-  public SplashScreen(int prerequisiteCount) {
+  public SplashScreen(final int prerequisiteCount) {
     this.setHints(Collections.singletonList(Hint.CENTERED));
 
     this.progressBar = new ProgressBar(0, prerequisiteCount);
@@ -64,11 +62,12 @@ public class SplashScreen extends BasicWindow {
   }
 
   /**
-   * Updates the loading status with the information contained in the supplied {@link LifeCycleEvent}
-   * from a {@link MainWorkspace}.
+   * Updates the loading status with the information contained in the supplied {@link
+   * LifeCycleEvent} from a {@link MainWorkspace}.
+   *
    * @param mainWorkspaceEvent The {@link LifeCycleEvent}.
    */
-  public void updateLoadingStatus(LifeCycleEvent<Prerequisite, MainWorkspace> mainWorkspaceEvent) {
+  public void updateLoadingStatus(final LifeCycleEvent<Prerequisite, MainWorkspace> mainWorkspaceEvent) {
     this.progressBar.setPreferredWidth(this.getPreferredSize().getColumns());
     this.loadingLabel.setText(mainWorkspaceEvent.getSource().toString());
     this.progressBar.setValue(this.progressBar.getValue() + 1);

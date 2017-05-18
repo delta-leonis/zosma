@@ -1,7 +1,6 @@
 package org.ssh.ipc.event.notification;
 
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
+import org.reactivestreams.*;
 import reactor.core.publisher.TopicProcessor;
 
 /**
@@ -20,12 +19,12 @@ public class NotificationPublisher implements Publisher<Notification> {
    *
    * @param notification The notification to be published.
    */
-  public void addNotification(Notification notification) {
+  public void addNotification(final Notification notification) {
     this.topicPublisher.onNext(notification);
   }
 
   @Override
-  public void subscribe(Subscriber<? super Notification> s) {
-    topicPublisher.subscribe(s);
+  public void subscribe(final Subscriber<? super Notification> subscriber) {
+    topicPublisher.subscribe(subscriber);
   }
 }

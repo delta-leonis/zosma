@@ -1,19 +1,14 @@
 package org.ssh.torch.view;
 
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.SimpleTheme;
-import com.googlecode.lanterna.graphics.Theme;
-import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
+import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.graphics.*;
+import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import java.util.logging.Level;
 import lombok.Getter;
 import org.ssh.ipc.event.notification.Notification;
-import org.ssh.torch.TorchUI;
-import org.ssh.torch.WorkspaceThread;
+import org.ssh.torch.*;
 import org.ssh.torch.view.window.TopInformationWindow;
 import org.ssh.torch.view.window.modal.WorkspaceSwitchModal;
 
@@ -35,7 +30,7 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
    *
    * @param title the title
    */
-  public AbstractWorkspace(String title) {
+  public AbstractWorkspace(final String title) {
     this(title, TorchUI.getScreen());
   }
 
@@ -45,7 +40,7 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
    * @param title  the title
    * @param screen the screen
    */
-  public AbstractWorkspace(String title, Screen screen) {
+  public AbstractWorkspace(final String title, final Screen screen) {
     super(new WorkspaceThread.Factory(), screen);
     resetTheme = this.getTheme();
     this.title = title.toUpperCase();
@@ -109,7 +104,9 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
   }
 
   @Override
-  public synchronized WindowBasedTextGUI addWindow(com.googlecode.lanterna.gui2.Window window) {
+  public synchronized WindowBasedTextGUI addWindow(
+      final com.googlecode.lanterna.gui2.Window window
+  ) {
     WindowBasedTextGUI windowBasedTextGUI = super.addWindow(window);
     window.setPosition(window.getPosition().withRelativeRow(2));
     return windowBasedTextGUI;
@@ -117,7 +114,8 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
 
   @Override
   public synchronized MultiWindowTextGUI setActiveWindow(
-      com.googlecode.lanterna.gui2.Window activeWindow) {
+      final com.googlecode.lanterna.gui2.Window activeWindow
+  ) {
     if (!this.getWindows().contains(activeWindow)) {
       this.addWindow(activeWindow);
     }

@@ -1,7 +1,8 @@
 package org.ssh.benchmarks;
 
+import java.io.Serializable;
+import org.ssh.math.Temporal;
 import org.ssh.math.statistic.DescriptiveMeasure;
-import org.ssh.math.unit.Unit;
 
 /**
  * The Interface DescriptiveMeasurement.
@@ -9,7 +10,7 @@ import org.ssh.math.unit.Unit;
  * @param <V> The type of value.
  * @author Rimon Oz
  */
-public interface DescriptiveMeasurement<V> {
+public interface DescriptiveMeasurement<V> extends Serializable, Temporal {
   /**
    * @return The value of the measurement.
    */
@@ -24,9 +25,4 @@ public interface DescriptiveMeasurement<V> {
    * @return The label of the measurement.
    */
   String getLabel();
-
-  /**
-   * @return The {@link Unit} of measurement.
-   */
-  Unit getUnit();
 }

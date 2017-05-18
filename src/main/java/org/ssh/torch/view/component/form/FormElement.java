@@ -6,40 +6,32 @@ import java.util.function.Function;
 /**
  * The Interface FormElement.
  *
- * @param <T> the type parameter
+ * @param <T> The type of value inside the element.
  * @author Jeroen de Jong
  */
 public interface FormElement<T> extends Interactable {
 
   /**
-   * Gets value.
-   *
-   * @return the value
+   * @return The value of the element.
    */
   T getValue();
 
   /**
-   * Sets value.
-   *
-   * @param value the value
-   * @return the value
+   * @param value The string to set on the element.
+   * @return The element itself.
    */
-  FormElement setValue(T value);
-
-  /**
-   * Sets value.
-   *
-   * @param value the value
-   * @return the value
-   */
-  default FormElement setValue(String value) {
+  default FormElement setValue(final String value) {
     return setValue(getParser().apply(value));
   }
 
   /**
-   * Gets parser.
-   *
-   * @return the parser
+   * @param value The value to set on the element.
+   * @return the value
+   */
+  FormElement setValue(final T value);
+
+  /**
+   * @return The parser which converts the field value to {@code <T>}.
    */
   Function<String, T> getParser();
 }

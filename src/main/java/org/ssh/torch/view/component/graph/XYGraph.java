@@ -1,12 +1,8 @@
 package org.ssh.torch.view.component.graph;
 
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.gui2.AbstractComponent;
-import com.googlecode.lanterna.gui2.ComponentRenderer;
-import com.googlecode.lanterna.gui2.TextGUIGraphics;
-import java.util.List;
-import java.util.Map;
+import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.gui2.*;
+import java.util.*;
 import lombok.Setter;
 
 /**

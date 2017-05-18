@@ -2,8 +2,7 @@ package org.ssh.torch.view;
 
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import java.util.Optional;
-import org.ssh.torch.Torch;
-import org.ssh.torch.WorkspaceThread;
+import org.ssh.torch.*;
 
 /**
  * The Interface Workspace.
@@ -13,16 +12,12 @@ import org.ssh.torch.WorkspaceThread;
 public interface Workspace extends WindowBasedTextGUI {
 
   /**
-   * Gets title.
-   *
-   * @return the title
+   * @return The title of the workspace.
    */
   String getTitle();
 
   /**
-   * Is constructible boolean.
-   *
-   * @return the boolean
+   * @return True if constructible, false otherwise.
    */
   default boolean isConstructible() {
     return Optional.ofNullable(this.getClass().getAnnotation(Torch.class))
@@ -31,8 +26,6 @@ public interface Workspace extends WindowBasedTextGUI {
   }
 
   /**
-   * Gets workspace thread.
-   *
    * @return the workspace thread
    */
   default WorkspaceThread getWorkspaceThread() {

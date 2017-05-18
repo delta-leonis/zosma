@@ -1,8 +1,7 @@
 package org.ssh.ipc;
 
 import java.util.concurrent.ConcurrentHashMap;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.TopicProcessor;
+import reactor.core.publisher.*;
 
 /**
  * The Class Zosma.
@@ -26,7 +25,7 @@ public class Zosma {
    * @param event The {@link Event} to broadcast.
    * @param <E>   The type of {@link Event} which is being broadcast.
    */
-  public static <E extends Event> void broadcast(E event) {
+  public static <E extends Event> void broadcast(final E event) {
     if (listenerMap.containsKey(event.getClass()))
       ((TopicProcessor<E>)listenerMap.get(event.getClass())).onNext(event);
   }
@@ -39,7 +38,7 @@ public class Zosma {
    *  such {@link Flux stream} exists.
    * @throws NullPointerException if the specified key is null
    */
-  public static <E extends Event> Flux<E> listen(Class<E> eventType) {
+  public static <E extends Event> Flux<E> listen(final Class<E> eventType) {
     if (!listenerMap.containsKey(eventType))
       listenerMap.put(eventType, TopicProcessor.<E>create());
     return ((Flux<E>)listenerMap.get(eventType));

@@ -1,8 +1,6 @@
 package org.ssh.torch.view.component;
 
-import com.googlecode.lanterna.gui2.ActionListBox;
-import com.googlecode.lanterna.gui2.Label;
-import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.*;
 import java.util.Collection;
 import java.util.function.Consumer;
 import org.ssh.torch.view.model.reflect.ConstructorViewModel;
@@ -20,8 +18,8 @@ public class ConstructorList extends Panel {
    * @param callback     the callback
    */
   public ConstructorList(
-      Collection<ConstructorViewModel> constructors,
-      Consumer<ConstructorViewModel> callback
+      final Collection<ConstructorViewModel> constructors,
+      final Consumer<ConstructorViewModel> callback
   ) {
     if (!constructors.stream().allMatch(ConstructorViewModel::allParameterNamePresent)) {
       this.addComponent(new Label("Could not infer parameter names.\n" +

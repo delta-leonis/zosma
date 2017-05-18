@@ -1,7 +1,6 @@
 package org.ssh.torch.view.window.modal;
 
-import com.googlecode.lanterna.gui2.ActionListBox;
-import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.*;
 import org.ssh.torch.TorchUI;
 import org.ssh.torch.view.Workspace;
 import org.ssh.torch.view.window.WorkspaceWizardModal;

@@ -1,15 +1,12 @@
 package org.ssh.torch.view.model.reflect;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 import lombok.Value;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
-import org.ssh.torch.view.component.form.FormElement;
-import org.ssh.torch.view.component.form.SimpleFormBuilder;
+import org.ssh.torch.view.component.form.*;
 import org.ssh.torch.view.model.ViewModel;
 
 /**
@@ -25,9 +22,7 @@ public class ConstructorViewModel implements ViewModel<Constructor> {
   private Constructor object;
 
   /**
-   * All parameters supported boolean.
-   *
-   * @return the boolean
+   * @return True if parameters are supported, false otherwise.
    */
   public boolean allParametersSupported() {
     SimpleFormBuilder formBuilder = new SimpleFormBuilder();
@@ -37,9 +32,7 @@ public class ConstructorViewModel implements ViewModel<Constructor> {
   }
 
   /**
-   * Gets parameter presenters.
-   *
-   * @return the parameter presenters
+   * @return A {@link List} of {@link ParameterViewModel} for each parameter of the constructor.
    */
   public List<ParameterViewModel> getParameterPresenters() {
     return Stream.of(object.getParameters())
@@ -48,9 +41,7 @@ public class ConstructorViewModel implements ViewModel<Constructor> {
   }
 
   /**
-   * All parameter name present boolean.
-   *
-   * @return the boolean
+   * @return True if all parameters names are present, false otherwise.
    */
   public boolean allParameterNamePresent() {
     return this.getParameterPresenters()
@@ -59,18 +50,20 @@ public class ConstructorViewModel implements ViewModel<Constructor> {
   }
 
   /**
-   * Create o.
+   * Calls the constructor with the values in the supplied {@link List} of {@link FormElement}.
    *
-   * @param <O>  the type parameter
-   * @param data the data
-   * @return the o
+   * @param <O>  The type of object produced by the constructor.
+   * @param data The list of {@link FormElement} containing values used as arguments to the
+   *             constructor.
+   * @return The instantiated object produced by the constructor.
    */
-  public <O> O create(List<FormElement<?>> data) {
+  public <O> O create(final List<FormElement<?>> data)
+      throws IllegalAccessException, InvocationTargetException, InstantiationException {
     try {
       return (O) this.newInstance(data.stream().map(FormElement::getValue).toArray());
-    } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-      log.debug("Could not create " + this.getDeclaringClass().getSimpleName(), e);
-      throw new RuntimeException(e);
+    } catch (final InstantiationException | IllegalAccessException | InvocationTargetException exception) {
+      log.debug(String.format("Could not create %s", this.getDeclaringClass().getSimpleName()), exception);
+      throw exception;
     }
   }
 
@@ -80,6 +73,9 @@ public class ConstructorViewModel implements ViewModel<Constructor> {
         this.getParameterDescription());
   }
 
+  /**
+   * @return A {@link String} containing the method signature of the constructor.
+   */
   private String getParameterDescription() {
     return getParameterPresenters().stream()
         .map(ParameterViewModel::getDescription)

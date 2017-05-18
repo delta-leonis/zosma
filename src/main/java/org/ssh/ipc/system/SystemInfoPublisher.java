@@ -1,6 +1,7 @@
 package org.ssh.ipc.system;
 
 import org.reactivestreams.Publisher;
+import org.ssh.benchmarks.DescriptiveMeasurement;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
 
@@ -12,7 +13,7 @@ import oshi.hardware.HardwareAbstractionLayer;
  * @param <T> the type parameter
  * @author Jeroen de Jong
  */
-public abstract class SystemInfoPublisher<T> implements Publisher<T> {
+public abstract class SystemInfoPublisher<T extends DescriptiveMeasurement> implements Publisher<T> {
 
   /**
    * The INTERVAL between new data in ms

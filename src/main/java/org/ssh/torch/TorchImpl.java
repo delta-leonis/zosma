@@ -1,19 +1,14 @@
 package org.ssh.torch;
 
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.screen.VirtualScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.TerminalFactory;
-import java.util.Collections;
-import java.util.List;
+import com.googlecode.lanterna.screen.*;
+import com.googlecode.lanterna.terminal.*;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.Getter;
 import org.ssh.ipc.Zosma;
 import org.ssh.ipc.event.TorchEvent;
 import org.ssh.ipc.event.TorchEvent.Action;
-import org.ssh.ipc.event.torch.TerminalEvent;
-import org.ssh.ipc.event.torch.WorkspaceEvent;
+import org.ssh.ipc.event.torch.*;
 import org.ssh.torch.view.Workspace;
 import org.ssh.torch.view.window.NotificationCenterModal;
 
@@ -65,7 +60,7 @@ public final class TorchImpl implements WorkspaceManager {
   }
 
   @Override
-  public WorkspaceManager setActiveWorkspace(Workspace workspace) {
+  public WorkspaceManager setActiveWorkspace(final Workspace workspace) {
     if (this.activeWorkspace == workspace) {
       return this;
     }
@@ -87,7 +82,7 @@ public final class TorchImpl implements WorkspaceManager {
   }
 
   @Override
-  public WorkspaceManager addWorkspace(Workspace workspace) {
+  public WorkspaceManager addWorkspace(final Workspace workspace) {
     this.workspaces.add(workspace);
     return this;
   }

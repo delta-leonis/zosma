@@ -6,7 +6,7 @@ import org.ssh.ipc.serialization.WriteHandler;
 /**
  * The Interface JsonWriteHandler.
  *
- * This interface describes the functionality of an object which couples Gson's #serialize
+ * This interface describes the functionality of an object which couples Gson's #write
  * to a {@link WriteHandler} to allow for writing as JSON.
  *
  * @param <O> Type of object which will be written

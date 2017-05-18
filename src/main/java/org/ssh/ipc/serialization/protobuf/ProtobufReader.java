@@ -1,8 +1,6 @@
 package org.ssh.ipc.serialization.protobuf;
 
-import com.google.protobuf.GeneratedMessage;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Parser;
+import com.google.protobuf.*;
 import org.ssh.ipc.serialization.Reader;
 
 /**

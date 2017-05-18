@@ -10,7 +10,7 @@ import org.ssh.math.geometry.*;
  * NXNDIST: http://www.cse.unsw.edu.au/~yingz/papers/2013_dassfa_AVRtree.pdf
  *
  * @param <V> The type of vector.
- * @param <O> The type of object stored in the {@link VoRTree.Node}.
+ * @param <O> The type of object stored in the {@link Node}.
  * @param <F> The type of Voronoi-polygon.
  */
 public interface VoRTree<V, O, F extends Polygon<V>>

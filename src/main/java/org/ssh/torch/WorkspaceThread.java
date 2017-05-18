@@ -1,13 +1,8 @@
 package org.ssh.torch;
 
-import com.googlecode.lanterna.gui2.AbstractTextGUIThread;
-import com.googlecode.lanterna.gui2.AsynchronousTextGUIThread;
-import com.googlecode.lanterna.gui2.TextGUI;
-import com.googlecode.lanterna.gui2.TextGUIThread;
-import com.googlecode.lanterna.gui2.TextGUIThreadFactory;
+import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
-import java.io.EOFException;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.CountDownLatch;
 import lombok.Getter;
 import org.ssh.math.function.LambdaExceptions;
@@ -166,7 +161,7 @@ public class WorkspaceThread extends AbstractTextGUIThread implements Asynchrono
   public static class Factory implements TextGUIThreadFactory {
 
     @Override
-    public TextGUIThread createTextGUIThread(TextGUI textGUI) {
+    public TextGUIThread createTextGUIThread(final TextGUI textGUI) {
       return new WorkspaceThread(textGUI);
     }
   }

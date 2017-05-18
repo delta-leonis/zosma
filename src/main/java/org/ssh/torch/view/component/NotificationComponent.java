@@ -1,8 +1,6 @@
 package org.ssh.torch.view.component;
 
-import com.googlecode.lanterna.gui2.Borders;
-import com.googlecode.lanterna.gui2.GridLayout;
-import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.*;
 import org.ssh.torch.view.model.NotificationViewModel;
 
 /**
@@ -19,7 +17,7 @@ public class NotificationComponent extends Panel {
    *
    * @param notification the notification
    */
-  public NotificationComponent(NotificationViewModel notification) {
+  public NotificationComponent(final NotificationViewModel notification) {
     this.notification = notification;
     this.setLayoutManager(new GridLayout(3));
     // add the label
@@ -31,9 +29,7 @@ public class NotificationComponent extends Panel {
   }
 
   /**
-   * Is visible boolean.
-   *
-   * @return the boolean
+   * @return True if visible, false otherwise.
    */
   public boolean isVisible() {
     return this.notification.isUnRead();

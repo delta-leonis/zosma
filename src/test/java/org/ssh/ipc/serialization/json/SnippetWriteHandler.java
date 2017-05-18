@@ -9,7 +9,7 @@ import lombok.Value;
 /**
  * The Class SnippetWriteHandler.
  *
- * This class is used in the {@link JsonWriterTest} to serialize {@link Snippet snippets}.
+ * This class is used in the {@link JsonWriterTest} to write {@link Snippet snippets}.
  *
  * @author Rimon Oz
  */

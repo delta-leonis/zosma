@@ -1,9 +1,7 @@
 package org.ssh.torch.view.model.reflect;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.stream.*;
 import lombok.Value;
 import lombok.experimental.Delegate;
 import org.ssh.torch.Torch;
@@ -12,7 +10,7 @@ import org.ssh.torch.view.model.ViewModel;
 /**
  * The Class WorkspaceClassViewModel.
  *
- * @param <T> the type parameter
+ * @param <T> The type of {@link Class}
  * @author Jeroen de Jong
  */
 @Value
@@ -26,9 +24,7 @@ public class WorkspaceClassViewModel<T> implements ViewModel<Class<T>> {
   }
 
   /**
-   * Gets callable constructors.
-   *
-   * @return the callable constructors
+   * @return The callable constructors of the wrapped class.
    */
   public List<ConstructorViewModel> getCallableConstructors() {
     return Stream.of(this.getConstructors())
@@ -38,11 +34,9 @@ public class WorkspaceClassViewModel<T> implements ViewModel<Class<T>> {
   }
 
   /**
-   * Is constructable boolean.
-   *
-   * @return the boolean
+   * @return True if class is constructible, false otherwise.
    */
-  public boolean isConstructable() {
+  public boolean isConstructible() {
     return Optional.ofNullable(object.getAnnotation(Torch.class))
         .map(Torch::constructible).orElse(true);
   }

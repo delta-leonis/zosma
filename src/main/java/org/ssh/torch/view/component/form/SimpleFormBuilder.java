@@ -1,9 +1,7 @@
 package org.ssh.torch.view.component.form;
 
 import java.lang.reflect.Modifier;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +9,9 @@ import org.reflections.Reflections;
 import org.ssh.torch.view.model.reflect.FormElementClassViewModel;
 
 /**
- * The type Simple form builder.
+ * The Class SimpleFormBuilder.
+ *
+ * @author Jeroen de Jong
  */
 @Slf4j
 public class SimpleFormBuilder implements FormBuilder {
@@ -24,41 +24,40 @@ public class SimpleFormBuilder implements FormBuilder {
    * Instantiates a new Simple form builder.
    */
   public SimpleFormBuilder() {
-    buttons = new LinkedHashMap<>();
-    elements = new LinkedHashMap<>();
-    supportedTypes = new Reflections(this.getClass().getPackage().getName() + ".fields")
+    this.buttons = new LinkedHashMap<>();
+    this.elements = new LinkedHashMap<>();
+    this.supportedTypes = new Reflections(this.getClass().getPackage().getName() + ".fields")
         .getSubTypesOf(FormElement.class).stream()
         .filter(aClass -> !Modifier.isAbstract(aClass.getModifiers()))
         .map(FormElementClassViewModel::new)
         .filter(FormElementClassViewModel::hasEmptyConstructor)
         .collect(Collectors.toMap(
             FormElementClassViewModel::getElementType,
-            FormElementClassViewModel::getObject
-        ));
+            FormElementClassViewModel::getObject));
   }
 
   @Override
-  public boolean isSupported(Class<?> type) {
+  public boolean isSupported(final Class<?> type) {
     return this.supportedTypes.containsKey(type);
   }
 
   @Override
-  public <T> FormElement<T> createFormElement(Class<T> type) throws NoSuchFormElementException {
+  public <T> FormElement<T> createFormElement(final Class<T> type) throws NoSuchFormElementException {
     try {
       return (FormElement<T>) this.supportedTypes.get(type).newInstance();
-    } catch (IllegalAccessException | InstantiationException e) {
+    } catch (final IllegalAccessException | InstantiationException e) {
       throw new NoSuchFormElementException(e);
     }
   }
 
   @Override
-  public <T> SimpleFormBuilder addFormElement(String label, FormElement<T> element) {
+  public <T> SimpleFormBuilder addFormElement(final String label, final FormElement<T> element) {
     this.elements.put(label, element);
     return this;
   }
 
   @Override
-  public SimpleFormBuilder addButton(String label, Consumer<List<FormElement<?>>> onSelect) {
+  public SimpleFormBuilder addButton(final String label, final Consumer<List<FormElement<?>>> onSelect) {
     this.buttons.put(label, onSelect);
     return this;
   }

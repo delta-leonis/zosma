@@ -1,9 +1,6 @@
 package org.ssh.torch;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * The Interface Torch.
@@ -15,16 +12,12 @@ import java.lang.annotation.Target;
 public @interface Torch {
 
   /**
-   * Name string.
-   *
-   * @return the string
+   * @return The name of the torch.
    */
   String name();
 
   /**
-   * Constructible boolean.
-   *
-   * @return the boolean
+   * @return True if torch is constructible, false otherwise.
    */
   boolean constructible() default true;
 }

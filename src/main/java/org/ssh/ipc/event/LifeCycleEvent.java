@@ -39,46 +39,65 @@ public class LifeCycleEvent<S, C> implements Event<S> {
   private final State state;
 
   /**
-   * A description of the state of the {@link LifeCycle}
-   */
-  public enum State {
-    /** The prerequisite state. */
-    PREREQUISITE,
-    /** The start state. */
-    START,
-    /** The pause state. */
-    PAUSE,
-    /** The stop state. */
-    STOP,
-    /** The reset state. */
-    RESET
-  }
-
-  /**
    * Constructs a {@link LifeCycleEvent} based on a {@link LifeCycle}
+   *
    * @param source  The source which initiated this event
    * @param context The context in which this event was instantiated
    * @param state   The current state of the {@link #source}
-   * @param <S> The type of source
-   * @param <C> The type of context
+   * @param <S>     The type of source
+   * @param <C>     The type of context
    * @return A {@link LifeCycleEvent} describing the state of the provided source within a context.
    */
-  public static <S, C extends LifeCycle> LifeCycleEvent<S, C> of(S source, C context, State state) {
+  public static <S, C extends LifeCycle> LifeCycleEvent<S, C> of(
+      final S source,
+      final C context,
+      final State state
+  ) {
     return new LifeCycleEvent<>(source, context, state);
   }
 
   /**
    * Constructs a {@link LifeCycleEvent} based on the loading of a {@link Prerequisite}
+   *
    * @param source       The source which loaded a prerequisite
    * @param prerequisite The prerequisite which was loaded
-   * @param <S> The type of source
-   * @param <P> The type of {@link Prerequisite}
+   * @param <S>          The type of source
+   * @param <P>          The type of {@link Prerequisite}
    * @return A {@link LifeCycleEvent} describing the loading of a {@link Prerequisite}.
    */
-  public static <S, P extends Prerequisite> LifeCycleEvent<S, P> of(S source, P prerequisite) {
+  public static <S, P extends Prerequisite> LifeCycleEvent<S, P> of(
+      final S source,
+      final P prerequisite
+  ) {
     return new LifeCycleEvent<>(
-      source,
-      prerequisite,
-      State.PREREQUISITE);
+        source,
+        prerequisite,
+        State.PREREQUISITE);
+  }
+
+  /**
+   * A description of the state of the {@link LifeCycle}
+   */
+  public enum State {
+    /**
+     * The prerequisite state.
+     */
+    PREREQUISITE,
+    /**
+     * The start state.
+     */
+    START,
+    /**
+     * The pause state.
+     */
+    PAUSE,
+    /**
+     * The stop state.
+     */
+    STOP,
+    /**
+     * The reset state.
+     */
+    RESET
   }
 }

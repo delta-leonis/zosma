@@ -1,23 +1,15 @@
 package org.ssh.ipc.peripheral;
 
 import com.google.common.collect.ImmutableSet;
-import com.studiohartman.jamepad.ControllerManager;
-import com.studiohartman.jamepad.ControllerState;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import com.studiohartman.jamepad.*;
+import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
-import org.ssh.game.Agent;
-import org.ssh.game.Command;
-import org.ssh.game.Strategy;
-import org.ssh.game.engine.MapEngine;
-import org.ssh.game.engine.Turk;
+import org.reactivestreams.*;
+import org.ssh.game.*;
+import org.ssh.game.engine.*;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -31,7 +23,7 @@ import reactor.core.scheduler.Schedulers;
 @Slf4j
 public abstract class ControllerTurk<
     A extends Agent,
-    S extends Strategy> implements Turk<S, Integer>, MapEngine<Set<A>, S, Integer>  {
+    S extends Strategy> implements Turk<S, Integer>, MapEngine<Set<A>, S, Integer> {
 
   /**
    * The Controllers.
@@ -49,10 +41,11 @@ public abstract class ControllerTurk<
 
   /**
    * Instantiates a new ControllerTurk.
+   *
    * @param strategySubscriber The {@link Subscriber} which parses the {@link Strategy strategies}.
    * @param controllerCount    The number of controllers.
    */
-  public ControllerTurk(Subscriber<S> strategySubscriber, int controllerCount) {
+  public ControllerTurk(final Subscriber<S> strategySubscriber, final int controllerCount) {
     this.strategySubscriber = strategySubscriber;
     this.controllers = new ControllerManager(controllerCount);
     this.controllers.initSDLGamepad();
@@ -83,9 +76,9 @@ public abstract class ControllerTurk<
    * @param agent   The {@link Agent} to link the handler to.
    * @return set set
    */
-  public Set<A> assignHandler(Integer handler, A agent) {
-    log.info("Assigning handler '" + handler + "' to "
-        + agent.getClass().getTypeName() + " " + agent.getId());
+  public Set<A> assignHandler(final Integer handler, final A agent) {
+    log.info("Assigning handler '{}' to {} with identifier {}",
+        handler, agent.getClass().getTypeName(), agent.getId());
     return this.getPartsMap().put(handler, ImmutableSet.<A>builder()
         .addAll(Collections.singleton(agent))
         .addAll(this.getPartsMap().getOrDefault(handler, Collections.emptySet())).build());
@@ -98,9 +91,9 @@ public abstract class ControllerTurk<
    * @param agent   The {@link Agent} to unassign the handler from.
    * @return set set
    */
-  public Set<A> unassignHandler(Integer handler, A agent) {
-    log.info("Unassigning handler '" + handler + "' from "
-        + agent.getClass().getTypeName() + " " + agent.getId());
+  public Set<A> unassignHandler(final Integer handler, final A agent) {
+    log.info("Unassigning handler '{}' from {} with identifier {}",
+        handler, agent.getClass().getTypeName(), agent.getId());
     if (this.getPartsMap().containsKey(handler)) {
       if (this.getPartsMap().get(handler).contains(agent)) {
         return this.getPartsMap().put(
@@ -112,15 +105,6 @@ public abstract class ControllerTurk<
     }
     return Collections.emptySet();
   }
-
-  /**
-   * Creates a {@link Strategy} from the specified command for the specified agent.
-   *
-   * @param agent   The {@link Agent} to create a strategy for.
-   * @param command The {@link Command} to create the strategy from.
-   * @return A strategy for the supplied {@link Agent} created from the supplied {@link Command}
-   */
-  public abstract S createStrategy(final A agent, final ControllerState command);
 
   @Override
   public void play() {
@@ -137,4 +121,13 @@ public abstract class ControllerTurk<
         .map(this::arbitrate)
         .subscribe(this.getStrategySubscriber());
   }
+
+  /**
+   * Creates a {@link Strategy} from the specified command for the specified agent.
+   *
+   * @param agent   The {@link Agent} to create a strategy for.
+   * @param command The {@link Command} to create the strategy from.
+   * @return A strategy for the supplied {@link Agent} created from the supplied {@link Command}
+   */
+  public abstract S createStrategy(final A agent, final ControllerState command);
 }

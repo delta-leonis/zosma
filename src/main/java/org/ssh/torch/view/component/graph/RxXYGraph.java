@@ -1,18 +1,12 @@
 package org.ssh.torch.view.component.graph;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
-import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.*;
 import org.reactivestreams.Subscription;
-import org.ssh.benchmarks.MeasurementContext;
-import org.ssh.benchmarks.RangedMeasurement;
+import org.ssh.benchmarks.*;
 import org.ssh.torch.view.RxComponent;
-import org.ssh.torch.view.model.MeasurementContextViewModel;
+import org.ssh.torch.view.model.GroupedMeasurementViewModel;
 
 /**
  * The Class RxXYGraph.
@@ -21,7 +15,7 @@ import org.ssh.torch.view.model.MeasurementContextViewModel;
  * @param <R> the type parameter
  * @author Jeroen de Jong
  */
-public class RxXYGraph<C extends MeasurementContextViewModel<? extends MeasurementContext>, R extends RangedMeasurement<? extends Number>>
+public class RxXYGraph<C extends GroupedMeasurementViewModel<? extends GroupedMeasurement>, R extends RangedMeasurement<? extends Number>>
     extends XYGraph implements RxComponent<C> {
 
   private final Function<C, R> getter;

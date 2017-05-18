@@ -1,18 +1,13 @@
 package org.ssh.torch.view.window;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.gui2.GridLayout;
-import com.googlecode.lanterna.gui2.Label;
-import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
+import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.terminal.Terminal;
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import org.ssh.ipc.Zosma;
 import org.ssh.ipc.event.TorchEvent;
-import org.ssh.ipc.event.torch.TerminalEvent;
-import org.ssh.ipc.event.torch.WorkspaceEvent;
+import org.ssh.ipc.event.torch.*;
 import org.ssh.torch.view.Workspace;
 
 /**
@@ -28,16 +23,15 @@ public class TopInformationWindow extends org.ssh.torch.view.BasicWindow {
    */
   public TopInformationWindow() {
     super("");
-    this.setHints(Arrays
-        .asList(Hint.NO_DECORATIONS, Hint.NO_POST_RENDERING, Hint.FIXED_POSITION,
+    this.setHints(
+        Arrays.asList(Hint.NO_DECORATIONS, Hint.NO_POST_RENDERING, Hint.FIXED_POSITION,
             Hint.FIXED_SIZE, Hint.NO_FOCUS));
 
     currentWorkspaceLabel = new Label("Loading...");
 
     setComponent(new Panel()
         .addComponent(currentWorkspaceLabel)
-        .setLayoutManager(new GridLayout(3))
-    );
+        .setLayoutManager(new GridLayout(3)));
 
     this.setSize(new TerminalSize(80, 2));
     this.setPosition(new TerminalPosition(0, 0));
@@ -54,7 +48,7 @@ public class TopInformationWindow extends org.ssh.torch.view.BasicWindow {
         .subscribe(this.currentWorkspaceLabel::setText);
   }
 
-  private void updateSize(Terminal terminal) {
+  private void updateSize(final Terminal terminal) {
     try {
       // Update size of this window
       this.setSize(terminal.getTerminalSize().withRows(2));
@@ -63,7 +57,7 @@ public class TopInformationWindow extends org.ssh.torch.view.BasicWindow {
   }
 
   @Override
-  public void setTextGUI(WindowBasedTextGUI textGUI) {
+  public void setTextGUI(final WindowBasedTextGUI textGUI) {
     super.setTextGUI(textGUI);
     currentWorkspaceLabel.setText(this.getWorkspace().getTitle());
   }

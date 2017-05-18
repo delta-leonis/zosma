@@ -1,19 +1,13 @@
 package org.ssh.torch.view.window;
 
-import com.googlecode.lanterna.gui2.GridLayout;
-import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.TextGUIGraphics;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import com.googlecode.lanterna.gui2.*;
+import java.util.*;
 import java.util.logging.Level;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+import org.reactivestreams.*;
 import org.ssh.ipc.event.notification.Notification;
 import org.ssh.torch.view.component.NotificationComponent;
 import org.ssh.torch.view.model.NotificationViewModel;
-import org.ssh.torch.view.window.modal.BasicModal;
-import org.ssh.torch.view.window.modal.NotificationWindow;
+import org.ssh.torch.view.window.modal.*;
 
 /**
  * The Class NotificationCenterModal.
@@ -49,7 +43,7 @@ public class NotificationCenterModal extends BasicModal
   }
 
   @Override
-  public void draw(TextGUIGraphics graphics) {
+  public void draw(final TextGUIGraphics graphics) {
     super.draw(graphics);
     this.root.getChildren().stream()
         // find notification components
@@ -69,35 +63,30 @@ public class NotificationCenterModal extends BasicModal
   }
 
   @Override
-  public void onSubscribe(Subscription s) {
+  public void onSubscribe(final Subscription s) {
     s.request(Long.MAX_VALUE);
   }
 
   @Override
-  public void onNext(NotificationViewModel notificationPresenter) {
+  public void onNext(final NotificationViewModel notificationPresenter) {
     this.root.addComponent(
         new NotificationComponent(
-            notificationPresenter
-        )
-    );
+            notificationPresenter));
     this.getWorkspace().setActiveWindow(new NotificationWindow(notificationPresenter));
   }
 
   @Override
-  public void onError(Throwable t) {
+  public void onError(final Throwable t) {
     this.onNext(
         new NotificationViewModel(
             new Notification(
                 Level.WARNING,
                 t.getMessage(),
-                Notification::read
-            )
-        )
-    );
+                Notification::read)));
   }
 
   @Override
   public void onComplete() {
-    // no clue
+
   }
 }

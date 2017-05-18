@@ -8,6 +8,7 @@ package org.ssh.ipc.serialization;
  * @param <I> input type
  * @author Jeroen de Jong
  */
+@FunctionalInterface
 public interface Reader<I> {
 
   /**

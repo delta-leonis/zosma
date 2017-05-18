@@ -4,10 +4,9 @@ import com.googlecode.lanterna.gui2.ProgressBar;
 import java.util.function.Function;
 import lombok.AllArgsConstructor;
 import org.reactivestreams.Subscription;
-import org.ssh.benchmarks.MeasurementContext;
-import org.ssh.benchmarks.RangedMeasurement;
+import org.ssh.benchmarks.*;
 import org.ssh.torch.view.RxComponent;
-import org.ssh.torch.view.model.MeasurementContextViewModel;
+import org.ssh.torch.view.model.GroupedMeasurementViewModel;
 
 /**
  * The Class BarGraph.
@@ -17,7 +16,7 @@ import org.ssh.torch.view.model.MeasurementContextViewModel;
  * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public class BarGraph<C extends MeasurementContextViewModel<? extends MeasurementContext>, R extends RangedMeasurement<? extends Number>>
+public class BarGraph<C extends GroupedMeasurementViewModel<? extends GroupedMeasurement>, R extends RangedMeasurement<? extends Number>>
     extends ProgressBar implements RxComponent<C> {
 
   private final Function<C, R> getter;

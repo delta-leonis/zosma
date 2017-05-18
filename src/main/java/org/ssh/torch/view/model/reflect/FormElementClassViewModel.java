@@ -1,7 +1,6 @@
 package org.ssh.torch.view.model.reflect;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.stream.Stream;
 import lombok.Value;
 import lombok.experimental.Delegate;

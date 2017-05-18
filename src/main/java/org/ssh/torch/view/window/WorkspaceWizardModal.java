@@ -1,8 +1,10 @@
 package org.ssh.torch.view.window;
 
 import org.reflections.Reflections;
-import org.ssh.torch.view.AbstractWorkspace;
-import org.ssh.torch.view.BasicWindow;
+import org.ssh.ipc.Zosma;
+import org.ssh.ipc.event.TorchEvent.Action;
+import org.ssh.ipc.event.torch.WorkspaceEvent;
+import org.ssh.torch.view.*;
 import org.ssh.torch.view.component.WorkspaceList;
 import org.ssh.torch.view.window.modal.ConstructorModal;
 
@@ -23,11 +25,12 @@ public class WorkspaceWizardModal extends BasicWindow {
             new Reflections("org.ssh.torch.workspace")
                 .getSubTypesOf(AbstractWorkspace.class),
             selectedScene -> {
-              this.getWorkspace().addWindow(
-                  new ConstructorModal(selectedScene.getCallableConstructors())
-              );
+              this.getWorkspace().addWindow(new ConstructorModal<Workspace>(
+                  selectedScene.getCallableConstructors(),
+                  workspace -> Zosma.broadcast(new WorkspaceEvent(
+                      Action.CREATED,
+                      workspace))));
               this.close();
-            }
-        ));
+            }));
   }
 }

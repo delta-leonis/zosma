@@ -1,7 +1,6 @@
 package org.ssh.ipc.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import java.lang.reflect.Modifier;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
@@ -44,7 +43,7 @@ public class JsonWriter implements Writer<String> {
   }
 
   @Override
-  public <I> String write(I input) {
+  public <I> String write(final I input) {
     return this.gson.toJson(input);
   }
 }

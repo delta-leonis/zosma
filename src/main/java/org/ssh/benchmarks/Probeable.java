@@ -1,10 +1,7 @@
 package org.ssh.benchmarks;
 
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 import reactor.core.Disposable;
 import reactor.core.publisher.TopicProcessor;
 
@@ -40,8 +37,8 @@ public interface Probeable {
    * @throws NoSuchElementException If no probe exists with the supplied identifier.
    */
   default <V, M extends DescriptiveMeasurement<V>> Disposable probe(
-      String identifier,
-      Consumer<M> consumer
+      final String identifier,
+      final Consumer<M> consumer
   ) {
     return this.getProbeProcessors().get(identifier).subscribe(consumer);
   }
@@ -54,8 +51,7 @@ public interface Probeable {
    * @param <V>        Type of value.
    * @return A probe point which emits {@link SimpleMeasurement SimpleMeasurements} to a probe.
    */
-  default <V> Consumer<V> createProbeTarget(
-      String identifier) {
+  default <V> Consumer<V> createProbeTarget(final String identifier) {
     return this.createProbeTarget(identifier, value -> new SimpleMeasurement<>(value, identifier));
   }
 
@@ -71,8 +67,8 @@ public interface Probeable {
    * @return A probe point which emits {@code <M>} to a probe
    */
   default <V, M extends DescriptiveMeasurement> Consumer<V> createProbeTarget(
-      String identifier,
-      Function<V, M> measurementConstructor
+      final String identifier,
+      final Function<V, M> measurementConstructor
   ) {
     this.getProbeProcessors().put(identifier, TopicProcessor.create());
     return value ->

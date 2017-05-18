@@ -32,9 +32,10 @@ public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S,
   /**
    * Computes the new {@link Game game state} based on the previous game state and latest
    * {@link Strategy}.
+   *
    * @param previousGameState The latest known {@link Game game state}.
    * @param newestStrategy    The newest {@link Strategy} computed by the AI.
-   * @return                  The newest {@link Game game state} by applying the {@link Strategy}.
+   * @return The newest {@link Game game state} by applying the {@link Strategy}.
    */
   G project(final G previousGameState, final S newestStrategy);
 

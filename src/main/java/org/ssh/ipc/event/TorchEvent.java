@@ -15,16 +15,16 @@ import org.ssh.ipc.Event;
 public interface TorchEvent<S> extends Event<S> {
 
   /**
-   * @return The {@link Action} which triggered this action
-   */
-  Action getAction();
-
-  /**
    * @return true if {@link #getAction()} equals {@link Action#RESIZED}
    */
   default boolean isResized() {
     return this.getAction().equals(Action.RESIZED);
   }
+
+  /**
+   * @return The {@link Action} which triggered this action
+   */
+  Action getAction();
 
   /**
    * @return true if {@link #getAction()} equals {@link Action#SWITCHED}
@@ -62,15 +62,25 @@ public interface TorchEvent<S> extends Event<S> {
    * @author Jeroen de Jong
    */
   public enum Action {
-    /**  Resize action. */
+    /**
+     * Resize action.
+     */
     RESIZED,
-    /** Switch action. */
+    /**
+     * Switch action.
+     */
     SWITCHED,
-    /** Created action. */
+    /**
+     * Created action.
+     */
     CREATED,
-    /** Removed action. */
+    /**
+     * Removed action.
+     */
     REMOVED,
-    /** Closed action. */
+    /**
+     * Closed action.
+     */
     CLOSED
   }
 }

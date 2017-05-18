@@ -19,7 +19,7 @@ public class NotificationWindow extends BasicModal {
    *
    * @param notification the notification
    */
-  public NotificationWindow(NotificationViewModel notification) {
+  public NotificationWindow(final NotificationViewModel notification) {
     super(notification.getTitle());
     this.setHints(Arrays.asList(Hint.MODAL, Hint.FIXED_POSITION));
     this.setPosition(TerminalPosition.TOP_LEFT_CORNER);

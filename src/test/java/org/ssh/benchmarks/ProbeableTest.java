@@ -37,7 +37,8 @@ public class ProbeableTest {
     DescriptiveMeasurement<Long> expectation = new SimpleMeasurement<>(5L, "Before");
     // add a probe which'll trigger the latch if the measurement is as expected
     subject.probe("Before", measurement -> {
-      if(measurement.equals(expectation))
+      if(measurement.getValue().equals(expectation.getValue())
+          && measurement.getLabel().equals(expectation.getLabel()))
         cdl.countDown();
     });
     //submit the value of the expectation
@@ -63,7 +64,8 @@ public class ProbeableTest {
     DescriptiveMeasurement<Double> expectation = new SimpleMeasurement<>(Math.log(input), "After");
     // add a probe which'll trigger the latch if the measurement is as expected
     subject.probe("After", measurement -> {
-      if(measurement.equals(expectation))
+      if(measurement.getValue().equals(expectation.getValue())
+          && measurement.getLabel().equals(expectation.getLabel()))
         cdl.countDown();
     });
     //submit the value of the expectation

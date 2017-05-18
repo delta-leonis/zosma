@@ -24,6 +24,11 @@ javadoc {
     source = sourceSets.main.allJava
     classpath = configurations.compile
 }
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
 dependencies {
     // math
     compile 'org.nd4j:nd4j-native:0.8.0'
@@ -53,7 +58,10 @@ dependencies {
     compile 'com.googlecode.lanterna:lanterna:3.0.0-rc1'
 
     // system
-    compile 'com.github.dblock:oshi-core:3.2'
+    compile 'com.github.dblock:oshi-core:3.4.0'
+
+    // db
+    compile 'org.influxdb:influxdb-java:2.5'
 
     // java impl
     compile 'org.projectlombok:lombok:1.16.14'
