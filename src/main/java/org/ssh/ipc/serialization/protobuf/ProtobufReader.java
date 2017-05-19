@@ -12,7 +12,7 @@ import org.ssh.ipc.serialization.Reader;
  * @param <O> Output type.
  * @author Jeroen de Jong
  */
-public interface ProtobufReader<I extends GeneratedMessage, O> extends Reader<I> {
+public interface ProtobufReader<I extends AbstractMessage, O> extends Reader<I> {
   /**
    * Read the binary protobuf data.
    *
