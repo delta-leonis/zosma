@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
  * @param <S> The type of {@link State}
  * @author Rimon Oz
  */
-public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends Graph<String, S> {
+public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends Graph<S> {
 
   /**
    * Transitions from one state to the next, if the state transition is supported by
@@ -40,7 +40,7 @@ public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends 
    * <p>
    * This interface describes the functionality of a state in the state machine.
    */
-  interface State extends Graph.Node<String> {
-
+  interface State {
+    String getName();
   }
 }
