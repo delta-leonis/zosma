@@ -1,5 +1,7 @@
 package org.ssh.math.geometry;
 
+import org.nd4j.linalg.api.ndarray.INDArray;
+
 /**
  * The Interface Norm.
  * <p>
@@ -11,10 +13,8 @@ package org.ssh.math.geometry;
 public interface Norm {
 
   /**
-   * @param <V>   The type of vector.
-   * @param <N>   The type of number in the vector.
    * @param input The vector to compute the norm of.
    * @return The norm of the vector.
    */
-  <V extends Iterable<N>, N extends Number> double calculateNorm(final V input);
+  double calculateNorm(final INDArray input);
 }

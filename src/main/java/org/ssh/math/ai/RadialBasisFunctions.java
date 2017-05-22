@@ -1,6 +1,7 @@
 package org.ssh.math.ai;
 
 import lombok.experimental.UtilityClass;
+import org.nd4j.linalg.api.ndarray.INDArray;
 import org.ssh.math.geometry.*;
 import org.ssh.math.statistic.distribution.GaussianDistribution;
 
@@ -23,17 +24,16 @@ public class RadialBasisFunctions {
    * points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the inverse quadratic RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseQuadratic(
+  public static <N extends Number> double inverseQuadratic(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return 1d / (1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
   }
@@ -43,17 +43,16 @@ public class RadialBasisFunctions {
    * points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the inverse multiquadric RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadric(
+  public static <N extends Number> double inverseMultiQuadric(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return 1d / StrictMath
         .sqrt(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
@@ -64,15 +63,14 @@ public class RadialBasisFunctions {
    * points.
    *
    * @param <N>   The type of {@link Number} stored inside the vector.
-   * @param <V>   The type of vector.
    * @param norm  the norm
    * @param input The input vector which points to the point whose value needs to be calculated.
    * @return The value of the thin plate spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double thinPlateSpline(
+  public static <N extends Number> double thinPlateSpline(
       final Norm norm,
-      final V input
+      final INDArray input
   ) {
     return RadialBasisFunctions.polyharmonicSpline(norm, input, 2);
   }
@@ -82,16 +80,15 @@ public class RadialBasisFunctions {
    * points.
    *
    * @param <N>   The type of {@link Number} stored inside the vector.
-   * @param <V>   The type of vector.
    * @param norm  the norm
    * @param input The input vector which points to the point whose value needs to be calculated.
    * @param k     The degree of the spline.
    * @return The value of the polyharmonic spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double polyharmonicSpline(
+  public static <N extends Number> double polyharmonicSpline(
       final Norm norm,
-      final V input,
+      final INDArray input,
       final int k
   ) {
     double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k);
@@ -107,16 +104,15 @@ public class RadialBasisFunctions {
    * vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the Gaussian RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double gaussianDerivative(
+  public static <N extends Number> double gaussianDerivative(
       final Norm norm,
-      final V input,
-      Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return -2d * norm.calculateNorm(input)
         * StrictMath.pow(epsilon.doubleValue(), 2)
@@ -127,16 +123,15 @@ public class RadialBasisFunctions {
    * Computes the value of the Gaussian RBF in the point to which the supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the Gaussian RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double gaussian(
+  public static <N extends Number> double gaussian(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return StrictMath
         .exp(-1d * StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
@@ -147,16 +142,15 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the multiquadric RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double multiQuadricDerivative(
+  public static <N extends Number> double multiQuadricDerivative(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return norm.calculateNorm(input) * StrictMath.pow(epsilon.doubleValue(), 2)
         / StrictMath
@@ -168,17 +162,16 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the inverse quadratic RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseQuadraticDerivative(
+  public static <N extends Number> double inverseQuadraticDerivative(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return (-2d * norm.calculateNorm(input) * StrictMath.pow(epsilon.doubleValue(), 2))
         / StrictMath
@@ -190,17 +183,16 @@ public class RadialBasisFunctions {
    * the supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the inverse multiquadric RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadricDerivative(
+  public static <N extends Number> double inverseMultiQuadricDerivative(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return (-1d * norm.calculateNorm(input) * StrictMath.pow(epsilon.doubleValue(), 2))
         / StrictMath
@@ -213,15 +205,14 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>   The type of {@link Number} stored inside the vector.
-   * @param <V>   The type of vector.
    * @param norm  the norm
    * @param input The input vector which points to the point whose value needs to be calculated.
    * @return The value of the thin plate spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double thinPlateSplineDerivative(
+  public static <N extends Number> double thinPlateSplineDerivative(
       final Norm norm,
-      final V input
+      final INDArray input
   ) {
     return RadialBasisFunctions.polyharmonicSplineDerivative(norm, input, 2);
   }
@@ -231,16 +222,15 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>   The type of {@link Number} stored inside the vector.
-   * @param <V>   The type of vector.
    * @param norm  the norm
    * @param input The input vector which points to the point whose value needs to be calculated.
    * @param k     The degree of the spline.
    * @return The value of the polyharmonic spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double polyharmonicSplineDerivative(
+  public static <N extends Number> double polyharmonicSplineDerivative(
       final Norm norm,
-      final V input,
+      final INDArray input,
       final int k
   ) {
     double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k - 1);
@@ -256,16 +246,15 @@ public class RadialBasisFunctions {
    * vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the Gaussian RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double gaussianIntegral(
+  public static <N extends Number> double gaussianIntegral(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return StrictMath.sqrt(Math.PI) * (GaussianDistribution
         .erf(norm.calculateNorm(input) * epsilon.doubleValue()))
@@ -278,16 +267,15 @@ public class RadialBasisFunctions {
    * vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the multiquadric RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double multiQuadricIntegral(
+  public static <N extends Number> double multiQuadricIntegral(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     double euclidianNorm = norm.calculateNorm(input);
     return (euclidianNorm * epsilon.doubleValue() * RadialBasisFunctions
@@ -300,16 +288,15 @@ public class RadialBasisFunctions {
    * Computes the value of the multiquadric RBF in the point to which the supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the multiquadric RBF in the point to which the supplied vector points.
    */
-  public static <N extends Number, V extends Iterable<N>> double multiQuadric(
+  public static <N extends Number> double multiQuadric(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return StrictMath
         .sqrt(1d + StrictMath.pow(epsilon.doubleValue() * norm.calculateNorm(input), 2));
@@ -320,17 +307,16 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the inverse quadratic RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseQuadraticIntegral(
+  public static <N extends Number> double inverseQuadraticIntegral(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return Trigonometry.atanh(norm.calculateNorm(input) * epsilon.doubleValue())
         / epsilon.doubleValue();
@@ -341,17 +327,16 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>     The type of {@link Number} stored inside the vector.
-   * @param <V>     The type of vector.
    * @param norm    the norm
    * @param input   The input vector which points to the point whose value needs to be calculated.
    * @param epsilon The scaling factor.
    * @return The value of the inverse multiquadric RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double inverseMultiQuadricIntegral(
+  public static <N extends Number> double inverseMultiQuadricIntegral(
       final Norm norm,
-      final V input,
-      final Number epsilon
+      final INDArray input,
+      final N epsilon
   ) {
     return Trigonometry.asinh(norm.calculateNorm(input) * epsilon.doubleValue())
         / epsilon.doubleValue();
@@ -362,15 +347,14 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>   The type of {@link Number} stored inside the vector.
-   * @param <V>   The type of vector.
    * @param norm  the norm
    * @param input The input vector which points to the point whose value needs to be calculated.
    * @return The value of the thin plate spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double thinPlateSplineIntegral(
+  public static <N extends Number> double thinPlateSplineIntegral(
       final Norm norm,
-      final V input
+      final INDArray input
   ) {
     return RadialBasisFunctions.polyharmonicSplineIntegral(norm, input, 2);
   }
@@ -380,16 +364,15 @@ public class RadialBasisFunctions {
    * supplied vector points.
    *
    * @param <N>   The type of {@link Number} stored inside the vector.
-   * @param <V>   The type of vector.
    * @param norm  the norm
    * @param input The input vector which points to the point whose value needs to be calculated.
    * @param k     The degree of the spline.
    * @return The value of the polyharmonic spline RBF in the point to which the supplied vector
    * points.
    */
-  public static <N extends Number, V extends Iterable<N>> double polyharmonicSplineIntegral(
+  public static <N extends Number> double polyharmonicSplineIntegral(
       final Norm norm,
-      final V input,
+      final INDArray input,
       final int k
   ) {
     double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k + 1);
