@@ -18,20 +18,19 @@ public interface SelectiveStrategizer<M, S extends Strategy, G extends Game>
     extends Strategizer<S, G> {
 
   @Override
-  default S strategize(final S previousResult, final G input) {
-    return this.strategize(previousResult, input, this.getSelection(input));
+  default S strategize(final G mostRecentGame) {
+    return this.strategize(mostRecentGame, this.getSelection(mostRecentGame));
   }
 
   /**
    * Applies the strategizing operation to the previously returned engine, the newly
    * acquired game state, and the objects of interest which can be extracted from the game state.
    *
-   * @param previousResult The previously returned {@link Strategy}.
-   * @param input          The next {@link Game game state}.
+   * @param mostRecentGame The next {@link Game game state}.
    * @param subjects       The objects of interest in the {@link Game}.
    * @return The newly computed {@link Strategy}.
    */
-  S strategize(final S previousResult, final G input, final M subjects);
+  S strategize(final G mostRecentGame, final M subjects);
 
   /**
    * @param game The {@link Game} to extract the object(s) of interest from.

@@ -10,19 +10,17 @@ import org.reactivestreams.Subscriber;
  * {@link Strategy} based on that {@link Game}.
  *
  * @param <S> The type of {@link Strategy} emitted by this strategizer.
- * @param <G> The type of {@link Game} for which this engine is meant.
+ * @param <G> The type of (game) object for which this engine is meant.
  * @author Rimon Oz
  */
 @FunctionalInterface
-public interface Strategizer<S extends Strategy, G extends Game> {
+public interface Strategizer<S extends Strategy, G> {
 
   /**
-   * Computes a {@link Strategy} based on the previously computed {@link Strategy} and
-   * most recent {@link Game game state}.
+   * Computes a {@link Strategy} based on the most recent {@link Game game state}.
    *
-   * @param previousResult The previously returned {@link Strategy}.
-   * @param input          The newest {@link Game game state}.
-   * @return               The newly computed {@link Strategy}.
+   * @param mostRecentGame   The newest {@link Game game state}.
+   * @return                 The newly computed {@link Strategy}.
    */
-  S strategize(final S previousResult, final G input);
+  S strategize(final G mostRecentGame);
 }

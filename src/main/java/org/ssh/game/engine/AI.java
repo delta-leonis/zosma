@@ -1,6 +1,5 @@
 package org.ssh.game.engine;
 
-import java.util.function.Function;
 import org.reactivestreams.Publisher;
 import org.ssh.benchmarks.Probeable;
 import org.ssh.game.*;
@@ -19,7 +18,7 @@ public interface AI<
     S extends Strategy,
     G extends Game,
     P>
-    extends Turk<S, P>, Function<Publisher<G>, Publisher<S>>, Probeable {
+    extends Engine<S, G, P>, Probeable {
   /**
    * Starts the AI and makes it play a game.
    */
