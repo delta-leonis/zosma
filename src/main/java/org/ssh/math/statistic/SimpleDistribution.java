@@ -12,7 +12,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  * @author Rimon Oz
  */
 @Value
-public class SimpleDistribution implements Distribution<INDArray> {
+public class SimpleDistribution implements Distribution {
 
   private final INDArray mean;
   private final INDArray covariance;

@@ -33,14 +33,14 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
    * @param state                       The {@link Distribution} of the latest state.
    * @return The filtered state.
    */
-  static Distribution<INDArray> apply(
+  static Distribution apply(
       final INDArray stateTransitionMatrix,
       final INDArray measurementTransitionMatrix,
       final INDArray controlTransitionMatrix,
       final INDArray controlInput,
       final INDArray processCovariance,
-      final Distribution<INDArray> observationNoise,
-      final Distribution<INDArray> state
+      final Distribution observationNoise,
+      final Distribution state
   ) {
     return apply((stateMean, controlVector) ->
             stateTransitionMatrix
@@ -75,15 +75,15 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
    * @param state                         The {@link Distribution} of the latest state.
    * @return The filtered state.
    */
-  static Distribution<INDArray> apply(
+  static Distribution apply(
       final BiFunction<INDArray, INDArray, INDArray> stateTransition,
       final Function<INDArray, INDArray> measurementTransition,
       final INDArray stateTransitionJacobian,
       final INDArray measurementTransitionJacobian,
       final INDArray controlInput,
       final INDArray processCovariance,
-      final Distribution<INDArray> observationNoise,
-      final Distribution<INDArray> state
+      final Distribution observationNoise,
+      final Distribution state
   ) {
     final INDArray projectedState = stateTransition.apply(state.getMean(), controlInput);
 

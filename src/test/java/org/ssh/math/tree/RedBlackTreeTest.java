@@ -16,11 +16,19 @@ public class RedBlackTreeTest {
   @Test
   public void testEquals() throws Exception {
     final int toTest = (int) (Math.random() * 1000);
+    final int toTestLeftChild = (int) (Math.random() * 1000);
+    final int toTestRightChild = (int) (Math.random() * 1000);
+
     assertTrue(new RedBlackTree<Integer>().equals(new RedBlackTree<Integer>()));
 
     assertFalse(new RedBlackTree<Integer>().equals("test"));
     assertTrue(new RedBlackTree<>(toTest).equals(new RedBlackTree<>(toTest)));
     assertFalse(new RedBlackTree<>(toTest).equals(new RedBlackTree<>(-1 * toTest)));
+
+    assertFalse(new RedBlackTree<>(toTestLeftChild, toTest, toTestRightChild)
+      .equals(new RedBlackTree<>(toTest, toTestRightChild, toTestLeftChild)));
+    assertTrue(new RedBlackTree<>(toTest, toTestRightChild, toTestLeftChild)
+      .equals(new RedBlackTree<>(toTest, toTestRightChild, toTestLeftChild)));
   }
 
   @Test

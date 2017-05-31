@@ -44,14 +44,14 @@ public interface KalmanFilter extends Filter<INDArray> {
    * @param previousState               The {@link GaussianDistribution} of the latest state.
    * @return The filtered state.
    */
-  static Distribution<INDArray> apply(
+  static Distribution apply(
       final INDArray stateTransitionMatrix,
       final INDArray measurementTransitionMatrix,
       final INDArray controlTransitionMatrix,
       final INDArray controlInputVector,
       final INDArray processCovariance,
-      final Distribution<INDArray> measurement,
-      final Distribution<INDArray> previousState
+      final Distribution measurement,
+      final Distribution previousState
   ) {
     final INDArray projectedState = stateTransitionMatrix.mmul(previousState.getMean())
         .add(controlTransitionMatrix.mmul(controlInputVector));

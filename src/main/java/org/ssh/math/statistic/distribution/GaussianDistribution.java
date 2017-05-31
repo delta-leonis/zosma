@@ -17,7 +17,7 @@ import org.ssh.math.statistic.Distribution;
  * @author Rimon Oz
  */
 @Value
-public class GaussianDistribution implements Distribution<INDArray> {
+public class GaussianDistribution implements Distribution {
 
   /**
    * The Gaussian mean of the distribution.
@@ -59,7 +59,7 @@ public class GaussianDistribution implements Distribution<INDArray> {
    * @param samples The samples to compute a Gaussian distribution from.
    * @return The Gaussian distribution representing the supplied samples.
    */
-  public static Distribution<INDArray> from(final Collection<INDArray> samples) {
+  public static Distribution from(final Collection<INDArray> samples) {
     return new GaussianDistribution(
         calculateMean(samples),
         calculateCovariance(samples));
@@ -101,7 +101,7 @@ public class GaussianDistribution implements Distribution<INDArray> {
    * @param covariance The covariance of the Gaussian distribution.
    * @return A {@link Distribution} with the supplied mean and covariance.
    */
-  public static Distribution<INDArray> from(INDArray mean, INDArray covariance) {
+  public static Distribution from(INDArray mean, INDArray covariance) {
     return new GaussianDistribution(mean, covariance);
   }
 }

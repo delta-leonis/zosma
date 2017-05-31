@@ -25,7 +25,7 @@ public abstract class BufferedStrategizer<S extends Strategy, G extends Game>
   /**
    * The size of the buffer.
    */
-  private final int bufferSize;
+  protected final int bufferSize;
   /**
    * The {@link Flux} on which buffers are published.
    */

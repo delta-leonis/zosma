@@ -128,7 +128,7 @@ public class KalmanFilterPerformanceTest {
 
   @Value
   private class AggregateState {
-    private final Distribution<INDArray> filteredState;
-    private final Distribution<INDArray> unfilteredState;
+    private final Distribution filteredState;
+    private final Distribution unfilteredState;
   }
 }

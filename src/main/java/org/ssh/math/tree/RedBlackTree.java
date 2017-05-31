@@ -15,6 +15,7 @@ import lombok.*;
  * @author Rimon Oz
  */
 @Value
+@EqualsAndHashCode(exclude = "type")
 @AllArgsConstructor
 public class RedBlackTree<V extends Comparable<V>> implements Tree<V> {
   /**
@@ -51,10 +52,10 @@ public class RedBlackTree<V extends Comparable<V>> implements Tree<V> {
   public RedBlackTree(final Set<V> values) {
     final RedBlackTree<V> toBe = values.stream()
         .reduce(new RedBlackTree<V>(
-            Type.BLACK,
-            null,
-            null,
-            null),
+                Type.BLACK,
+                null,
+                null,
+                null),
             (tree, newValue) -> insert(tree, newValue), RedBlackTree::merge);
 
     this.type = Type.BLACK;
@@ -311,6 +312,13 @@ public class RedBlackTree<V extends Comparable<V>> implements Tree<V> {
   }
 
   /**
+   * @return True if this tree is a balanced {@link RedBlackTree}, false otherwise.
+   */
+  public static <V extends Comparable<V>> boolean isBalanced(RedBlackTree<V> toVerify) {
+    return computeBlackHeight(toVerify) != -1;
+  }
+
+  /**
    * @param value The value to add to this {@link RedBlackTree}
    * @return A new {@link RedBlackTree} containing all the nodes inside this tree and the supplied
    * value.
@@ -338,12 +346,6 @@ public class RedBlackTree<V extends Comparable<V>> implements Tree<V> {
   public boolean isBalanced() {
     return computeBlackHeight(this) != -1;
   }
-  /**
-   * @return True if this tree is a balanced {@link RedBlackTree}, false otherwise.
-   */
-  public static <V extends Comparable<V>> boolean isBalanced(RedBlackTree<V> toVerify) {
-    return computeBlackHeight(toVerify) != -1;
-  }
 
   /**
    * @return The black height of the tree, or the uniform number of black nodes in all paths from
@@ -358,13 +360,6 @@ public class RedBlackTree<V extends Comparable<V>> implements Tree<V> {
    */
   public boolean isEmpty() {
     return this.value == null;
-  }
-
-  @Override
-  public boolean equals(final Object redBlackTree) {
-    if (!(redBlackTree instanceof RedBlackTree))
-      return false;
-    return ((RedBlackTree)redBlackTree).getNodes().equals(this.getNodes());
   }
 
   /**
