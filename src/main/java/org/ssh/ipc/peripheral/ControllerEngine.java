@@ -108,7 +108,6 @@ public abstract class ControllerEngine<
     return Collections.emptySet();
   }
 
-  @Override
   public void play() {
     Flux.from(this.getControllerStatePublisher())
         .subscribeOn(Schedulers.single())

@@ -1,6 +1,6 @@
 package org.ssh.game.engine;
 
-import org.reactivestreams.Publisher;
+import org.reactivestreams.*;
 import org.ssh.benchmarks.Probeable;
 import org.ssh.game.*;
 import reactor.core.publisher.Flux;
@@ -24,7 +24,6 @@ public interface AI<
    */
   default void play() {
     Flux.from(this.getGamePublisher())
-        .startWith(this.getInitialGame())
         .doOnNext(createProbeTarget("AI Input"))
         .transform(this::apply)
         .doOnNext(createProbeTarget("AI Output"))
@@ -37,7 +36,8 @@ public interface AI<
   Publisher<G> getGamePublisher();
 
   /**
-   * @return The initial {@link Game game state}.
+   * @return The {@link Subscriber} which connects to the output.
    */
-  G getInitialGame();
+  Subscriber<S> getStrategySubscriber();
+
 }

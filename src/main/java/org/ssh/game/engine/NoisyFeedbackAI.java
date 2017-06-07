@@ -33,6 +33,7 @@ public interface NoisyFeedbackAI<S extends Strategy, G extends Game, P>
 
   /**
    * Distorts the {@link Strategy} by applying noise to it.
+   *
    * @param strategy The {@link Strategy} to apply noise to.
    * @return The noisy {@link Strategy}.
    */

@@ -19,16 +19,6 @@ import reactor.core.publisher.*;
  */
 public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S, G, P> {
 
-  @Override
-  default Subscriber<S> getStrategySubscriber() {
-    return this.getStrategyProcessor();
-  }
-
-  /**
-   * @return The {@link TopicProcessor processor} which forwards {@link Strategy strategies}.
-   */
-  TopicProcessor<S> getStrategyProcessor();
-
   /**
    * Computes the new {@link Game game state} based on the previous game state and latest
    * {@link Strategy}.
@@ -54,10 +44,25 @@ public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S,
     return this.getGameProcessor();
   }
 
+  @Override
+  default Subscriber<S> getStrategySubscriber() {
+    return this.getStrategyProcessor();
+  }
+
   /**
    * @return The {@link TopicProcessor processor} which forwards {@link Strategy strategies}.
    */
   TopicProcessor<G> getGameProcessor();
+
+  /**
+   * @return The {@link TopicProcessor processor} which forwards {@link Strategy strategies}.
+   */
+  TopicProcessor<S> getStrategyProcessor();
+
+  /**
+   * @return The initial {@link Game game state}.
+   */
+  G getInitialGame();
 
   /**
    * @return The interval on which the {@link TopicProcessor game processor} publishes {@link Game
