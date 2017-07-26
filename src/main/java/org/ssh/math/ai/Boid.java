@@ -11,7 +11,6 @@ import org.ssh.math.geometry.motion.MovingObject;
  * @param <T> The type of vector.
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Boid<T> {
 
   /**

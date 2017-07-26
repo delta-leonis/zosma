@@ -12,7 +12,7 @@ public class IgnoredField extends TextField {
    *
    * @param randomParameter the random parameter
    */
-  public IgnoredField(String randomParameter) {
+  public IgnoredField(final String randomParameter) {
     super();
   }
 }

@@ -18,9 +18,9 @@ public class WorkspaceSwitchModal extends BasicModal {
   public WorkspaceSwitchModal() {
     super("Other workspaces");
     final Panel panel = new Panel();
-    ActionListBox listBox = new ActionListBox();
+    final ActionListBox listBox = new ActionListBox();
     listBox.addItem("Add new workspace", () -> {
-      WorkspaceWizardModal workspaceWizard = new WorkspaceWizardModal();
+      final WorkspaceWizardModal workspaceWizard = new WorkspaceWizardModal();
       workspaceWizard.setCloseWindowWithEscape(true);
       this.getWorkspace().setActiveWindow(workspaceWizard);
       this.close();

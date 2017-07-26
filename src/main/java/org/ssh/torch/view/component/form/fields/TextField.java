@@ -25,7 +25,7 @@ public class TextField extends TextBox implements FormElement<String> {
    * @param initialContent the initial content
    * @param regex          the regex
    */
-  public TextField(String initialContent, String regex) {
+  public TextField(final String initialContent, final String regex) {
     super(initialContent);
     this.setValidationPattern(Pattern.compile(regex));
   }
@@ -36,7 +36,7 @@ public class TextField extends TextBox implements FormElement<String> {
   }
 
   @Override
-  public TextField setValue(String value) {
+  public TextField setValue(final String value) {
     this.setText(value);
     return this;
   }

@@ -36,11 +36,11 @@ public class GaussianDistribution implements Distribution {
    * @param value The value for which the Gaussian error function needs to be calculated.
    * @return The value of the Gaussian error function for the supplied parameter.
    */
-  public static double erf(double value) {
-    double t = 1.0 / (1.0 + 0.5 * StrictMath.abs(value));
+  public static double erf(final double value) {
+    final double t = 1.0 / (1.0 + 0.5 * StrictMath.abs(value));
 
     // Horner's method
-    double result = 1 - t
+    final double result = 1 - t
         * StrictMath.exp(-value * value - 1.26551223 + t
         * (1.00002368 + t
         * (0.37409196 + t
@@ -69,7 +69,7 @@ public class GaussianDistribution implements Distribution {
    * @param collection The {@link Collection} to calculate the mean for as an {@link INDArray}.
    * @return The Gaussian mean of the supplied {@link Collection} as an {@link INDArray}.
    */
-  public static INDArray calculateMean(Collection<INDArray> collection) {
+  public static INDArray calculateMean(final Collection<INDArray> collection) {
     final int dimension = collection.iterator().next().rows();
 
     return collection.stream()
@@ -82,7 +82,7 @@ public class GaussianDistribution implements Distribution {
    *                   INDArray}.
    * @return The Gaussian covariance of the supplied {@link Collection} as an {@link INDArray}.
    */
-  public static INDArray calculateCovariance(Collection<INDArray> collection) {
+  public static INDArray calculateCovariance(final Collection<INDArray> collection) {
     final int dimension = collection.iterator().next().rows();
 
     final INDArray sampleMean = GaussianDistribution.calculateMean(collection);
@@ -101,7 +101,7 @@ public class GaussianDistribution implements Distribution {
    * @param covariance The covariance of the Gaussian distribution.
    * @return A {@link Distribution} with the supplied mean and covariance.
    */
-  public static Distribution from(INDArray mean, INDArray covariance) {
+  public static Distribution from(final INDArray mean, final INDArray covariance) {
     return new GaussianDistribution(mean, covariance);
   }
 }

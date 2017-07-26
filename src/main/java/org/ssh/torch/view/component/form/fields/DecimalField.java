@@ -15,7 +15,7 @@ public abstract class DecimalField<N extends Number> extends NumberField<N> {
    *
    * @param parser the parser
    */
-  public DecimalField(Function<String, N> parser) {
+  public DecimalField(final Function<String, N> parser) {
     this("", parser);
   }
 
@@ -25,7 +25,7 @@ public abstract class DecimalField<N extends Number> extends NumberField<N> {
    * @param initialContent the initial content
    * @param parser         the parser
    */
-  public DecimalField(String initialContent, Function<String, N> parser) {
+  public DecimalField(final String initialContent, final Function<String, N> parser) {
     super(initialContent, parser, "[-+]?[0-9]*\\.?[0-9]*");
   }
 
@@ -35,7 +35,7 @@ public abstract class DecimalField<N extends Number> extends NumberField<N> {
    * @param initialContent the initial content
    * @param parser         the parser
    */
-  public DecimalField(N initialContent, Function<String, N> parser) {
+  public DecimalField(final N initialContent, final Function<String, N> parser) {
     this(initialContent.toString(), parser);
   }
 }

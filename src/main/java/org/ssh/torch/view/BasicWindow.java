@@ -17,7 +17,7 @@ public class BasicWindow extends com.googlecode.lanterna.gui2.BasicWindow implem
    *
    * @param title the title
    */
-  public BasicWindow(String title) {
+  public BasicWindow(final String title) {
     super(title);
   }
 

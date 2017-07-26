@@ -30,24 +30,24 @@ public class RxXYGraph<C extends GroupedMeasurementViewModel<? extends GroupedMe
    *
    * @param getter the getter
    */
-  public RxXYGraph(Function<C, R> getter) {
+  public RxXYGraph(final Function<C, R> getter) {
     this.getter = getter;
   }
 
   @Override
-  public void onSubscribe(Subscription s) {
+  public void onSubscribe(final Subscription s) {
     s.request(Long.MAX_VALUE);
   }
 
   @Override
-  public void onNext(C context) {
-    R measurement = getter.apply(context);
+  public void onNext(final C context) {
+    final R measurement = getter.apply(context);
     measurements.add(
         new AbstractMap.SimpleEntry<>(measurements.size(), measurement.getValue().intValue()));
   }
 
   @Override
-  public void onError(Throwable t) {
+  public void onError(final Throwable t) {
   }
 
   @Override

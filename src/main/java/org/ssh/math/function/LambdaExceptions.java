@@ -22,12 +22,12 @@ public final class LambdaExceptions {
    * @return A new consumer which rethrows exceptions as unchecked exceptions.
    */
   public static <E extends Exception> Runnable rethrowRunnable(
-      RunnableWithExceptions<E> runnable
+      final RunnableWithExceptions<E> runnable
   ) {
     return () -> {
       try {
         runnable.run();
-      } catch (Exception exception) {
+      } catch (final Exception exception) {
         throwAsUnchecked(exception);
       }
     };
@@ -42,7 +42,7 @@ public final class LambdaExceptions {
    */
   @SuppressWarnings("unchecked")
   private static <E extends Throwable> void throwAsUnchecked(
-      Exception exception
+      final Exception exception
   ) throws E {
     throw (E) exception;
   }
@@ -57,12 +57,12 @@ public final class LambdaExceptions {
    * @return A new consumer which rethrows exceptions as unchecked exceptions.
    */
   public static <T, E extends Exception> Consumer<T> rethrowConsumer(
-      ConsumerWithExceptions<T, E> consumer
+      final ConsumerWithExceptions<T, E> consumer
   ) {
     return t -> {
       try {
         consumer.accept(t);
-      } catch (Exception exception) {
+      } catch (final Exception exception) {
         throwAsUnchecked(exception);
       }
     };
@@ -79,12 +79,12 @@ public final class LambdaExceptions {
    * @return A new bi-consumer which rethrows exceptions as unchecked exceptions.
    */
   public static <T, U, E extends Exception> BiConsumer<T, U> rethrowBiConsumer(
-      BiConsumerWithExceptions<T, U, E> biConsumer
+      final BiConsumerWithExceptions<T, U, E> biConsumer
   ) {
     return (t, u) -> {
       try {
         biConsumer.accept(t, u);
-      } catch (Exception exception) {
+      } catch (final Exception exception) {
         throwAsUnchecked(exception);
       }
     };
@@ -101,12 +101,12 @@ public final class LambdaExceptions {
    * @return A new function which rethrows exceptions as unchecked exceptions.
    */
   public static <T, R, E extends Exception> Function<T, R> rethrowFunction(
-      FunctionWithExceptions<T, R, E> function
+      final FunctionWithExceptions<T, R, E> function
   ) {
     return t -> {
       try {
         return function.apply(t);
-      } catch (Exception exception) {
+      } catch (final Exception exception) {
         throwAsUnchecked(exception);
         return null;
       }
@@ -123,12 +123,12 @@ public final class LambdaExceptions {
    * @return A new supplier which rethrows exceptions as unchecked exceptions.
    */
   public static <T, E extends Exception> Supplier<T> rethrowSupplier(
-      SupplierWithExceptions<T, E> function
+      final SupplierWithExceptions<T, E> function
   ) {
     return () -> {
       try {
         return function.get();
-      } catch (Exception exception) {
+      } catch (final Exception exception) {
         throwAsUnchecked(exception);
         return null;
       }
@@ -140,10 +140,10 @@ public final class LambdaExceptions {
    *
    * @param target The runnable to run.
    */
-  public static void uncheck(RunnableWithExceptions target) {
+  public static void uncheck(final RunnableWithExceptions target) {
     try {
       target.run();
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
       throwAsUnchecked(exception);
     }
   }
@@ -158,11 +158,11 @@ public final class LambdaExceptions {
    * @return A new supplier which rethrows exceptions as unchecked exceptions.
    */
   public static <R, E extends Exception> R uncheck(
-      SupplierWithExceptions<R, E> supplier
+      final SupplierWithExceptions<R, E> supplier
   ) {
     try {
       return supplier.get();
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
       throwAsUnchecked(exception);
       return null;
     }
@@ -180,12 +180,12 @@ public final class LambdaExceptions {
    * @return A new function which rethrows exceptions as unchecked exceptions.
    */
   public static <T, R, E extends Exception> R uncheck(
-      FunctionWithExceptions<T, R, E> function,
-      T target
+      final FunctionWithExceptions<T, R, E> function,
+      final T target
   ) {
     try {
       return function.apply(target);
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
       throwAsUnchecked(exception);
       return null;
     }
@@ -197,7 +197,6 @@ public final class LambdaExceptions {
    * @param <T> The type of object accepted by this consumer.
    * @param <E> The type of exception thrown by this consumer.
    */
-  @FunctionalInterface
   public interface ConsumerWithExceptions<T, E extends Exception> {
 
     /**
@@ -216,8 +215,7 @@ public final class LambdaExceptions {
    * @param <U> The type of object accepted by this consumer in the second argument.
    * @param <E> The type of exception thrown by this consumer.
    */
-  @FunctionalInterface
-  public interface BiConsumerWithExceptions<T, U, E extends Exception> {
+    public interface BiConsumerWithExceptions<T, U, E extends Exception> {
 
     /**
      * Accept.
@@ -236,8 +234,7 @@ public final class LambdaExceptions {
    * @param <R> The type of object return by this function.
    * @param <E> The type of exception thrown by this function.
    */
-  @FunctionalInterface
-  public interface FunctionWithExceptions<T, R, E extends Exception> {
+    public interface FunctionWithExceptions<T, R, E extends Exception> {
 
     /**
      * Apply r.
@@ -255,8 +252,7 @@ public final class LambdaExceptions {
    * @param <T> The type of object returned by this supplier.
    * @param <E> The type of exception thrown by this supplier.
    */
-  @FunctionalInterface
-  public interface SupplierWithExceptions<T, E extends Exception> {
+    public interface SupplierWithExceptions<T, E extends Exception> {
 
     /**
      * Get t.
@@ -272,8 +268,7 @@ public final class LambdaExceptions {
    *
    * @param <E> The type of exception thrown by this runnable.
    */
-  @FunctionalInterface
-  public interface RunnableWithExceptions<E extends Exception> {
+    public interface RunnableWithExceptions<E extends Exception> {
 
     /**
      * Run.

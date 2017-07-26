@@ -25,7 +25,7 @@ public class ConstructorViewModel implements ViewModel<Constructor> {
    * @return True if parameters are supported, false otherwise.
    */
   public boolean allParametersSupported() {
-    SimpleFormBuilder formBuilder = new SimpleFormBuilder();
+    final SimpleFormBuilder formBuilder = new SimpleFormBuilder();
     return getParameterPresenters().stream()
         .map(ParameterViewModel::getType)
         .allMatch(formBuilder::isSupported);

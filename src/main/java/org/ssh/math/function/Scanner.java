@@ -10,7 +10,6 @@ package org.ssh.math.function;
  * @param <I> The type of object which gets used by the scanner as an input.
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Scanner<V, I> {
 
   /**

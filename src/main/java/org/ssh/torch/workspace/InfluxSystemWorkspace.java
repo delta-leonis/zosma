@@ -3,11 +3,12 @@ package org.ssh.torch.workspace;
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.lanterna.gui2.table.*;
 import java.util.*;
+import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.influxdb.dto.Point;
 import org.ssh.benchmarks.GroupedMeasurement;
 import org.ssh.ipc.db.InfluxSubscriber;
-import org.ssh.ipc.serialization.influx.PointWriter;
+import org.ssh.ipc.serialization.influx.GroupedMeasurementWriteHandler;
 import org.ssh.ipc.system.SystemInfoPublisher;
 import org.ssh.ipc.system.publisher.*;
 import org.ssh.torch.view.*;
@@ -25,7 +26,7 @@ import reactor.core.publisher.*;
  */
 @Slf4j
 public class InfluxSystemWorkspace extends AbstractWorkspace {
-  private final PointWriter pointWriter = new PointWriter();
+  private final Function<GroupedMeasurement, Point> pointWriter = new GroupedMeasurementWriteHandler();
 
   /**
    * Constructs a new InfluxSystemWorkspace.
@@ -99,7 +100,7 @@ public class InfluxSystemWorkspace extends AbstractWorkspace {
       final String name
   ) {
     return Flux.from(publisher)
-        .map(this.pointWriter::write)
+        .map(this.pointWriter::apply)
         .doOnSubscribe(a -> stateProcessor.onNext(Collections.singletonMap(name, true)))
         .doOnComplete(() -> stateProcessor.onNext(Collections.singletonMap(name, false)));
   }

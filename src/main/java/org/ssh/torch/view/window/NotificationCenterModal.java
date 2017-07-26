@@ -36,7 +36,7 @@ public class NotificationCenterModal extends BasicModal
    */
   public NotificationCenterModal open() {
     this.setVisible(true);
-    Set<Hint> hintSet = new HashSet<>(this.getHints());
+    final Set<Hint> hintSet = new HashSet<>(this.getHints());
     hintSet.remove(Hint.NO_FOCUS);
     this.setHints(Collections.unmodifiableSet(hintSet));
     return this;
@@ -57,7 +57,7 @@ public class NotificationCenterModal extends BasicModal
   @Override
   public void close() {
     this.setVisible(false);
-    Set<Hint> hintSet = new HashSet<>(this.getHints());
+    final Set<Hint> hintSet = new HashSet<>(this.getHints());
     hintSet.add(Hint.NO_FOCUS);
     this.setHints(Collections.unmodifiableSet(hintSet));
   }

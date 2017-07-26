@@ -23,7 +23,7 @@ public class WorkspaceThread extends AbstractTextGUIThread implements Asynchrono
   private volatile State state;
   private volatile boolean paused = false;
 
-  private WorkspaceThread(TextGUI textGUI) {
+  private WorkspaceThread(final TextGUI textGUI) {
     super(textGUI);
     this.waitLatch = new CountDownLatch(1);
     this.thread = new Thread(this::mainGUILoop);
@@ -83,9 +83,9 @@ public class WorkspaceThread extends AbstractTextGUIThread implements Asynchrono
       //Draw initial screen, after this only draw when the GUI is marked as invalid
       try {
         textGUI.updateScreen();
-      } catch (IOException e) {
+      } catch (final IOException e) {
         exceptionHandler.onIOException(e);
-      } catch (RuntimeException e) {
+      } catch (final RuntimeException e) {
         exceptionHandler.onRuntimeException(e);
       }
       while (state == State.STARTED) {
@@ -97,7 +97,7 @@ public class WorkspaceThread extends AbstractTextGUIThread implements Asynchrono
           if (paused) {
             try {
               pauseLock.wait();
-            } catch (InterruptedException ex) {
+            } catch (final InterruptedException ex) {
               break;
             }
           }
@@ -110,18 +110,18 @@ public class WorkspaceThread extends AbstractTextGUIThread implements Asynchrono
           if (!processEventsAndUpdate()) {
             try {
               Thread.sleep(25);
-            } catch (InterruptedException ignored) {
+            } catch (final InterruptedException ignored) {
             }
           }
-        } catch (EOFException e) {
+        } catch (final EOFException e) {
           stop();
           break; //Break out quickly from the main loop
-        } catch (IOException e) {
+        } catch (final IOException e) {
           if (exceptionHandler.onIOException(e)) {
             stop();
             break;
           }
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
           if (exceptionHandler.onRuntimeException(e)) {
             stop();
             break;
@@ -143,7 +143,7 @@ public class WorkspaceThread extends AbstractTextGUIThread implements Asynchrono
 
     textGUI.processInput();
     while (!customTasks.isEmpty()) {
-      Runnable r = customTasks.poll();
+      final Runnable r = customTasks.poll();
       if (r != null) {
         r.run();
       }

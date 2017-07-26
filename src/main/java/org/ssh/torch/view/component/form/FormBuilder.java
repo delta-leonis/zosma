@@ -17,7 +17,7 @@ public interface FormBuilder {
    * @param types the types
    * @return the boolean
    */
-  default boolean areSupported(Class<?>... types) {
+  default boolean areSupported(final Class<?>... types) {
     return Stream.of(types).allMatch(this::isSupported);
   }
 
@@ -37,7 +37,7 @@ public interface FormBuilder {
    * @param type  the type
    * @return the form builder
    */
-  default <T> FormBuilder addField(String label, Class<T> type) {
+  default <T> FormBuilder addField(final String label, final Class<T> type) {
     return this.addField(label, type, "");
   }
 
@@ -50,10 +50,8 @@ public interface FormBuilder {
    * @param initialContent the initial content
    * @return the form builder
    */
-  default <T> FormBuilder addField(String label, Class<T> type, String initialContent) {
-    FormElement<T> element = createFormElement(type);
-    element.setValue(initialContent);
-    return addFormElement(label, element);
+  default <T> FormBuilder addField(final String label, Class<T> type, final String initialContent) {
+    return addFormElement(label, createFormElement(type).setValue(initialContent));
   }
 
   /**
@@ -86,7 +84,7 @@ public interface FormBuilder {
    * @param initialContent the initial content
    * @return the form builder
    */
-  default <T> FormBuilder addField(String label, T initialContent) {
+  default <T> FormBuilder addField(final String label, final T initialContent) {
     return this.addField(label, initialContent.getClass(), initialContent.toString());
   }
 
@@ -97,7 +95,7 @@ public interface FormBuilder {
    * @param onSelect the on select
    * @return the simple form builder
    */
-  SimpleFormBuilder addButton(String label, Consumer<List<FormElement<?>>> onSelect);
+  SimpleFormBuilder addButton(final String label, final Consumer<List<FormElement<?>>> onSelect);
 
   /**
    * Build form.
@@ -116,7 +114,7 @@ public interface FormBuilder {
      *
      * @param cause the cause
      */
-    NoSuchFormElementException(Throwable cause) {
+    NoSuchFormElementException(final Throwable cause) {
       super(cause);
     }
   }

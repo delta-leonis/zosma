@@ -31,7 +31,7 @@ public class Notification {
    * @param message       the message
    * @param dismissAction the dismiss action
    */
-  public Notification(Level level, String message, Consumer<Notification> dismissAction) {
+  public Notification(final Level level, final String message, final Consumer<Notification> dismissAction) {
     this(level, message, null, dismissAction, false);
   }
 

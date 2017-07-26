@@ -16,7 +16,7 @@ public class BasicModal extends BasicWindow {
    *
    * @param title the title
    */
-  public BasicModal(String title) {
+  public BasicModal(final String title) {
     this(title, null);
   }
 
@@ -26,7 +26,7 @@ public class BasicModal extends BasicWindow {
    * @param title     the title
    * @param component the component
    */
-  public BasicModal(String title, Component component) {
+  public BasicModal(final String title, final Component component) {
     super(title);
     this.setHints(Arrays.asList(Hint.MODAL, Hint.CENTERED));
     this.setCloseWindowWithEscape(true);

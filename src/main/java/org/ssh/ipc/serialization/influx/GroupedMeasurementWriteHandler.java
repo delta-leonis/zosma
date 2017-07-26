@@ -3,6 +3,7 @@ package org.ssh.ipc.serialization.influx;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.influxdb.dto.Point;
@@ -16,9 +17,9 @@ import org.ssh.benchmarks.*;
  * @author Rimon Oz
  */
 @Slf4j
-public class GroupedMeasurementWriteHandler implements PointWriteHandler<GroupedMeasurement> {
+public class GroupedMeasurementWriteHandler implements Function<GroupedMeasurement, Point> {
   @Override
-  public Point write(final GroupedMeasurement src) {
+  public Point apply(final GroupedMeasurement src) {
     return Point.measurement(src.getLabel())
         .time(src.getTimestamp(), TimeUnit.MILLISECONDS)
         .fields(this.parse(src))

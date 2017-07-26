@@ -9,7 +9,6 @@ package org.ssh.math.geometry;
  * @param <O> The type of Voronoi-cell.
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface VoronoiDiagram<V, O extends Polygon<V>> {
 
   /**

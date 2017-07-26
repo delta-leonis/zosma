@@ -10,7 +10,6 @@ import java.util.Set;
  * @param <V> The type of object which is stored in the graph.
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Graph<V> {
 
   /**

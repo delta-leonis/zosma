@@ -19,7 +19,7 @@ public abstract class NumberField<N extends Number> extends TextBox implements F
    *
    * @param parser the parser
    */
-  public NumberField(Function<String, N> parser) {
+  public NumberField(final Function<String, N> parser) {
     this("", parser);
   }
 
@@ -29,7 +29,7 @@ public abstract class NumberField<N extends Number> extends TextBox implements F
    * @param initialContent the initial content
    * @param parser         the parser
    */
-  public NumberField(String initialContent, Function<String, N> parser) {
+  public NumberField(final String initialContent, final Function<String, N> parser) {
     this(initialContent, parser, "[-+]?[0-9]*");
   }
 
@@ -40,7 +40,7 @@ public abstract class NumberField<N extends Number> extends TextBox implements F
    * @param parser         the parser
    * @param regex          the regex
    */
-  public NumberField(String initialContent, Function<String, N> parser, String regex) {
+  public NumberField(final String initialContent, final Function<String, N> parser, final String regex) {
     super(initialContent);
     this.parser = parser;
     this.setValidationPattern(Pattern.compile(regex));
@@ -53,7 +53,7 @@ public abstract class NumberField<N extends Number> extends TextBox implements F
    * @param parser         the parser
    * @param regex          the regex
    */
-  public NumberField(N initialContent, Function<String, N> parser, String regex) {
+  public NumberField(final N initialContent, final Function<String, N> parser, final String regex) {
     this(initialContent.toString(), parser, regex);
   }
 
@@ -63,7 +63,7 @@ public abstract class NumberField<N extends Number> extends TextBox implements F
   }
 
   @Override
-  public NumberField<N> setValue(N value) {
+  public NumberField<N> setValue(final N value) {
     this.setText(value.toString());
     return this;
   }

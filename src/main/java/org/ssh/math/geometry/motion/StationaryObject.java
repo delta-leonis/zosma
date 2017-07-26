@@ -8,7 +8,6 @@ package org.ssh.math.geometry.motion;
  * @param <T> The type of vector.
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface StationaryObject<T> {
 
   /**

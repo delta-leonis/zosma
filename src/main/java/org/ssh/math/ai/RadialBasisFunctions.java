@@ -91,7 +91,7 @@ public class RadialBasisFunctions {
       final INDArray input,
       final int k
   ) {
-    double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k);
+    final double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k);
     if (k % 2 == 0) {
       return exponentiatedEuclidianNorm * StrictMath.log(exponentiatedEuclidianNorm);
     } else {
@@ -233,7 +233,7 @@ public class RadialBasisFunctions {
       final INDArray input,
       final int k
   ) {
-    double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k - 1);
+    final double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k - 1);
     if (k % 2 == 0) {
       return exponentiatedEuclidianNorm * (k * StrictMath.log(norm.calculateNorm(input) + 1));
     } else {
@@ -277,7 +277,7 @@ public class RadialBasisFunctions {
       final INDArray input,
       final N epsilon
   ) {
-    double euclidianNorm = norm.calculateNorm(input);
+    final double euclidianNorm = norm.calculateNorm(input);
     return (euclidianNorm * epsilon.doubleValue() * RadialBasisFunctions
         .multiQuadric(norm, input, epsilon)
         + Trigonometry.asinh(euclidianNorm * epsilon.doubleValue()))
@@ -375,7 +375,7 @@ public class RadialBasisFunctions {
       final INDArray input,
       final int k
   ) {
-    double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k + 1);
+    final double exponentiatedEuclidianNorm = StrictMath.pow(norm.calculateNorm(input), k + 1);
     if (k % 2 == 0) {
       return
           (exponentiatedEuclidianNorm * ((k + 1) * StrictMath.log(norm.calculateNorm(input))

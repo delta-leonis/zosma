@@ -52,7 +52,7 @@ public class TopInformationWindow extends org.ssh.torch.view.BasicWindow {
     try {
       // Update size of this window
       this.setSize(terminal.getTerminalSize().withRows(2));
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
     }
   }
 

@@ -314,7 +314,7 @@ public class RedBlackTree<V extends Comparable<V>> implements Tree<V> {
   /**
    * @return True if this tree is a balanced {@link RedBlackTree}, false otherwise.
    */
-  public static <V extends Comparable<V>> boolean isBalanced(RedBlackTree<V> toVerify) {
+  public static <V extends Comparable<V>> boolean isBalanced(final RedBlackTree<V> toVerify) {
     return computeBlackHeight(toVerify) != -1;
   }
 

@@ -19,8 +19,8 @@ public class TorchUI {
   }
 
   private static TorchImpl createTorch() {
-    TorchImpl torch = new TorchImpl();
-    MainWorkspace workspace = new MainWorkspace(torch.getScreen());
+    final TorchImpl torch = new TorchImpl();
+    final MainWorkspace workspace = new MainWorkspace(torch.getScreen());
     torch.setActiveWorkspace(workspace);
 
 //        // subscribe the notification window

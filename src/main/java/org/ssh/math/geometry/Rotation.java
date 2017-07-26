@@ -17,7 +17,7 @@ public class Rotation {
    * @param rotation The rotation (in radians).
    * @return The vector rotated by the specified rotation.
    */
-  public static INDArray planarCartesian(INDArray input, double rotation) {
+  public static INDArray planarCartesian(final INDArray input, final double rotation) {
     return Nd4j.create(
         new double[]{
             StrictMath.cos(rotation), -1d * StrictMath.sin(rotation),

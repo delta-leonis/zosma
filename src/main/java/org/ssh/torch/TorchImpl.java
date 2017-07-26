@@ -42,14 +42,14 @@ public final class TorchImpl implements WorkspaceManager {
    */
   public TorchImpl() {
     try {
-      TerminalFactory factory = new DefaultTerminalFactory();
+      final TerminalFactory factory = new DefaultTerminalFactory();
       this.workspaces = new CopyOnWriteArrayList<>();
       this.terminal = factory.createTerminal();
       this.screen = new VirtualScreen(new TerminalScreen(this.terminal));
       this.screen.startScreen();
       this.terminal.addResizeListener((terminal, newSize) ->
           Zosma.broadcast(new TerminalEvent(Action.RESIZED, this.terminal)));
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
       throw new RuntimeException("Houston....", exception);
     }
 

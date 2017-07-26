@@ -1,72 +1,70 @@
 package org.ssh.game.engine;
 
 import org.reactivestreams.*;
-import org.ssh.game.*;
 import reactor.core.publisher.*;
 
 /**
  * The Interface FeedbackAI.
  *
- * This interface describes the functionality of an {@link AI} which feeds the {@link Strategy
- * strategies} it creates into a {@link Publisher} of {@link Game game states}, thus creating
+ * This interface describes the functionality of an {@link AI} which feeds the output
+ * it creates into a {@link Publisher} of the input type, thus creating
  * a feedback loop which can be used for simulating game play without an external game state
  * processor.
  *
- * @param <S> The type of {@link Strategy} produced by this {@link AI}.
- * @param <G> The type of {@link Game} which this {@link AI} can play.
- * @param <P> The type of parts of which this {@link AI} consists.
+ * @param <I> The type of input which this {@link AI} can receive.
+ * @param <O> The type of output produced by this {@link AI}.
+ * @param <C> The type of parts of which this {@link AI} consists.
  * @author Rimon Oz
  */
-public interface FeedbackAI<S extends Strategy, G extends Game, P> extends AI<S, G, P> {
+public interface FeedbackAI<I, O, C> extends AI<I, O, C> {
 
   /**
-   * Computes the new {@link Game game state} based on the previous game state and latest
-   * {@link Strategy}.
+   * Projects an input state based on a previously projected input state and most recently
+   * produced output state.
    *
-   * @param previousGameState The latest known {@link Game game state}.
-   * @param newestStrategy    The newest {@link Strategy} computed by the AI.
-   * @return The newest {@link Game game state} by applying the {@link Strategy}.
+   * @param previousInput The previously projected input state.
+   * @param latestOutput  The latest output produced by the {@link AI}.
+   * @return The projected input state.
    */
-  G project(final G previousGameState, final S newestStrategy);
+  I project(final I previousInput, final O latestOutput);
 
   @Override
   default void play() {
-    Flux.combineLatest(this.getGameProcessor(), this.getStrategyProcessor(), this::project)
-        .startWith(this.getInitialGame())
-        .sampleMillis(this.getGameProcessorInterval())
-        .doOnNext(this.getGameProcessor()::onNext)
-        .transform(this::apply)
-        .subscribe(this.getStrategyProcessor());
+    Flux.combineLatest(this.getInputProcessor(), this.getOutputProcessor(), this::project)
+        .startWith(this.getInitialInput())
+        .sampleMillis(this.getInputProcessorInterval())
+        .doOnNext(this.getInputProcessor()::onNext)
+        .transform(inputPublisher -> this.apply(this.getEngineContainer(), inputPublisher))
+        .subscribe(this.getOutputProcessor());
   }
 
   @Override
-  default Publisher<G> getGamePublisher() {
-    return this.getGameProcessor();
+  default Publisher<I> getInputPublisher() {
+    return this.getInputProcessor();
   }
 
   @Override
-  default Subscriber<S> getStrategySubscriber() {
-    return this.getStrategyProcessor();
+  default Subscriber<O> getOutputSubscriber() {
+    return this.getOutputProcessor();
   }
 
   /**
-   * @return The {@link TopicProcessor processor} which forwards {@link Strategy strategies}.
+   * @return The {@link TopicProcessor processor} which forwards outputs.
    */
-  TopicProcessor<G> getGameProcessor();
+  TopicProcessor<I> getInputProcessor();
 
   /**
-   * @return The {@link TopicProcessor processor} which forwards {@link Strategy strategies}.
+   * @return The {@link TopicProcessor processor} which forwards outputs.
    */
-  TopicProcessor<S> getStrategyProcessor();
+  TopicProcessor<O> getOutputProcessor();
 
   /**
-   * @return The initial {@link Game game state}.
+   * @return The initial input.
    */
-  G getInitialGame();
+  I getInitialInput();
 
   /**
-   * @return The interval on which the {@link TopicProcessor game processor} publishes {@link Game
-   * game states}.
+   * @return The interval on which the {@link TopicProcessor game processor} publishes input.
    */
-  long getGameProcessorInterval();
+  long getInputProcessorInterval();
 }

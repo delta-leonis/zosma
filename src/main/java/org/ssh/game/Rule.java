@@ -7,17 +7,17 @@ import java.util.function.Predicate;
  * The Interface Rule.
  * <p>
  * This interface describes the functionality of a rule which is used to
- * interpret the validity of a {@link Game}.
+ * interpret the validity of an instance.
  *
- * @param <G> The type of {@link Game game state} to which this rule may be applied.
+ * @param <I> The type of input to which this rule applies.
  * @param <V> The type of objects which can be in violation of the rule.
  * @author Rimon Oz
  */
-public interface Rule<G extends Game, V> extends Predicate<G> {
+public interface Rule<I, V> extends Predicate<I> {
 
   /**
-   * @param game The {@link Game game state} to check for violators.
-   * @return The objects in the {@link Game game state} which are in violation of the rule.
+   * @param input to check for violators.
+   * @return The objects in the object which are in violation of the rule.
    */
-  Set<V> getViolators(G game);
+  Set<V> getViolators(final I input);
 }

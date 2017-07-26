@@ -61,7 +61,7 @@ public interface TorchEvent<S> extends Event<S> {
    *
    * @author Jeroen de Jong
    */
-  public enum Action {
+  enum Action {
     /**
      * Resize action.
      */

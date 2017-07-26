@@ -34,7 +34,7 @@ public class InetAddressField extends TextBox implements FormElement<InetAddress
   }
 
   @Override
-  public InetAddressField setValue(InetAddress value) {
+  public InetAddressField setValue(final InetAddress value) {
     this.setText(value.getHostAddress());
     return this;
   }

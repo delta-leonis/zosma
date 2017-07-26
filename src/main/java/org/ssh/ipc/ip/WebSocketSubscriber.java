@@ -1,10 +1,9 @@
 package org.ssh.ipc.ip;
 
 import java.io.Serializable;
+import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.*;
-import org.ssh.ipc.serialization.Writer;
-import org.ssh.ipc.serialization.json.JsonWriter;
 import reactor.core.publisher.TopicProcessor;
 import reactor.core.scheduler.Schedulers;
 import reactor.ipc.netty.NettyPipeline;
@@ -21,24 +20,12 @@ import reactor.ipc.netty.http.server.HttpServer;
  * @author Jeroen de Jong
  */
 @Slf4j
-public class WebSocketSubscriber implements Subscriber<Serializable> {
-
+public class WebSocketSubscriber<T> implements Subscriber<T> {
   /**
    * The processor which handles the passthru of JSON objects from the input to the websocket.
    */
   private final TopicProcessor<String> outputPublisher = TopicProcessor.create();
-  private final Writer<String> writer;
-
-  /**
-   * Creates a new subscriber which receives {@link Serializable} data and emits it
-   * on a websocket.
-   *
-   * @param uri  The URI of the websocket (eg. '/route').
-   * @param port The port of the websocket (eg. 1337).
-   */
-  public WebSocketSubscriber(final String uri, final int port) {
-    this(new JsonWriter(), uri, port);
-  }
+  private final Function<T, String> writer;
 
   /**
    * Creates a new subscriber which receives {@link Serializable} data and emits it
@@ -49,7 +36,7 @@ public class WebSocketSubscriber implements Subscriber<Serializable> {
    * @param port   The port of the websocket (eg. 1337).
    */
   public WebSocketSubscriber(
-      final Writer<String> writer,
+      final Function<T, String> writer,
       final String uri,
       final int port) {
     this.writer = writer;
@@ -71,8 +58,8 @@ public class WebSocketSubscriber implements Subscriber<Serializable> {
   }
 
   @Override
-  public void onNext(final Serializable serializable) {
-    this.outputPublisher.onNext(writer.write(serializable));
+  public void onNext(final T object) {
+    this.outputPublisher.onNext(writer.apply(object));
   }
 
   @Override

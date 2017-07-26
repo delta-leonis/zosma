@@ -20,7 +20,7 @@ public interface FormElement<T> extends Interactable {
    * @param value The string to set on the element.
    * @return The element itself.
    */
-  default FormElement setValue(final String value) {
+  default FormElement<T> setValue(final String value) {
     return setValue(getParser().apply(value));
   }
 
@@ -28,7 +28,7 @@ public interface FormElement<T> extends Interactable {
    * @param value The value to set on the element.
    * @return the value
    */
-  FormElement setValue(final T value);
+  FormElement<T> setValue(final T value);
 
   /**
    * @return The parser which converts the field value to {@code <T>}.

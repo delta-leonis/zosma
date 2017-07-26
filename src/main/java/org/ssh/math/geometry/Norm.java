@@ -9,7 +9,6 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  *
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Norm {
 
   /**

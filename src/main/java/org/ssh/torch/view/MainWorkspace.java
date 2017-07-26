@@ -243,10 +243,10 @@ public class MainWorkspace extends AbstractWorkspace implements LifeCycle {
 
   @Override
   public List<Prerequisite> getPreRequisites() {
-    Runnable sleep = () -> {
+    final Runnable sleep = () -> {
       try {
         Thread.sleep(500);
-      } catch (Exception e) {
+      } catch (final Exception e) {
       }
     };
 

@@ -24,7 +24,7 @@ public class ParameterViewModel implements ViewModel<Parameter> {
    * @param fallback the fallback
    * @return the default
    */
-  public String getDefault(String fallback) {
+  public String getDefault(final String fallback) {
     return getDefault().orElse(fallback);
   }
 

@@ -28,8 +28,8 @@ public class InformationWindow extends BasicWindow {
   }
 
   private TerminalPosition getCenterPosition(final TerminalSize totalSize) {
-    int screenCenter = totalSize.getColumns() / 2;
-    int labelCenter = this.label.getText().length() / 2;
+    final int screenCenter = totalSize.getColumns() / 2;
+    final int labelCenter = this.label.getText().length() / 2;
     return new TerminalPosition(screenCenter - labelCenter, 0);
   }
 }

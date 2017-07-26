@@ -79,8 +79,8 @@ public class PSDControllerConvergenceTest {
    * @param testResult the test result
    */
   @AfterMethod
-  public void getRunTime(ITestResult testResult) {
-    long time = testResult.getEndMillis() - testResult.getStartMillis();
+  public void getRunTime(final ITestResult testResult) {
+    final long time = testResult.getEndMillis() - testResult.getStartMillis();
     log.info("Iteration #" + testResult.getMethod().getCurrentInvocationCount()
         + " on " + POINTS + " measurements ran in " + time + "ms. "
         + (time / ((double) POINTS)) + "ms per measurement.");

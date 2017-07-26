@@ -68,7 +68,7 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
     // Move active window
     this.addListener((window, keyStroke) -> {
       if (keyStroke.isAltDown()) {
-        TerminalPosition size = this.getActiveWindow().getPosition();
+        final TerminalPosition size = this.getActiveWindow().getPosition();
         if (keyStroke.getKeyType().equals(KeyType.ArrowDown)) {
           this.getActiveWindow()
               .setPosition(size.withRelative(new TerminalPosition(0, 1)));
@@ -107,7 +107,7 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
   public synchronized WindowBasedTextGUI addWindow(
       final com.googlecode.lanterna.gui2.Window window
   ) {
-    WindowBasedTextGUI windowBasedTextGUI = super.addWindow(window);
+    final WindowBasedTextGUI windowBasedTextGUI = super.addWindow(window);
     window.setPosition(window.getPosition().withRelativeRow(2));
     return windowBasedTextGUI;
   }

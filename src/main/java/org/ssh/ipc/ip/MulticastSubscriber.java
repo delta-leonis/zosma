@@ -57,7 +57,7 @@ public class MulticastSubscriber implements Subscriber<DatagramPacket> {
       datagramPacket.setAddress(this.getAddress());
       datagramPacket.setPort(this.getPort());
       this.getSocket().send(datagramPacket);
-    } catch (Exception exception) {
+    } catch (final Exception exception) {
       log.error("Could not send packet to multicast "
           + this.getAddress().getHostAddress()
           + ":" + this.getPort());

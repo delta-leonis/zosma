@@ -7,7 +7,6 @@ package org.ssh.math;
  *
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Temporal {
 
   /**

@@ -52,7 +52,7 @@ public class MulticastPublisher<O> implements Publisher<O> {
             return Flux.never();
           })
           .subscribe();
-    } catch (SocketException exception) {
+    } catch (final SocketException exception) {
       Flux.<O>error(exception).subscribe(subscriber);
     }
   }

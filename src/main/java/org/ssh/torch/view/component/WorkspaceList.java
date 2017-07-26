@@ -20,7 +20,7 @@ public class WorkspaceList extends Panel {
    * @param callback         the callback
    */
   public WorkspaceList(final Collection<Class<? extends AbstractWorkspace>> workspaceClasses,
-      Consumer<WorkspaceClassViewModel<?>> callback) {
+      final Consumer<WorkspaceClassViewModel<?>> callback) {
     this.withBorder(Borders.singleLine("Workspace selector"));
     workspaceClasses.stream()
         .map(

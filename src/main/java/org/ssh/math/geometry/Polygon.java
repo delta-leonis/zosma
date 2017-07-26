@@ -11,7 +11,6 @@ import java.util.Set;
  * @param <V> The type of vector.
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface Polygon<V> {
 
   /**
