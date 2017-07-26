@@ -10,6 +10,5 @@ import java.util.function.*;
  *
  * @author Rimon Oz
  */
-@FunctionalInterface
 public interface AnomalyDetector<I> extends Predicate<I> {
 }
