@@ -11,7 +11,8 @@ import org.ssh.ipc.event.torch.*;
 import org.ssh.torch.view.Workspace;
 
 /**
- * Created by thoma on 22-2-17.
+ * Defines the window at the top of each {@link Workspace}
+ * @author Thomas Hakkers
  */
 @Slf4j
 public class TopInformationWindow extends org.ssh.torch.view.BasicWindow {

@@ -50,7 +50,7 @@ public interface FormBuilder {
    * @param initialContent the initial content
    * @return the form builder
    */
-  default <T> FormBuilder addField(final String label, Class<T> type, final String initialContent) {
+  default <T> FormBuilder addField(final String label, final Class<T> type, final String initialContent) {
     return addFormElement(label, createFormElement(type).setValue(initialContent));
   }
 

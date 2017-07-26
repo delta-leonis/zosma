@@ -100,7 +100,7 @@ public abstract class AbstractWorkspace extends MultiWindowTextGUI implements Wo
     getWorkspaceThread().pause();
     getWorkspaceThread().invokeLater(this::construct);
 
-    this.addWindow(new TopInformationWindow());
+    super.addWindow(new TopInformationWindow());
   }
 
   @Override

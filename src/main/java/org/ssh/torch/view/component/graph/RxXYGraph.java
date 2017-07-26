@@ -1,10 +1,17 @@
 package org.ssh.torch.view.component.graph;
 
-import java.util.*;
+import com.googlecode.lanterna.TerminalSize;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Value;
 import org.reactivestreams.Subscription;
-import org.ssh.benchmarks.*;
+import org.ssh.benchmarks.GroupedMeasurement;
+import org.ssh.benchmarks.RangedMeasurement;
 import org.ssh.torch.view.RxComponent;
 import org.ssh.torch.view.model.GroupedMeasurementViewModel;
 
@@ -14,24 +21,31 @@ import org.ssh.torch.view.model.GroupedMeasurementViewModel;
  * @param <C> the type parameter
  * @param <R> the type parameter
  * @author Jeroen de Jong
+ * @author Thomas Hakkers
  */
+@Value
 public class RxXYGraph<C extends GroupedMeasurementViewModel<? extends GroupedMeasurement>, R extends RangedMeasurement<? extends Number>>
     extends XYGraph implements RxComponent<C> {
 
-  private final Function<C, R> getter;
+  private transient final Function<C, R> accessor;
+
   /**
    * The Measurements.
    */
-  @Getter(AccessLevel.NONE)
-  List<Map.Entry<Integer, Integer>> measurements = new ArrayList<>();
+  final transient List<Map.Entry<Integer, Double>> measurements = new CopyOnWriteArrayList<>();
 
+  public RxXYGraph(final Function<C, R> accessor, final TerminalSize size) {
+    this(accessor, size, new ThinLine());
+  }
   /**
    * Instantiates a new Rx xy graph.
    *
-   * @param getter the getter
+   * @param accessor the accessor
    */
-  public RxXYGraph(final Function<C, R> getter) {
-    this.getter = getter;
+  public RxXYGraph(final Function<C, R> accessor, final TerminalSize size, final LineType lineType) {
+    this.accessor = accessor;
+    this.setLineType(lineType);
+    this.setPreferredSize(size);
   }
 
   @Override
@@ -41,9 +55,12 @@ public class RxXYGraph<C extends GroupedMeasurementViewModel<? extends GroupedMe
 
   @Override
   public void onNext(final C context) {
-    final R measurement = getter.apply(context);
+    R measurement = accessor.apply(context);
+    this.setMaxY(measurement.getMax().doubleValue());
+    this.setMinY(measurement.getMin().doubleValue());
+
     measurements.add(
-        new AbstractMap.SimpleEntry<>(measurements.size(), measurement.getValue().intValue()));
+        new AbstractMap.SimpleEntry<>(measurements.size(), measurement.getValue().doubleValue()));
   }
 
   @Override
@@ -52,10 +69,5 @@ public class RxXYGraph<C extends GroupedMeasurementViewModel<? extends GroupedMe
 
   @Override
   public void onComplete() {
-  }
-
-  @Override
-  protected List<Map.Entry<Integer, Integer>> getData() {
-    return Collections.unmodifiableList(this.measurements);
   }
 }
