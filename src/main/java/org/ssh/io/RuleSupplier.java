@@ -6,9 +6,11 @@ import org.ssh.game.*;
 /**
  * The Interface RuleSupplier.
  *
- * See <a href="http://www.thegamesjournal.com/articles/WhatIsaGame.shtml">this
- * article's introduction</a>.
+ * See <a href="http://www.thegamesjournal.com/articles/WhatIsaGame.shtml">this article's
+ * introduction</a>.
  *
+ * @param <G> The type of game state.
+ * @param <A> The type of {@link Agent} which is embedded in the game.
  * @author Rimon Oz
  */
 public interface RuleSupplier<G, A extends Agent> {

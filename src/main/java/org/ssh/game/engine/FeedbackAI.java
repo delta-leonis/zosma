@@ -1,26 +1,25 @@
 package org.ssh.game.engine;
 
 import org.reactivestreams.*;
+import org.ssh.io.ConfigSupplier;
 import reactor.core.publisher.*;
 
 /**
  * The Interface FeedbackAI.
  *
- * This interface describes the functionality of an {@link AI} which feeds the output
- * it creates into a {@link Publisher} of the input type, thus creating
- * a feedback loop which can be used for simulating game play without an external game state
- * processor.
+ * This interface describes the functionality of an {@link AI} which feeds the output it creates
+ * into a {@link Publisher} of the input type, thus creating a feedback loop which can be used for
+ * simulating game play without an external game state processor.
  *
  * @param <I> The type of input which this {@link AI} can receive.
  * @param <O> The type of output produced by this {@link AI}.
- * @param <C> The type of parts of which this {@link AI} consists.
  * @author Rimon Oz
  */
-public interface FeedbackAI<I, O, C> extends AI<I, O, C> {
+public interface FeedbackAI<I extends ConfigSupplier, O> extends AI<I, O> {
 
   /**
-   * Projects an input state based on a previously projected input state and most recently
-   * produced output state.
+   * Projects an input state based on a previously projected input state and most recently produced
+   * output state.
    *
    * @param previousInput The previously projected input state.
    * @param latestOutput  The latest output produced by the {@link AI}.
@@ -30,11 +29,11 @@ public interface FeedbackAI<I, O, C> extends AI<I, O, C> {
 
   @Override
   default void play() {
-    Flux.combineLatest(this.getInputProcessor(), this.getOutputProcessor(), this::project)
-        .startWith(this.getInitialInput())
-        .sampleMillis(this.getInputProcessorInterval())
-        .doOnNext(this.getInputProcessor()::onNext)
-        .transform(inputPublisher -> this.apply(this.getEngineContainer(), inputPublisher))
+    this.apply(
+        Flux.combineLatest(this.getInputProcessor(), this.getOutputProcessor(), this::project)
+            .startWith(this.getInitialInput())
+            .sampleMillis(this.getInputProcessorInterval())
+            .doOnNext(this.getInputProcessor()::onNext))
         .subscribe(this.getOutputProcessor());
   }
 

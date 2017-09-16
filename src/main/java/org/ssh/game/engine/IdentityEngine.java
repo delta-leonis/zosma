@@ -6,7 +6,7 @@ package org.ssh.game.engine;
  * This interface describes the functionality of an {@link Engine} whose output
  * has the same type as its input.
  *
- * @param <I> The type of input handled by this engine.
+ * @param <I> The type of input handled by this engine (which is similarly its output type).
  * @author Rimon Oz
  */
 public interface IdentityEngine<I> extends Engine<I, I> {
