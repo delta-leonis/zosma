@@ -2,7 +2,7 @@ package org.ssh.math.geometry;
 
 /**
  * The Enum CardinalDirection.
- * <p>
+ *
  * This enumeration enumerates the principal cardinal directions.
  *
  * @author Rimon Oz

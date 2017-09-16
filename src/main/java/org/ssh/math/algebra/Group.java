@@ -2,20 +2,20 @@ package org.ssh.math.algebra;
 
 /**
  * The Interface Group.
- * <p>
+ *
  * This interface describes the functionality of a
  * <a href="https://en.wikipedia.org/wiki/Group_(mathematics)">group</a>.
  * A group is a mathematical object which has the following properties:
- * <p>
+ *
  * - A group is defined over a field (of elements), such as the real numbers
  * or the complex numbers.
  * - A ring has one operator: addition (+).
  * - When an operator is applied to a number, it will result in a number
  * from the same field (eg. addition of two reals results in a real,
  * multiplication of two complex numbers yield a complex number, etc.)
- * <p>
+ *
  * A group is governed by the following axioms (also known as the group axioms):
- * <p>
+ *
  * - Closure:       if a and b are elements of F, then a + b is an element of F
  * - Associativity: if a, b, and c are elements of F, then (a+b)+c = a+(b+c)
  * - Identity:      there exists an element e of F such that for all a in F:

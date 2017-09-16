@@ -5,7 +5,7 @@ import org.ssh.math.geometry.motion.MovingObject;
 
 /**
  * The Interface Boid.
- * <p>
+ *
  * This interface represents the functionality of a flocking algorithm.
  *
  * @param <T> The type of vector.

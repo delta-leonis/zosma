@@ -1,10 +1,6 @@
 package org.ssh.math.control;
 
 import java.util.function.BiPredicate;
-import lombok.Value;
-import lombok.experimental.NonFinal;
-import org.ssh.math.function.Scanner;
-import reactor.core.publisher.*;
 
 /**
  * The Interface ScanningAnomalyDetector.

@@ -3,8 +3,9 @@ package org.ssh.math.function;
 import java.util.function.*;
 
 /**
- * Utility class to handle checked exceptions in lambdas. <p> From <a
- * href="http://stackoverflow.com/questions/27644361/how-can-i-throw-checked-exceptions-from-inside-java-8-streams">
+ * Utility class to handle checked exceptions in lambdas.
+ *
+ * From <a href="http://stackoverflow.com/questions/27644361/how-can-i-throw-checked-exceptions-from-inside-java-8-streams">
  * How can I throw CHECKED exceptions from inside Java 8 streams?</a>. This class helps to handle
  * checked exceptions with lambdas.
  *
@@ -14,8 +15,7 @@ import java.util.function.*;
 public final class LambdaExceptions {
 
   /**
-   * Rethrows exceptions caught in a {@link RunnableWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link RunnableWithExceptions} as unchecked exceptions.
    *
    * @param <E>      The type of exception thrown by the consumer
    * @param runnable The consumer to run.
@@ -48,8 +48,7 @@ public final class LambdaExceptions {
   }
 
   /**
-   * Rethrows exceptions caught in a {@link ConsumerWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link ConsumerWithExceptions} as unchecked exceptions.
    *
    * @param <T>      The type of object accepted by the consumer.
    * @param <E>      The type of exception thrown by the consumer
@@ -69,8 +68,7 @@ public final class LambdaExceptions {
   }
 
   /**
-   * Rethrows exceptions caught in a {@link BiConsumerWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link BiConsumerWithExceptions} as unchecked exceptions.
    *
    * @param <T>        The type of object accepted by the bi-consumer in the first argument.
    * @param <U>        The type of object accepted by the bi-consumer in the second argument.
@@ -91,8 +89,7 @@ public final class LambdaExceptions {
   }
 
   /**
-   * Rethrows exceptions caught in a {@link FunctionWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link FunctionWithExceptions} as unchecked exceptions.
    *
    * @param <T>      The type of object accepted by the function.
    * @param <R>      The type of object returned by the function.
@@ -114,8 +111,7 @@ public final class LambdaExceptions {
   }
 
   /**
-   * Rethrows exceptions caught in a {@link SupplierWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link SupplierWithExceptions} as unchecked exceptions.
    *
    * @param <T>      The type of object returned by the supplier.
    * @param <E>      The type of exception thrown by the supplier.
@@ -149,8 +145,7 @@ public final class LambdaExceptions {
   }
 
   /**
-   * Rethrows exceptions caught in a {@link SupplierWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link SupplierWithExceptions} as unchecked exceptions.
    *
    * @param <R>      The type of object accepted by the supplier.
    * @param <E>      The type of exception thrown by the supplier.
@@ -169,8 +164,7 @@ public final class LambdaExceptions {
   }
 
   /**
-   * Rethrows exceptions caught in a {@link FunctionWithExceptions} as
-   * unchecked exceptions.
+   * Rethrows exceptions caught in a {@link FunctionWithExceptions} as unchecked exceptions.
    *
    * @param <T>      The type of object accepted by the function.
    * @param <R>      The type of object accepted by the function.
@@ -215,7 +209,7 @@ public final class LambdaExceptions {
    * @param <U> The type of object accepted by this consumer in the second argument.
    * @param <E> The type of exception thrown by this consumer.
    */
-    public interface BiConsumerWithExceptions<T, U, E extends Exception> {
+  public interface BiConsumerWithExceptions<T, U, E extends Exception> {
 
     /**
      * Accept.
@@ -234,7 +228,7 @@ public final class LambdaExceptions {
    * @param <R> The type of object return by this function.
    * @param <E> The type of exception thrown by this function.
    */
-    public interface FunctionWithExceptions<T, R, E extends Exception> {
+  public interface FunctionWithExceptions<T, R, E extends Exception> {
 
     /**
      * Apply r.
@@ -252,7 +246,7 @@ public final class LambdaExceptions {
    * @param <T> The type of object returned by this supplier.
    * @param <E> The type of exception thrown by this supplier.
    */
-    public interface SupplierWithExceptions<T, E extends Exception> {
+  public interface SupplierWithExceptions<T, E extends Exception> {
 
     /**
      * Get t.
@@ -268,7 +262,7 @@ public final class LambdaExceptions {
    *
    * @param <E> The type of exception thrown by this runnable.
    */
-    public interface RunnableWithExceptions<E extends Exception> {
+  public interface RunnableWithExceptions<E extends Exception> {
 
     /**
      * Run.

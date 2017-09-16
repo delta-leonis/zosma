@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * The Interface Chapter.
- * <p>
+ *
  * This interface represents a chapter within a {@link Report}.
  *
  * @author Rimon Oz

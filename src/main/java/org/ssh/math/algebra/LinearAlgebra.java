@@ -8,7 +8,7 @@ import org.nd4j.linalg.indexing.conditions.Conditions;
 
 /**
  * The Class LinearAlgebra.
- * <p>
+ *
  * This class contains utility functions for performing linear algebra operations
  * on {@link INDArray}.
  *

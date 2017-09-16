@@ -2,7 +2,7 @@ package org.ssh.game;
 
 /**
  * The Interface Agent.
- * <p>
+ *
  * This interface describes the functionality of an object which can be
  * issued an instruction.
  *

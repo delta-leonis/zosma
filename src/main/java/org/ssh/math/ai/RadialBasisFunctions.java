@@ -8,7 +8,7 @@ import org.ssh.math.statistic.distribution.GaussianDistribution;
 
 /**
  * The Class RadialBasisFunctions.
- * <p>
+ *
  * This class contains methods for computing values, derivatives, and integrals of (vector-valued)
  * hyperspherical basis functions.
  *

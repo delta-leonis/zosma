@@ -7,7 +7,7 @@ import org.ssh.math.statistic.DescriptiveMeasure.Summary;
 
 /**
  * The Class GroupedMeasurement
- * <p>
+ *
  * This interface describes a group of measurements, ie. a set of measurements which have been
  * made together.
  *

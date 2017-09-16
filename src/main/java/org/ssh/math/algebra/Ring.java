@@ -2,23 +2,23 @@ package org.ssh.math.algebra;
 
 /**
  * The Interface Ring.
- * <p>
+ *
  * This interface describes the functionality of a
  * <a href="https://en.wikipedia.org/wiki/Ring_(mathematics)">ring</a>.
  * A ring is a mathematical object which has the following properties:
- * <p>
+ *
  * - A ring is defined over a field (of elements), such as the real numbers
  * or the complex numbers.
  * - A ring has two operators: addition (+) and multiplication (*)
  * - When an operator is applied to a number, it will result in a number
  * from the same field (eg. addition of two reals results in a real,
  * multiplication of two complex numbers yield a complex number, etc.)
- * <p>
+ *
  * A ring is an Abelian {@link Group}, or a commutative group, with a second
  * operator which is associative by itself, and distributes over the addition
  * operator.
  * A ring is governed by the following axioms (also known as the ring axioms):
- * <p>
+ *
  * - Closure:        if a and b are elements of F, then a + b is an element
  * of F
  * - Associativity:  if a, b, and c are elements of F, then (a+b)+c = a+(b+c)

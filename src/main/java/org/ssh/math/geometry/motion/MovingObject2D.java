@@ -2,7 +2,7 @@ package org.ssh.math.geometry.motion;
 
 /**
  * The Class MovingObject2D.
- * <p>
+ *
  * This class represents an object (in a 2-dimensional space) which
  * has a position and velocity vector.
  *

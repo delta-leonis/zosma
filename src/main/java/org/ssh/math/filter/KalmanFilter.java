@@ -8,7 +8,7 @@ import org.ssh.math.statistic.distribution.GaussianDistribution;
 
 /**
  * The Class KalmanFilter.
- * <p>
+ *
  * This class contains the functionality of a Kalman filter for linear applications. The
  * implementation is based off of notes and equations which can be found
  * <a href="https://en.wikipedia.org/wiki/Kalman_filter#Details">here</a>.

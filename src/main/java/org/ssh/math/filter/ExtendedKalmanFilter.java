@@ -7,9 +7,11 @@ import org.nd4j.linalg.inverse.InvertMatrix;
 import org.ssh.math.statistic.*;
 
 /**
- * The Class ExtendedKalmanFilter. <p> This class contains the functionality for an extended Kalman
- * filter (EKF) for nonlinear applications. The implementation is based off of notes and equations
- * which can be found <a href="https://en.wikipedia.org/wiki/Extended_Kalman_filter#Discrete-time_predict_and_update_equations">
+ * The Class ExtendedKalmanFilter.
+ *
+ * This class contains the functionality for an extended Kalman filter (EKF) for nonlinear
+ * applications. The implementation is based off of notes and equations which can be found <a
+ * href="https://en.wikipedia.org/wiki/Extended_Kalman_filter#Discrete-time_predict_and_update_equations">
  * here</a>.
  *
  * @author Rimon Oz
@@ -58,9 +60,9 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
   }
 
   /**
-   * Computes the filtered {@link Distribution} (mean and covariance) using the supplied state-
-   * and measurement-transition functions, their respective Jacobians and the supplied control
-   * input, process noise, observation noise, and current state.
+   * Computes the filtered {@link Distribution} (mean and covariance) using the supplied state- and
+   * measurement-transition functions, their respective Jacobians and the supplied control input,
+   * process noise, observation noise, and current state.
    *
    * @param stateTransition               A {@link BiFunction} which takes as its first argument the
    *                                      previous state, and the control input as its second

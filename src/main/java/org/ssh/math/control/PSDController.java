@@ -4,20 +4,21 @@ import java.util.List;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 /**
- * The Class PSDController. <p> This class contains the functionality of a discrete-time
- * Proportional-, Summation-, and Difference-controller. The algorithm is based on the derivation by
- * Cagatay Basdogan (see <a href="http://portal.ku.edu.tr/~cbasdogan/Courses/Robotics/projects/Discrete_PID.pdf">
- * these sheets</a>).
+ * The Class PSDController.
+ *
+ * This class contains the functionality of a discrete-time Proportional-, Summation-, and
+ * Difference-controller. The algorithm is based on the derivation by Cagatay Basdogan (see <a
+ * href="http://portal.ku.edu.tr/~cbasdogan/Courses/Robotics/projects/Discrete_PID.pdf"> these
+ * sheets</a>).
  *
  * @author Rimon Oz
  */
 public interface PSDController {
 
   /**
-   * Computes the control vector based on the supplied previous control
-   * signal, error terms (also known as residual or innovation), the
-   * supplied proportial-, summation-, and difference-coefficients, and the
-   * time since last update.
+   * Computes the control vector based on the supplied previous control signal, error terms (also
+   * known as residual or innovation), the supplied proportial-, summation-, and
+   * difference-coefficients, and the time since last update.
    *
    * @param previousControl    The value of the control vector in the previous time-step.
    * @param residuals          A list of error terms in previous time-steps, with the latest error

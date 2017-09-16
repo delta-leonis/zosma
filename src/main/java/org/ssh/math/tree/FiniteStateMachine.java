@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 
 /**
  * The Interface FiniteStateMachine.
- * <p>
+ *
  * This interface describes the functionality of a finite state machine.
  *
  * @param <S> The type of {@link State}
@@ -37,7 +37,7 @@ public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends 
 
   /**
    * The Interface State.
-   * <p>
+   *
    * This interface describes the functionality of a state in the state machine.
    */
   interface State {

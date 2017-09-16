@@ -2,7 +2,7 @@ package org.ssh.math.geometry;
 
 /**
  * The Interface VoronoiDiagram.
- * <p>
+ *
  * This interface describes the functionality of a Voronoi diagram.
  *
  * @param <V> The type of vector.

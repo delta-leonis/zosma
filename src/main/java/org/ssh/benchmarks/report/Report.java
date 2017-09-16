@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * The Interface Report.
- * <p>
+ *
  * This interface represents a report.
  *
  * @author Rimon Oz

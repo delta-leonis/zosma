@@ -2,7 +2,7 @@ package org.ssh.math.geometry.motion;
 
 /**
  * The Class StationaryObject3D.
- * <p>
+ *
  * This class represents an object (in a 3-dimensional space) which has a position vector.
  *
  * @param <T> The type of vector.

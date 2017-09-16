@@ -4,7 +4,7 @@ import java.util.Set;
 
 /**
  * The Interface Polygon.
- * <p>
+ *
  * This interface describes the functionality of a polygon, that is a plane figure with at least
  * three sides and angles.
  *

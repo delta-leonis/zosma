@@ -4,7 +4,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 
 /**
  * The Interface Norm.
- * <p>
+ *
  * This interface describes the functionality of a norm, ie. a measure of distance.
  *
  * @author Rimon Oz

@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 /**
  * The Interface Rule.
- * <p>
+ *
  * This interface describes the functionality of a rule which is used to
  * interpret the validity of an instance.
  *

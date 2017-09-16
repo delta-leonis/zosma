@@ -9,7 +9,7 @@ import org.ssh.math.statistic.Distribution;
 
 /**
  * The Class GaussianDistribution.
- * <p>
+ *
  * This class represents the statistics of a state-space which is characterized by a mean and
  * covariance such that the distribution is of the Gaussian form. This distribution is often
  * called the normal distribution.

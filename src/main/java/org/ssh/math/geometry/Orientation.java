@@ -2,7 +2,7 @@ package org.ssh.math.geometry;
 
 /**
  * The Interface Orientation.
- * <p>
+ *
  * This interface describes the functionality of an object which has orientation (with respect to
  * a specific reference angle).
  *

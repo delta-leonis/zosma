@@ -7,7 +7,7 @@ import org.ssh.math.geometry.motion.MovingObject;
 
 /**
  * The Class SimpleBoid.
- * <p>
+ *
  * This class contains the functionality for a simple boids algorithm. The
  * implementation is based on the notes and pseudocode found
  * <a href="http://www.kfish.org/boids/pseudocode.html">here</a>.
