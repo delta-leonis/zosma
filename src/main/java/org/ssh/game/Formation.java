@@ -17,4 +17,8 @@ public interface Formation<V, A extends Agent> {
    * @return The formation vector for the specified {@link Agent}.
    */
   V getFormationFor(A agent);
+
+  interface Supplier<F extends Formation> {
+    F getFormation();
+  }
 }

@@ -3,7 +3,8 @@ package org.ssh.math.ai;
 import java.util.Set;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
-import org.ssh.math.geometry.motion.MovingObject;
+import org.ssh.math.Spatial;
+import org.ssh.math.spatial.Moving;
 
 /**
  * The Class SimpleBoid.
@@ -14,12 +15,12 @@ import org.ssh.math.geometry.motion.MovingObject;
  *
  * @author Rimon Oz
  */
-public interface SimpleBoid extends Boid<INDArray> {
+public interface SimpleBoid<O extends Spatial & Moving> extends Boid<O> {
 
   @Override
   default INDArray respond(
-      final MovingObject<INDArray> currentBoid,
-      final Set<? extends MovingObject<INDArray>> otherBoids,
+      final O currentBoid,
+      final Set<? extends O> otherBoids,
       final double avoidanceScale,
       final double velocityRange,
       final double centeringScale
@@ -40,17 +41,16 @@ public interface SimpleBoid extends Boid<INDArray> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the specific boid steers away from other boids in the flock.
    */
-  static INDArray collisionAvoidance(
-      final MovingObject<INDArray> currentBoid,
-      final Set<? extends MovingObject<INDArray>> otherBoids,
+  static <O extends Spatial & Moving> INDArray collisionAvoidance(
+      final O currentBoid,
+      final Set<? extends O> otherBoids,
       final double scalingFactor
   ) {
     return otherBoids.stream()
         .filter(boid -> !boid.equals(currentBoid))
-        .map(MovingObject::getPosition)
+        .map(O::getPosition)
         .reduce(
-            Nd4j.create(currentBoid.getPosition().rows(),
-                currentBoid.getPosition().columns()),
+            Nd4j.create(currentBoid.getPosition().shape()),
             INDArray::add)
         .div(otherBoids.size())
         .sub(currentBoid.getPosition())
@@ -69,24 +69,22 @@ public interface SimpleBoid extends Boid<INDArray> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the specific boid matches its velocity vector with other boids within its range.
    */
-  static INDArray velocityMatching(
-      final MovingObject<INDArray> currentBoid,
-      final Set<? extends MovingObject<INDArray>> otherBoids,
+  static <O extends Spatial & Moving> INDArray velocityMatching(
+      final O currentBoid,
+      final Set<? extends O> otherBoids,
       final double range
   ) {
     return otherBoids.stream()
         .filter(boid -> !boid.equals(currentBoid))
-        .map(MovingObject::getPosition)
+        .map(O::getVelocity)
         .filter(boid ->
             boid.distance2(currentBoid.getPosition()) < range)
         .reduce(
-            Nd4j.create(
-                currentBoid.getPosition().rows(),
-                currentBoid.getPosition().columns()),
+            Nd4j.create(currentBoid.getPosition().shape()),
             (velocity, nextBoid)
                 -> velocity.sub(
                 nextBoid.sub(
-                    currentBoid.getPosition())));
+                    currentBoid.getVelocity())));
   }
 
   /**
@@ -100,18 +98,16 @@ public interface SimpleBoid extends Boid<INDArray> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the flock stays together.
    */
-  static INDArray flockCentering(
-      final MovingObject<INDArray> currentBoid,
-      final Set<? extends MovingObject<INDArray>> otherBoids,
+  static <O extends Spatial & Moving> INDArray flockCentering(
+      final O currentBoid,
+      final Set<? extends O> otherBoids,
       final double scalingFactor
   ) {
     return otherBoids.stream()
         .filter(boid -> !boid.equals(currentBoid))
-        .map(MovingObject::getVelocity)
+        .map(Moving::getVelocity)
         .reduce(
-            Nd4j.create(
-                currentBoid.getPosition().rows(),
-                currentBoid.getPosition().columns()),
+            Nd4j.create(currentBoid.getPosition().shape()),
             INDArray::add)
         .div(otherBoids.size())
         .mul(scalingFactor);

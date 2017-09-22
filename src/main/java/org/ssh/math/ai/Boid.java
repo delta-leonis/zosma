@@ -1,17 +1,18 @@
 package org.ssh.math.ai;
 
 import java.util.Set;
-import org.ssh.math.geometry.motion.MovingObject;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.ssh.math.Spatial;
+import org.ssh.math.spatial.Moving;
 
 /**
  * The Interface Boid.
  *
  * This interface represents the functionality of a flocking algorithm.
  *
- * @param <T> The type of vector.
  * @author Rimon Oz
  */
-public interface Boid<T> {
+public interface Boid<O extends Spatial & Moving> {
 
   /**
    * Returns a velocity vector for a specific boid, given a set of other
@@ -25,9 +26,9 @@ public interface Boid<T> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the flock exhibits flocking behavior.
    */
-  T respond(
-      final MovingObject<T> currentBoid,
-      final Set<? extends MovingObject<T>> otherBoids,
+  INDArray respond(
+      final O currentBoid,
+      final Set<? extends O> otherBoids,
       final double avoidanceScale,
       final double velocityRange,
       final double centeringScale);
