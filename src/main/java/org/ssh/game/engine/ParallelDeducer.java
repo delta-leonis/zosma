@@ -2,9 +2,8 @@ package org.ssh.game.engine;
 
 import java.util.function.*;
 import java.util.stream.Stream;
-import lombok.*;
+import lombok.AllArgsConstructor;
 import org.reactivestreams.Publisher;
-import org.ssh.io.ConfigSupplier;
 import org.ssh.math.function.*;
 import reactor.core.publisher.Flux;
 
@@ -21,7 +20,7 @@ import reactor.core.publisher.Flux;
  */
 @AllArgsConstructor
 @SuppressWarnings("unchecked")
-public final class ParallelDeducer<I extends ConfigSupplier, T1, T2, T3, T4, T5, T6, T7, T8, T9, O>
+public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, O>
     implements Deducer<I, O> {
   private final Function<Object[], O> combinator;
   private final Deducer<I, ?>[] deducers;
