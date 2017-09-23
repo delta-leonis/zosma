@@ -14,4 +14,11 @@ import org.reactivestreams.Publisher;
  * @author Rimon Oz
  */
 public interface Deducer<I, O> extends Function<Publisher<I>, Publisher<O>> {
+
+  class Identity<I> implements Deducer<I, I> {
+    @Override
+    public Publisher<I> apply(final Publisher<I> inputPublisher) {
+      return inputPublisher;
+    }
+  }
 }
