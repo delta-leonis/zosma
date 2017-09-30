@@ -1,8 +1,7 @@
 # `core`
 > project zosma v1.0-SNAPSHOT
 
-[![build status](https://gitlab.com/smallsizeholland/server/core/badges/master/build.svg)](https://gitlab.com/smallsizeholland/server/core/commits/master)
-[![coverage report](https://gitlab.com/smallsizeholland/server/core/badges/master/coverage.svg)](https://gitlab.com/smallsizeholland/server/core/commits/master)
+[![CircleCI](https://circleci.com/gh/delta-leonis/zosma.svg?style=svg)](https://circleci.com/gh/delta-leonis/zosma)
 
 You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
 /[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)) 
