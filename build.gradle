@@ -50,9 +50,6 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'org.slf4j:slf4j-simple:1.7.25'
 
-    // ui
-    compile 'com.googlecode.lanterna:lanterna:3.0.0-rc1'
-
     // system
     compile 'com.github.dblock:oshi-core:3.4.0'
 

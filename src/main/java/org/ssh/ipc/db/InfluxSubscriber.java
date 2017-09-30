@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.influxdb.*;
 import org.influxdb.dto.Point;
 import org.reactivestreams.*;
-import org.ssh.torch.Default;
 
 /**
  * The Class InfluxSubscriber.
@@ -26,16 +25,13 @@ public class InfluxSubscriber implements Subscriber<Point> {
    * @param password     The password to authenticate with.
    */
   public InfluxSubscriber(
-      final @Default("http://localhost:8086/") String address,
-      final @Default("test") String databaseName,
+      final String address,
+      final String databaseName,
       final String username,
       final String password
   ) {
     this.databaseName = databaseName;
-    if (username.isEmpty() && password.isEmpty())
-      this.influx = InfluxDBFactory.connect(address);
-    else
-      this.influx = InfluxDBFactory.connect(address, username, password);
+    this.influx = InfluxDBFactory.connect(address, username, password);
     this.influx.enableGzip();
     this.influx.createDatabase(this.databaseName);
     this.influx.enableBatch(2000, 1000, TimeUnit.MILLISECONDS);
@@ -47,10 +43,10 @@ public class InfluxSubscriber implements Subscriber<Point> {
    * @param databaseName
    */
   public InfluxSubscriber(
-      final @Default("http://localhost:8086/") String address,
-      final @Default("test") String databaseName
+      final String address,
+      final String databaseName
   ) {
-    this(address, databaseName, "", "");
+    this(address, databaseName,  null, null);
   }
 
   @Override
