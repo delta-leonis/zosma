@@ -5,8 +5,8 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 /**
  * The Class Distribution.
  *
- * This class represents the statistics of a state-space which is characterized by a mean and
- * a covariance.
+ * This class represents the statistics of a state-space which is characterized by a mean and a
+ * covariance.
  *
  * @author Rimon Oz
  */

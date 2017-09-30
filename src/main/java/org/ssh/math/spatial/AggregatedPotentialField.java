@@ -18,10 +18,10 @@ public class AggregatedPotentialField implements PotentialField {
   private final Set<PotentialField> potentialFields;
 
   @Override
-  public double getPotential(final INDArray positionVector) {
+  public INDArray getPotential(final INDArray positionVector) {
     return this.getPotentialFields().stream()
         .map(potentialField -> potentialField.getPotential(positionVector))
-        .reduce(0d, (totalPotential, partialPotential) -> totalPotential + partialPotential);
+        .reduce(Nd4j.zeros(1, 1), INDArray::add);
   }
 
   @Override

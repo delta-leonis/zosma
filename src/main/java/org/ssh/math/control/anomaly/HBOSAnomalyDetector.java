@@ -1,15 +1,15 @@
-package org.ssh.math.control;
+package org.ssh.math.control.anomaly;
 
-import java.util.Collections;
 import java.util.stream.Collectors;
 import lombok.Value;
+import org.ssh.math.control.*;
 import org.ssh.math.statistic.*;
 
 /**
  * The Class HBOSAnomalyDetector.
  *
  * This class describes an {@link AnomalyDetector} which uses the <a
- * href="http://www.dfki.de/KI2012/PosterDemoTrack/ki2012pd13.pdf">HBOS algorithm</a></a>
+ * href="http://www.dfki.de/KI2012/PosterDemoTrack/ki2012pd13.pdf">HBOS algorithm</a>.
  *
  * @author Rimon Oz
  */
@@ -17,36 +17,6 @@ import org.ssh.math.statistic.*;
 public class HBOSAnomalyDetector implements ScanningAnomalyDetector<Histogram, Number> {
   private final double weight;
   private final double maximumScore;
-
-  /**
-   * Constructs a new HBOS {@link AnomalyDetector} using the supplied lower bound, bin width, and
-   * measurement weight.
-   *
-   * @param lowerBound   The lower bound of the histogram representing the measurement space.
-   * @param binWidth     The bin width of the histogram representing the measurement space.
-   * @param weight       The weight added to the histogram bin corresponding to new measurement
-   *                     values when they arrive.
-   * @param maximumScore The maximum HBOS score allowed.
-   */
-  public HBOSAnomalyDetector(final double lowerBound, final double binWidth, final double weight,
-      final double maximumScore) {
-    this(new SimpleHistogram(lowerBound, binWidth, Collections.emptyList()), weight, maximumScore);
-  }
-
-  /**
-   * Constructs a new HBOS {@link AnomalyDetector} using the supplied pre-computed histogram and
-   * measurement weight.
-   *
-   * @param inputSpaceRepresentation The measurement space representation as a {@link Histogram}.
-   * @param weight                   The weight added to the histogram bin corresponding to new
-   *                                 measurement values when they arrive.
-   * @param maximumScore             The maximum HBOS score allowed.
-   */
-  public HBOSAnomalyDetector(final Histogram inputSpaceRepresentation, final double weight,
-      final double maximumScore) {
-    this.weight = weight;
-    this.maximumScore = maximumScore;
-  }
 
   @Override
   public boolean test(final Histogram inputSpaceRepresentation, final Number input) {
@@ -67,7 +37,6 @@ public class HBOSAnomalyDetector implements ScanningAnomalyDetector<Histogram, N
             / normalizedRepresentation.getBinWidth()));
     return Math.log(1 / binHeight);
   }
-
 
   /**
    * @return The (vertically) normalized representation of this histogram, such that the largest

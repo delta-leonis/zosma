@@ -7,9 +7,9 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  * The Class PSDController.
  *
  * This class contains the functionality of a discrete-time Proportional-, Summation-, and
- * Difference-controller. The algorithm is based on the derivation by Cagatay Basdogan (see <a
- * href="http://portal.ku.edu.tr/~cbasdogan/Courses/Robotics/projects/Discrete_PID.pdf"> these
- * sheets</a>).
+ * Difference-controller. The implementation is based on the derivation by Cagatay Basdogan (see <a
+ * href="http://portal.ku.edu.tr/~cbasdogan/Courses/Robotics/projects/Discrete_PID.pdf">these
+ * slides</a>).
  *
  * @author Rimon Oz
  */

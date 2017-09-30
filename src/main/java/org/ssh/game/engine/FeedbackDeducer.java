@@ -1,7 +1,6 @@
 package org.ssh.game.engine;
 
-import org.reactivestreams.*;
-import org.ssh.io.ConfigSupplier;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.*;
 
 /**
@@ -15,7 +14,7 @@ import reactor.core.publisher.*;
  * @param <O> The type of output produced by this {@link ParallelDeducer}.
  * @author Rimon Oz
  */
-public interface FeedbackDeducer<I extends ConfigSupplier, O> extends Deducer<I, O> {
+public interface FeedbackDeducer<I, O> extends Deducer<I, O> {
 
   /**
    * Projects an input state based on a previously projected input state and most recently produced

@@ -15,19 +15,19 @@ import org.ssh.math.spatial.Moving;
  *
  * @author Rimon Oz
  */
-public interface SimpleBoid<O extends Spatial & Moving> extends Boid<O> {
+public final class SimpleBoid<O extends Spatial & Moving> implements Boid<O> {
 
   @Override
-  default INDArray respond(
+  public INDArray respond(
       final O currentBoid,
       final Set<? extends O> otherBoids,
       final double avoidanceScale,
       final double velocityRange,
       final double centeringScale
   ) {
-    return SimpleBoid.collisionAvoidance(currentBoid, otherBoids, avoidanceScale)
-        .add(SimpleBoid.velocityMatching(currentBoid, otherBoids, velocityRange))
-        .add(SimpleBoid.flockCentering(currentBoid, otherBoids, centeringScale));
+    return this.collisionAvoidance(currentBoid, otherBoids, avoidanceScale)
+        .add(this.velocityMatching(currentBoid, otherBoids, velocityRange))
+        .add(this.flockCentering(currentBoid, otherBoids, centeringScale));
   }
 
   /**
@@ -41,7 +41,7 @@ public interface SimpleBoid<O extends Spatial & Moving> extends Boid<O> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the specific boid steers away from other boids in the flock.
    */
-  static <O extends Spatial & Moving> INDArray collisionAvoidance(
+  private <O extends Spatial & Moving> INDArray collisionAvoidance(
       final O currentBoid,
       final Set<? extends O> otherBoids,
       final double scalingFactor
@@ -69,7 +69,7 @@ public interface SimpleBoid<O extends Spatial & Moving> extends Boid<O> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the specific boid matches its velocity vector with other boids within its range.
    */
-  static <O extends Spatial & Moving> INDArray velocityMatching(
+  private <O extends Spatial & Moving> INDArray velocityMatching(
       final O currentBoid,
       final Set<? extends O> otherBoids,
       final double range
@@ -98,7 +98,7 @@ public interface SimpleBoid<O extends Spatial & Moving> extends Boid<O> {
    * @return A velocity vector representing the suggested velocity for the specified boid such that
    * the flock stays together.
    */
-  static <O extends Spatial & Moving> INDArray flockCentering(
+  private <O extends Spatial & Moving> INDArray flockCentering(
       final O currentBoid,
       final Set<? extends O> otherBoids,
       final double scalingFactor

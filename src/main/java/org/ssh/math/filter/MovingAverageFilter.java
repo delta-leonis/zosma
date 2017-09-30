@@ -1,6 +1,7 @@
 package org.ssh.math.filter;
 
 import java.util.List;
+import java.util.function.Function;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
@@ -9,13 +10,14 @@ import org.nd4j.linalg.factory.Nd4j;
  *
  * @author Rimon Oz
  */
-public interface MovingAverageFilter extends Filter<INDArray> {
+public class MovingAverageFilter implements Function<List<INDArray>, INDArray> {
 
   /**
    * @param buffer The buffer to average.
    * @return The average of the {@link INDArray} in the buffer.
    */
-  static INDArray apply(
+  @Override
+  public INDArray apply(
       final List<INDArray> buffer
   ) {
     return buffer.stream()

@@ -77,13 +77,14 @@ public class KalmanFilterPerformanceTest {
    */
   @Test(invocationCount = 1)
   public void filter() {
+    final KalmanFilter filter = new KalmanFilter();
     Flux.fromIterable(this.testData)
         .scan(new AggregateState(
                 new GaussianDistribution(this.controlInputVector, this.processCovariance),
                 new GaussianDistribution(this.controlInputVector, this.processCovariance)),
             (previousFilteredState, nextMeasurement) ->
                 new AggregateState(
-                    KalmanFilter.apply(
+                    filter.apply(
                         this.stateTransitionMatrix,
                         this.measurementTransitionMatrix,
                         this.controlTransitionMatrix,

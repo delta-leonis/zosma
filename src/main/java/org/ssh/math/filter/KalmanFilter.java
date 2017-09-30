@@ -10,17 +10,17 @@ import org.ssh.math.statistic.distribution.GaussianDistribution;
  * The Class KalmanFilter.
  *
  * This class contains the functionality of a Kalman filter for linear applications. The
- * implementation is based off of notes and equations which can be found
- * <a href="https://en.wikipedia.org/wiki/Kalman_filter#Details">here</a>.
+ * implementation is based off of notes and equations which can be found <a
+ * href="https://en.wikipedia.org/wiki/Kalman_filter#Details">here</a>.
  *
  * @author Rimon Oz
  */
-public interface KalmanFilter extends Filter<INDArray> {
+public class KalmanFilter {
 
   /**
    * Computes the filtered {@link GaussianDistribution} (mean and covariance) using the supplied
-   * state-, measurement-, and control-transition matrices, and the supplied control input,
-   * process noise, observation noise, and current state.
+   * state-, measurement-, and control-transition matrices, and the supplied control input, process
+   * noise, observation noise, and current state.
    *
    * @param stateTransitionMatrix       The state-transition matrix used in projecting the {@link
    *                                    GaussianDistribution}.
@@ -44,7 +44,7 @@ public interface KalmanFilter extends Filter<INDArray> {
    * @param previousState               The {@link GaussianDistribution} of the latest state.
    * @return The filtered state.
    */
-  static Distribution apply(
+  public Distribution apply(
       final INDArray stateTransitionMatrix,
       final INDArray measurementTransitionMatrix,
       final INDArray controlTransitionMatrix,
@@ -61,11 +61,12 @@ public interface KalmanFilter extends Filter<INDArray> {
             .mmul(previousState.getCovariance().mmul(stateTransitionMatrix.transpose()))
             .add(processCovariance);
 
-    final INDArray kalmanGain = projectedErrorCovariance.mmul(measurementTransitionMatrix.transpose()
-        .mmul(InvertMatrix.invert(measurementTransitionMatrix
-            .mmul(projectedErrorCovariance
-                .mmul(measurementTransitionMatrix.transpose()))
-            .add(measurement.getCovariance()), false)));
+    final INDArray kalmanGain = projectedErrorCovariance
+        .mmul(measurementTransitionMatrix.transpose()
+            .mmul(InvertMatrix.invert(measurementTransitionMatrix
+                .mmul(projectedErrorCovariance
+                    .mmul(measurementTransitionMatrix.transpose()))
+                .add(measurement.getCovariance()), false)));
 
     final INDArray estimatedState = projectedState
         .add(kalmanGain

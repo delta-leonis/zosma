@@ -9,14 +9,14 @@ import org.ssh.math.statistic.*;
 /**
  * The Class ExtendedKalmanFilter.
  *
- * This class contains the functionality for an extended Kalman filter (EKF) for nonlinear
- * applications. The implementation is based off of notes and equations which can be found <a
+ * This class represents an extended Kalman filter (EKF) for nonlinear applications. The
+ * implementation is based off of notes and equations which can be found <a
  * href="https://en.wikipedia.org/wiki/Extended_Kalman_filter#Discrete-time_predict_and_update_equations">
  * here</a>.
  *
  * @author Rimon Oz
  */
-public interface ExtendedKalmanFilter extends Filter<INDArray> {
+public class ExtendedKalmanFilter {
 
   /**
    * Computes the filtered {@link Distribution} (mean and covariance) using the supplied state-,
@@ -35,7 +35,7 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
    * @param state                       The {@link Distribution} of the latest state.
    * @return The filtered state.
    */
-  static Distribution apply(
+  public Distribution apply(
       final INDArray stateTransitionMatrix,
       final INDArray measurementTransitionMatrix,
       final INDArray controlTransitionMatrix,
@@ -77,7 +77,7 @@ public interface ExtendedKalmanFilter extends Filter<INDArray> {
    * @param state                         The {@link Distribution} of the latest state.
    * @return The filtered state.
    */
-  static Distribution apply(
+  public Distribution apply(
       final BiFunction<INDArray, INDArray, INDArray> stateTransition,
       final Function<INDArray, INDArray> measurementTransition,
       final INDArray stateTransitionJacobian,

@@ -14,8 +14,8 @@ import java.util.function.BiConsumer;
 public interface FiniteStateMachine<S extends FiniteStateMachine.State> extends Graph<S> {
 
   /**
-   * Transitions from one state to the next, if the state transition is supported by
-   * this finite state machine.
+   * Transitions from one state to the next, if the state transition is supported by this finite
+   * state machine.
    *
    * @param from The state to transition from.
    * @param to   The state to transition to.
