@@ -2,8 +2,6 @@ package org.ssh.math.statistic;
 
 import java.util.*;
 import java.util.stream.*;
-import lombok.Value;
-import lombok.experimental.NonFinal;
 
 /**
  * The Interface Histogram.
