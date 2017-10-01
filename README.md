@@ -1,6 +1,7 @@
 # `core`
 > project zosma v1.0-SNAPSHOT
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb040017069b489faf37ee1ef601906a)](https://www.codacy.com/app/delta-leonis/zosma?utm_source=github.com&utm_medium=referral&utm_content=delta-leonis/zosma&utm_campaign=badger)
 [![CircleCI](https://circleci.com/gh/delta-leonis/zosma.svg?style=svg)](https://circleci.com/gh/delta-leonis/zosma)
 
 You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
