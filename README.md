@@ -16,6 +16,10 @@ In order to use `zosma-core` clone this repository:
   git clone git@gitlab.com:smallsizeholland/server/core.git
 ```
 
+## documentation
+
+The javadoc for the current code on `master` can be found on https://delta-leonis.github.io/zosma/
+
 ## Building
 
 Make sure you have `gradle>=v2.10` installed. Run the following to build the application:
