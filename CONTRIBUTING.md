@@ -161,10 +161,9 @@ include a regression test are merged quickly while new features without proper
 tests are least likely to receive timely feedback. The workflow to make a merge
 request is as follows:
 
-1. Fork the project into your personal space on GitLab.com
+1. Fork the project into your personal space on GitHub.com
 1. Create a feature branch, branch away from `master`.
 1. Write tests and code
-1. Add your changes to the [CHANGELOG](CHANGELOG)
 1. If you are writing documentation, make sure to read the documentation styleguide
 1. If you have multiple commits please combine them into one commit by
    squashing them

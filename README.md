@@ -1,4 +1,4 @@
-# `core`
+# `zosma`
 > project zosma v1.0-SNAPSHOT
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb040017069b489faf37ee1ef601906a)](https://www.codacy.com/app/delta-leonis/zosma?utm_source=github.com&utm_medium=referral&utm_content=delta-leonis/zosma&utm_campaign=badger)
@@ -10,13 +10,13 @@ to run `zosma`.
 
 ## How to use
 
-In order to use `zosma-core` clone this repository:
+In order to use `zosma` clone this repository:
 
 ```
-  git clone git@gitlab.com:smallsizeholland/server/core.git
+  git clone git@github.com:delta-leonis/zosma.git
 ```
 
-## documentation
+## Documentation
 
 The javadoc for the current code on `master` can be found on https://delta-leonis.github.io/zosma/
 
@@ -30,7 +30,7 @@ Make sure you have `gradle>=v2.10` installed. Run the following to build the app
 
 ## Contributing
 
-See CONTRIBUTING.md
+See `CONTRIBUTING.md`.
 
 ## Copyright
 
@@ -39,7 +39,6 @@ This project is licensed under the AGPL version 3 license (see LICENSE).
 ```
 zosma - project zosma v1.0-SNAPSHOT
 Copyright (C) 2016 Rimon Oz, Jeroen de Jong, Ryan Meulenkamp, Thomas Hakkers
-http://www.smallsizeholland.com/
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
