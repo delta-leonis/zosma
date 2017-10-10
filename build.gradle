@@ -71,3 +71,22 @@ test {
         showStandardStreams = true
     }
 }
+
+tasks.withType(Javadoc) {
+  ext.capturedOutput = [ ]
+  def listener = { ext.capturedOutput << it } as StandardOutputListener
+
+  logging.addStandardErrorListener(listener)
+  logging.addStandardOutputListener(listener)
+  options.addStringOption('Xdoclint:all', '-quiet')
+
+  doLast {
+    logging.removeStandardOutputListener(listener)
+    logging.removeStandardErrorListener(listener)
+    ext.capturedOutput.join('').with { output ->
+      if (output =~ /warning/) {
+          throw new RuntimeException("Javadoc warning found: \n" + output)
+      }
+    }
+  }
+}

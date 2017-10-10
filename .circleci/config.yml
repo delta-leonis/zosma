@@ -35,6 +35,11 @@ jobs:
         
       # run tests!
       - run: gradle test
+      
+      # compile javadoc 
+      - run: gradle javadoc
+      
+      # Deploy javadoc if on master
       - deploy:
           name: Deploy javadoc
           command: |
