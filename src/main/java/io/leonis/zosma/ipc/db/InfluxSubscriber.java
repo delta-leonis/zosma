@@ -17,7 +17,10 @@ public class InfluxSubscriber implements Subscriber<Point> {
   private final String databaseName;
 
   /**
-   * Creates a new {@link Subscriber} for InfluxDB
+   * Creates a new {@link Subscriber} for InfluxDB.
+   *
+   * @param address      The URI of the InfluxDB server as a string.
+   * @param databaseName The name of the database to which datapoints are written.
    */
   public InfluxSubscriber(
       final String address,

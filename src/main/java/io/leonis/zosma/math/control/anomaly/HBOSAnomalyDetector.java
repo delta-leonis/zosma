@@ -24,11 +24,9 @@ public class HBOSAnomalyDetector implements ScanningAnomalyDetector<Histogram, N
   }
 
   /**
-   * Computes the Histogram-Based Outlier Score (HBOS) of the supplied value, according to the
-   * supplied measurement space.
-   *
    * @param inputSpaceRepresentation The measurement space representation as a {@link Histogram}.
    * @param value                    The value to compute the HBOS of.
+   * @return The Histogram-Based Outlier Score (HBOS) according to the supplied measurement space.
    */
   protected Number computeHBOS(final Histogram inputSpaceRepresentation, final Number value) {
     final Histogram normalizedRepresentation = this.normalizeVertically(inputSpaceRepresentation);
@@ -39,6 +37,7 @@ public class HBOSAnomalyDetector implements ScanningAnomalyDetector<Histogram, N
   }
 
   /**
+   * @param toNormalize The histogram to normalize.
    * @return The (vertically) normalized representation of this histogram, such that the largest
    * bin(s) receive(s) a normalized weight of 1.
    */
