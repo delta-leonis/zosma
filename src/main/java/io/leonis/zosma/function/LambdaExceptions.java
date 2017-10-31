@@ -1,4 +1,4 @@
-package io.leonis.zosma.math.function;
+package io.leonis.zosma.function;
 
 import java.util.function.*;
 

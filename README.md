@@ -28,16 +28,12 @@ Make sure you have `gradle>=v2.10` installed. Run the following to build the app
   gradle build
 ```
 
-## Contributing
-
-See `CONTRIBUTING.md`.
-
 ## Copyright
 
 This project is licensed under the AGPL version 3 license (see LICENSE).
 
 ```
-zosma - project zosma v1.0-SNAPSHOT
+zosma
 Copyright (C) 2016 Rimon Oz, Jeroen de Jong, Ryan Meulenkamp, Thomas Hakkers
 
 This program is free software: you can redistribute it and/or modify

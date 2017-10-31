@@ -1,4 +1,4 @@
-package io.leonis.zosma.math.function;
+package io.leonis.zosma.function;
 
 public interface Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> {
   R apply(T1 firstArgument, T2 secondArgument, T3 thirdArgument, T4 fourthArgument,

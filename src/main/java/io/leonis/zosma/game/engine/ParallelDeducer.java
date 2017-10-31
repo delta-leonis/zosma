@@ -1,6 +1,6 @@
 package io.leonis.zosma.game.engine;
 
-import io.leonis.zosma.math.function.*;
+import io.leonis.zosma.function.*;
 import java.util.function.*;
 import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
