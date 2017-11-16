@@ -1,19 +1,29 @@
 # `zosma`
-> project zosma v1.0-SNAPSHOT
+> center of our universe
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb040017069b489faf37ee1ef601906a)](https://www.codacy.com/app/delta-leonis/zosma?utm_source=github.com&utm_medium=referral&utm_content=delta-leonis/zosma&utm_campaign=badger)
 [![CircleCI](https://circleci.com/gh/delta-leonis/zosma.svg?style=svg)](https://circleci.com/gh/delta-leonis/zosma)
 
 You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
-/[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)) 
+/[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html))
 to run `zosma`.
 
-## How to use
+## Dependency
 
-In order to use `zosma` clone this repository:
+#### Maven
 
 ```
-  git clone git@github.com:delta-leonis/zosma.git
+<dependency>
+    <groupId>io.leonis</groupId>
+    <artifactId>zosma</artifactId>
+    <version>0.0.3</version>
+</dependency>
+```
+
+#### Gradle
+
+```
+compile 'io.leonis:zosma:0.0.3'
 ```
 
 ## Documentation
