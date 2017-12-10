@@ -10,7 +10,7 @@ apply plugin: 'signing'
 apply plugin: 'maven'
 
 group 'io.leonis'
-version '0.0.3'
+version '0.0.4'
 archivesBaseName = "zosma"
 rootProject.description = 'the center of our universe'
 sourceCompatibility = 1.8
