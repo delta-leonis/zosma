@@ -10,7 +10,7 @@ package io.leonis.zosma.game;
  * @param <V> The type of position vector.
  * @author Rimon Oz
  */
-public interface Formation<A extends Identity.Supplier, V> {
+public interface Formation<A extends Identity, V> {
 
   /**
    * @param entity The entity to find a formation vector for.

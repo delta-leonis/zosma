@@ -25,12 +25,12 @@ public interface Controller<I extends Identity, S> {
   S getControls();
 
   /**
-   * Supplies a mapping of {@link Controller} to {@link Identity.Supplier}.
+   * Supplies a mapping of {@link Controller} to {@link Identity} of objects it is controlling.
    * 
    * @param <C> The type of {@link Controller} being supplied.
-   * @param <A> The type of {@link Identity.Supplier} being supplied.
+   * @param <A> The type of {@link Identity} of the object it is controlling.
    */
-  interface MappingSupplier<C extends Controller, A extends Identity.Supplier> {
+  interface MappingSupplier<C extends Controller, A extends Identity> {
     Map<C, Set<A>> getAgentMapping();
   }
 }

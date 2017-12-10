@@ -10,19 +10,19 @@ import org.reactivestreams.Publisher;
  * This interface describes the functionality of a {@link Publisher} which publishes mappings of
  * {@link Controller} to the entities they control.
  *
- * @param <I> The type of identifier used to identify the controlled entities.
+ * @param <I> The type of identifier used to identify the controller.
+ * @param <J> The type of identifier used to identify the entities which are being controlled.
  * @param <C> The type of {@link Controller}.
- * @param <A> The type of entity which is being controlled.
  * @author Jeroen de Jong
  */
 public interface ControllerPublisher<
     I extends Identity,
-    C extends Controller<I, ?>,
-    A extends Identity.Supplier>
-    extends Publisher<Controller.MappingSupplier<C, A>> {
+    J extends Identity,
+    C extends Controller<I, ?>>
+    extends Publisher<Controller.MappingSupplier<C, J>> {
 
   /**
    * @return Mapping of applicable agents per controller identifier
    */
-  Map<I, Set<A>> getControllerMapping();
+  Map<I, Set<J>> getControllerMapping();
 }

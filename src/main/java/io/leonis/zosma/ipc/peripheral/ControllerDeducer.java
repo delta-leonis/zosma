@@ -21,7 +21,7 @@ import reactor.core.publisher.Flux;
  */
 public interface ControllerDeducer<
     C extends Controller,
-    A extends Identity.Supplier,
+    A extends Identity,
     I extends Controller.MappingSupplier<C, A>,
     O>
     extends Deducer<I, O> {
