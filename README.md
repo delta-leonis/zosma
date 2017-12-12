@@ -121,6 +121,7 @@ purely positional, but can also be used for assigning roles to agents (not appli
 since chess roles are not dynamic). For example:
 
 ```java
+@Value
 public class ChessFormation implements Formation<ChessPiece, Location> {
   private final Map<ChessPiece, Location> desiredFormation;
   
@@ -137,6 +138,7 @@ or to anticipate a specific state of the game. A rule is evaluated by examining 
 
 ```java
 public class LoseCondition implements Rule<ChessGame, ChessGame.Player> {
+  @Override
   Set<ChessGame.Player> getViolators(final ChessGame input) {
     // a player has lost, if
     return input.getChessPiecePositions().keySet().stream()
@@ -175,6 +177,9 @@ Which would then be used as follows:
 Flux.from(chessGamePublisher)
     .transform(new ChessFormationDeducer())
 ```
+
+**N.B.**: There is a `Deducer.Identity` for when the input-type is the same as the output-type. Examples
+of use cases where this may occur include application of filters and other correction mechanism. 
 
 #### Parallelizing deducers
 
@@ -256,6 +261,43 @@ in order to manage the life cycle of the game agent:
 final ExecutorService zosmaExecutor = Executors.newSingleThreadExecutor();
 
 final Future futureZosma = zosmaExecutor.submit(chessZosma); 
+```
+
+### Suppliers
+
+Since the data evolves as it is processed the type of the data container may change as well. In 
+order to allow composition of these data containers through `Deducer`s, these `Deducer`s should 
+be parametrized using interface instead of class types. Unfortunately Java's `Supplier` 
+can only be implemented once due to type erasure; this is why most data types in `zosma` have a
+nested `Supplier` (or `SetSupplier`, `MappingSupplier`, e.a.) interface (see [Rule](https://github.com/delta-leonis/zosma/blob/master/src/main/java/io/leonis/zosma/game/Rule.java#L24-L26) 
+or [Controller](https://github.com/delta-leonis/zosma/blob/master/src/main/java/io/leonis/zosma/ipc/peripheral/Controller.java) for example).
+
+This allows for both of the following classes:
+
+```java
+@Value
+public class InputType implements Controller.MappingSupplier, Rule.SetSupplier {
+  private final Map<Controller, Set<Agent>> agentMapping;
+  private final Set<Rule> rules;
+}
+@Value
+public class AnotherInputType implements Rule.SetSupplier {
+  private final Set<Rule> rules;
+}
+```
+
+To be acted on by the following `Deducer`:
+
+```java
+public class ExampleDeducer<I implements Rule.SetSupplier> implements Deducer.Identity<I> { /** ... */ }
+```
+
+Notice that Java [allows multiple bounds](https://docs.oracle.com/javase/tutorial/java/generics/bounded.html) 
+on type parameters, so it is possible to require multiple suppliers on the generic input type as follows:
+
+```java
+public class AnotherExampleDeducer<I implements Rule.SetSupplier & Controller.MappingSupplier> 
+    implements Deducer.Identity<I>{ /** ... */ }
 ```
 
 ### Helpers
