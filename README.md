@@ -19,14 +19,14 @@ to run `zosma`.
 <dependency>
     <groupId>io.leonis</groupId>
     <artifactId>zosma</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 </dependency>
 ```
 
 #### Gradle
 
 ```
-compile 'io.leonis:zosma:0.0.5'
+compile 'io.leonis:zosma:0.0.6'
 ```
 
 ## Overview
