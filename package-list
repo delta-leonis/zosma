@@ -2,6 +2,5 @@ io.leonis.zosma.function
 io.leonis.zosma.game
 io.leonis.zosma.game.engine
 io.leonis.zosma.ipc.db
-io.leonis.zosma.ipc.io
 io.leonis.zosma.ipc.ip
 io.leonis.zosma.ipc.peripheral
