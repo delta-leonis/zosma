@@ -9,7 +9,7 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.*;
 import reactor.core.publisher.Flux;
-import reactor.ipc.netty.udp.UdpClient;
+import reactor.ipc.netty.udp.*;
 
 /**
  * The Class MulticastPublisher.
@@ -21,15 +21,15 @@ import reactor.ipc.netty.udp.UdpClient;
 @Value
 public class MulticastPublisher<O> implements Publisher<O> {
   /**
-   * Address to listen to
+   * Address to listen on.
    */
   private final InetAddress address;
   /**
-   * Port to listen to
+   * Port to listen on.
    */
   private final int port;
   /**
-   * Function used to convert byte[] to target type
+   * Function used to convert byte[] to target type.
    */
   private final Function<byte[], O> parser;
 
@@ -39,15 +39,16 @@ public class MulticastPublisher<O> implements Publisher<O> {
       final List<NetworkInterface> interfaces = Collections
           .list(NetworkInterface.getNetworkInterfaces());
 
-      UdpClient
-          .create(opts -> opts.option(ChannelOption.SO_REUSEADDR, true)
-              .connect(this.port)
-              .protocolFamily(InternetProtocolFamily.IPv4))
+      UdpServer
+          .create(opts ->
+              opts.option(ChannelOption.SO_REUSEADDR, true)
+                  .connectAddress(() -> new InetSocketAddress(this.port))
+                  .protocolFamily(InternetProtocolFamily.IPv4))
           .newHandler((in, out) -> {
             Flux.fromIterable(interfaces)
                 .flatMap(iface -> in.join(this.address, iface))
                 .thenMany(in.receive().asByteArray())
-                .map(parser)
+                .map(this.parser)
                 .subscribe(subscriber);
             return Flux.never();
           })

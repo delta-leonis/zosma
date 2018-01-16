@@ -1,5 +1,6 @@
 package io.leonis.zosma.game.engine;
 
+import java.time.Duration;
 import org.reactivestreams.*;
 import reactor.core.publisher.*;
 
@@ -20,7 +21,7 @@ public interface GameSimulator<I, O> extends Deducer<I, O>, Publisher<O> {
     Flux.from(this.apply(
         Flux.combineLatest(this.getInputProcessor(), this.getOutputProcessor(), this::project)
             .startWith(this.getInitialInput())
-            .sampleMillis(this.getInputProcessorInterval())
+            .sample(Duration.ofMillis(this.getInputProcessorIntervalMillis()))
             .doOnNext(this.getInputProcessor()::onNext)));
   }
 
@@ -40,9 +41,9 @@ public interface GameSimulator<I, O> extends Deducer<I, O>, Publisher<O> {
   I getInitialInput();
 
   /**
-   * @return The interval on which the {@link TopicProcessor game processor} publishes input.
+   * @return The interval on which the {@link TopicProcessor game processor} publishes input in ms.
    */
-  long getInputProcessorInterval();
+  long getInputProcessorIntervalMillis();
 
   /**
    * Projects an input state based on a previously projected input state and most recently produced

@@ -11,7 +11,8 @@ import reactor.ipc.netty.tcp.TcpServer;
 /**
  * The Class TCPPublisher.
  *
- * This class represents a {@link TcpServer} which publishes {@link DatagramPacket}.
+ * This class represents a {@link TcpServer} which publishes {@link DatagramPacket}s received
+ * on a specific port.
  *
  * @author Rimon Oz
  */
@@ -19,13 +20,13 @@ import reactor.ipc.netty.tcp.TcpServer;
 @Slf4j
 public class TCPPublisher implements Publisher<DatagramPacket> {
   /**
-   * The port to listen on.
+   * The port to listen on for {@link DatagramPacket} to publish.
    */
   private final int port;
 
   @Override
   public void subscribe(final Subscriber<? super DatagramPacket> subscriber) {
-    TcpServer.create(opts -> opts.option(ChannelOption.SO_KEEPALIVE, true).listen(this.port))
+    TcpServer.create(opts -> opts.option(ChannelOption.SO_KEEPALIVE, true).port(this.port))
         .newHandler((in, out) -> {
           in
               .receive().asByteArray()

@@ -28,7 +28,7 @@ public class UDPPublisher implements Publisher<DatagramPacket> {
     UdpClient
         .create(opts -> opts
             .option(ChannelOption.SO_REUSEADDR, true)
-            .connect(this.port)
+            .port(this.port)
             .protocolFamily(InternetProtocolFamily.IPv4))
         .newHandler((in, out) -> {
           in.receive().asByteArray()
