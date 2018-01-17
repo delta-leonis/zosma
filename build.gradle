@@ -39,9 +39,6 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'org.slf4j:slf4j-simple:1.7.25'
 
-    // system
-    compile 'com.github.dblock:oshi-core:3.4.0'
-
     // db
     compile 'org.influxdb:influxdb-java:2.8'
 
