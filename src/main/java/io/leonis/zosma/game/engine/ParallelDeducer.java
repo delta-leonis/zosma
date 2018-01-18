@@ -22,8 +22,15 @@ import reactor.core.publisher.Flux;
 @SuppressWarnings("unchecked")
 public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O>
     implements Deducer<I, O> {
+  /**
+   * The combinator which takes all outputs from the deducers and combines them
+   * into a single object.
+   */
   private final Function<Object[], O> combinator;
-  private final Deducer<I, ?>[] deducers;
+  /**
+   * The individual {@link Deducer deducers}.
+   */
+  private final Function<Publisher<I>, Publisher>[] deducers;
 
   /**
    * Constructs a new ParallelDeducer with two {@link Deducer}.
@@ -33,11 +40,11 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator    A {@link BiFunction} which combines two deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
       final BiFunction<? super T1, ? super T2, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer};
+    this.deducers = new Function[]{firstDeducer, secondDeducer};
     this.combinator = tuple -> combinator.apply((T1) tuple[0], (T2) tuple[1]);
   }
 
@@ -50,12 +57,12 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator    A {@link Function3} which combines three deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
       final Function3<? super T1, ? super T2, ? super T3, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer};
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer};
     this.combinator = tuple -> combinator.apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2]);
   }
 
@@ -69,13 +76,13 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator    A {@link Function4} which combines four deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
       final Function4<? super T1, ? super T2, ? super T3, ? super T4, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer};
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3]);
   }
@@ -91,14 +98,14 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator    A {@link Function5} which combines five deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
-      final Deducer<I, ? extends T5> fifthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T5>> fifthDeducer,
       final Function5<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
         fifthDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3], (T5) tuple[4]);
@@ -116,15 +123,15 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator    A {@link Function6} which combines six deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
-      final Deducer<I, ? extends T5> fifthDeducer,
-      final Deducer<I, ? extends T6> sixthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T5>> fifthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T6>> sixthDeducer,
       final Function6<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
         fifthDeducer, sixthDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3], (T5) tuple[4],
@@ -144,16 +151,16 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator     A {@link Function7} which combines seven deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
-      final Deducer<I, ? extends T5> fifthDeducer,
-      final Deducer<I, ? extends T6> sixthDeducer,
-      final Deducer<I, ? extends T7> seventhDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T5>> fifthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T6>> sixthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T7>> seventhDeducer,
       final Function7<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
         fifthDeducer, sixthDeducer, seventhDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3], (T5) tuple[4],
@@ -174,17 +181,17 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator     A {@link Function8} which combines eight deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
-      final Deducer<I, ? extends T5> fifthDeducer,
-      final Deducer<I, ? extends T6> sixthDeducer,
-      final Deducer<I, ? extends T7> seventhDeducer,
-      final Deducer<I, ? extends T8> eighthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T5>> fifthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T6>> sixthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T7>> seventhDeducer,
+      final Function<Publisher<I>, Publisher<? extends T8>> eighthDeducer,
       final Function8<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
         fifthDeducer, sixthDeducer, seventhDeducer, eighthDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3], (T5) tuple[4],
@@ -206,18 +213,18 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator     A {@link Function9} which combines nine deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
-      final Deducer<I, ? extends T5> fifthDeducer,
-      final Deducer<I, ? extends T6> sixthDeducer,
-      final Deducer<I, ? extends T7> seventhDeducer,
-      final Deducer<I, ? extends T8> eighthDeducer,
-      final Deducer<I, ? extends T9> ninthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T5>> fifthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T6>> sixthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T7>> seventhDeducer,
+      final Function<Publisher<I>, Publisher<? extends T8>> eighthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T9>> ninthDeducer,
       final Function9<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
         fifthDeducer, sixthDeducer, seventhDeducer, eighthDeducer, ninthDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3], (T5) tuple[4],
@@ -240,19 +247,19 @@ public final class ParallelDeducer<I, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, O
    * @param combinator     A {@link Function9} which combines ten deductions.
    */
   public ParallelDeducer(
-      final Deducer<I, ? extends T1> firstDeducer,
-      final Deducer<I, ? extends T2> secondDeducer,
-      final Deducer<I, ? extends T3> thirdDeducer,
-      final Deducer<I, ? extends T4> fourthDeducer,
-      final Deducer<I, ? extends T5> fifthDeducer,
-      final Deducer<I, ? extends T6> sixthDeducer,
-      final Deducer<I, ? extends T7> seventhDeducer,
-      final Deducer<I, ? extends T8> eighthDeducer,
-      final Deducer<I, ? extends T9> ninthDeducer,
-      final Deducer<I, ? extends T10> tenthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T1>> firstDeducer,
+      final Function<Publisher<I>, Publisher<? extends T2>> secondDeducer,
+      final Function<Publisher<I>, Publisher<? extends T3>> thirdDeducer,
+      final Function<Publisher<I>, Publisher<? extends T4>> fourthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T5>> fifthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T6>> sixthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T7>> seventhDeducer,
+      final Function<Publisher<I>, Publisher<? extends T8>> eighthDeducer,
+      final Function<Publisher<I>, Publisher<? extends T9>> ninthDeducer,
+      final Function<I, ? extends T10> tenthDeducer,
       final Function10<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9, ? super T10, ? extends O> combinator
   ) {
-    this.deducers = new Deducer[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
+    this.deducers = new Function[]{firstDeducer, secondDeducer, thirdDeducer, fourthDeducer,
         fifthDeducer, sixthDeducer, seventhDeducer, eighthDeducer, ninthDeducer, tenthDeducer};
     this.combinator = tuple -> combinator
         .apply((T1) tuple[0], (T2) tuple[1], (T3) tuple[2], (T4) tuple[3], (T5) tuple[4],
