@@ -1,87 +1,55 @@
 package io.leonis.zosma.ipc.peripheral;
 
-import com.studiohartman.jamepad.*;
+import com.studiohartman.jamepad.ControllerIndex;
+import io.leonis.zosma.game.Identity;
+import io.leonis.zosma.ipc.peripheral.Controller.*;
+import io.leonis.zosma.ipc.peripheral.ControllerPublisher.Frame;
 import java.time.Duration;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
-import java.util.stream.*;
-import lombok.Value;
+import lombok.*;
 import org.reactivestreams.*;
 import reactor.core.publisher.Flux;
 
 /**
- * The Class ControllerPublisher.
- *
- * Publishes all connected controllers at a provided interval.
- *
- * @param <C> Identity of {@link Controller}.
  * @author Jeroen de Jong
  */
 @Value
-public class ControllerPublisher<C extends Controller>
-    implements Publisher<Controller.SetSupplier<C>> {
+@AllArgsConstructor
+public class ControllerPublisher<I extends Identity, C extends Controller> implements Publisher<Frame> {
+  private final Publisher<Controller.SetSupplier<C>> setSupplierPublisher;
+  private final Publisher<Controller.MapSupplier<I>> mapSupplierPublisher;
 
-  /**
-   * Duration between polls.
-   */
-  private final Duration interval;
-  /**
-   * Adapter used to transform jamepad state.
-   */
-  private final Function<ControllerIndex, C> adapter;
-  /**
-   * Jamepad backend for managing controllers
-   */
-  private final ControllerManager manager;
-
-  /**
-   * Constructs ControllerPublisher and initializes native extensions.
-   *
-   * @param interval Duration between polls.
-   * @param adapter Adapter used to transform jamepad state.
-   * @param amount Amount of controllers to listen for.
-   */
   public ControllerPublisher(
+      final int amount,
       final Duration interval,
       final Function<ControllerIndex, C> adapter,
-      final int amount
-  ) {
-    this.manager = new ControllerManager(amount);
-    this.manager.initSDLGamepad();
-    this.interval = interval;
-    this.adapter = adapter;
+      final Publisher<Controller.MapSupplier<I>> mapSupplierPublisher
+  ){
+    this(new ControllerSetPublisher<>(interval, adapter, amount), mapSupplierPublisher);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  public ControllerPublisher(
+      final int amount,
+      final Duration interval,
+      final Function<ControllerIndex, C> adapter,
+      final Map<I, Set<ControllerIdentity>> mapping
+  ){
+    this(new ControllerSetPublisher<>(interval, adapter, amount),
+         Flux.just(() -> mapping));
+  }
+
   @Override
-  public void subscribe(final Subscriber<? super Controller.SetSupplier<C>> subscriber) {
-    Flux.interval(interval)
-        .map(tick ->
-            // Loop all controllers
-            IntStream.range(0, manager.getNumControllers())
-                // grab the states
-                .mapToObj(manager::getControllerIndex)
-                // ignore any disconnected controller
-                .filter(ControllerIndex::isConnected)
-                // map to custom state and collect as a set.
-                .map(adapter)
-                .collect(Collectors.toSet()))
-        .map(Frame::new)
-        .subscribe(subscriber);
+  public void subscribe(final Subscriber<? super Frame> s) {
+    Flux.combineLatest(setSupplierPublisher, mapSupplierPublisher, Frame::new)
+        .subscribe(s);
   }
 
-  /**
-   * The Class Frame.
-   *
-   * @author Jeroen de Jong
-   */
   @Value
-  private class Frame implements Controller.SetSupplier<C> {
-    /**
-     * The {@link Set} of {@link Controller controllers} captured in this frame.
-     */
-    private Set<C> controllerSet;
+  class Frame implements Controller.SetSupplier<C>, Controller.MapSupplier<I> {
+    @lombok.experimental.Delegate
+    Controller.SetSupplier<C> set;
+    @lombok.experimental.Delegate
+    Controller.MapSupplier<I> map;
   }
 }
