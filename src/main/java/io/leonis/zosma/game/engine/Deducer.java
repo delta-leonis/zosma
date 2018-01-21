@@ -17,31 +17,4 @@ import reactor.core.publisher.*;
  */
 public interface Deducer<I, O> extends Function<Publisher<I>, Publisher<O>> {
 
-  class Identity<I> implements Deducer<I, I> {
-    @Override
-    public Publisher<I> apply(final Publisher<I> inputPublisher) {
-      return inputPublisher;
-    }
-  }
-
-  /**
-   * The Class Tap.
-   *
-   * This class represents an intermediary {@link Subscriber}.
-   *
-   * @param <I> The type of input supplied to the {@link Tap}.
-   * @author Rimon Oz
-   */
-  @Value
-  class Tap<I> implements Deducer<I, I> {
-    private final Subscriber<I> subscriber;
-
-    @Override
-    public Publisher<I> apply(final Publisher<I> inputPublisher) {
-      final TopicProcessor<I> topicProcessor = TopicProcessor.create();
-      Flux.from(inputPublisher).subscribe(topicProcessor);
-      topicProcessor.subscribe(this.subscriber);
-      return topicProcessor;
-    }
-  }
 }
