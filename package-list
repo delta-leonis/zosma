@@ -5,3 +5,7 @@ io.leonis.zosma.game.engine
 io.leonis.zosma.ipc.db
 io.leonis.zosma.ipc.ip
 io.leonis.zosma.ipc.peripheral
+io.leonis.zosma.ipc.peripheral.component
+io.leonis.zosma.ipc.peripheral.component.bumper
+io.leonis.zosma.ipc.peripheral.component.trigger
+io.leonis.zosma.ipc.peripheral.component.xbox
