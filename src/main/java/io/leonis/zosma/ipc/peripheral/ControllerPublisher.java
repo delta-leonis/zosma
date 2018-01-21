@@ -2,7 +2,7 @@ package io.leonis.zosma.ipc.peripheral;
 
 import com.studiohartman.jamepad.ControllerIndex;
 import io.leonis.zosma.game.Identity;
-import io.leonis.zosma.ipc.peripheral.Controller.*;
+import io.leonis.zosma.ipc.peripheral.Controller.ControllerIdentity;
 import io.leonis.zosma.ipc.peripheral.ControllerPublisher.Frame;
 import java.time.Duration;
 import java.util.*;
@@ -14,9 +14,8 @@ import reactor.core.publisher.Flux;
 /**
  * @author Jeroen de Jong
  */
-@Value
 @AllArgsConstructor
-public class ControllerPublisher<I extends Identity, C extends Controller> implements Publisher<Frame> {
+public final class ControllerPublisher<I extends Identity, C extends Controller> implements Publisher<Frame<C, I>> {
   private final Publisher<Controller.SetSupplier<C>> setSupplierPublisher;
   private final Publisher<Controller.MapSupplier<I>> mapSupplierPublisher;
 
@@ -40,13 +39,15 @@ public class ControllerPublisher<I extends Identity, C extends Controller> imple
   }
 
   @Override
-  public void subscribe(final Subscriber<? super Frame> s) {
+  public void subscribe(final Subscriber<? super Frame<C, I>> s) {
     Flux.combineLatest(setSupplierPublisher, mapSupplierPublisher, Frame::new)
+        .doOnNext(System.out::println)
         .subscribe(s);
   }
 
   @Value
-  class Frame implements Controller.SetSupplier<C>, Controller.MapSupplier<I> {
+  static class Frame<C extends Controller, I extends Identity>
+      implements Controller.SetSupplier<C>, Controller.MapSupplier<I> {
     @lombok.experimental.Delegate
     Controller.SetSupplier<C> set;
     @lombok.experimental.Delegate
