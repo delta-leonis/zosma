@@ -24,14 +24,10 @@ import reactor.core.publisher.Flux;
  * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public final class ControllerDeducer<C extends Controller, I extends Identity, O>
-    implements Deducer<Controller.SetSupplier<C>, Map<I, O>> {
-
-  /**
-   * Mapping of the applicable set of Controller identities per identity.
-   */
-  private final Map<I, Set<ControllerIdentity>> assignmentMap;
-
+public final class ControllerDeducer<
+    T extends Controller.SetSupplier<C> & Controller.MapSupplier<I>,
+    C extends Controller, I extends Identity, O>
+    implements Deducer<T, Map<I, O>> {
   /**
    * Function that maps controller to the desired output type.
    */
@@ -47,17 +43,16 @@ public final class ControllerDeducer<C extends Controller, I extends Identity, O
    */
   @Override
   public Publisher<Map<I, O>> apply(
-      final Publisher<Controller.SetSupplier<C>> setSupplierPublisher
+      final Publisher<T> containerPublisher
   ) {
-    return Flux.from(setSupplierPublisher)
-        .map(Controller.SetSupplier::getControllerSet)
-        .map(set -> assignmentMap.entrySet().stream()
-            .filter(entry -> set.stream()
+    return Flux.from(containerPublisher)
+        .map(container -> container.getControllerMapping().entrySet().stream()
+            .filter(entry -> container.getControllerSet().stream()
                 .map(Supplier::getIdentity).anyMatch(entry.getValue()::contains))
             .collect(Collectors.toMap(
                 Entry::getKey,
                 entry -> outputReducer.apply(
-                    set.stream()
+                    container.getControllerSet().stream()
                         .filter(obj -> entry.getValue().contains(obj.getIdentity()))
                       .map(outputFunction)
                       .collect(Collectors.toSet())))))

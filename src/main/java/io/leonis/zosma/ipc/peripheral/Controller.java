@@ -1,7 +1,7 @@
 package io.leonis.zosma.ipc.peripheral;
 
 import io.leonis.zosma.game.Identity;
-import java.util.Set;
+import java.util.*;
 import lombok.Value;
 
 /**
@@ -38,6 +38,19 @@ public interface Controller extends Identity.Supplier {
      * @return Set of connected controllers.
      */
     Set<C> getControllerSet();
+  }
+
+  /**
+   * The Interface MapSupplier.
+   *
+   * Supplies a {@link Map} of {@link Identity identities} of controllable objects to a {@link Set}
+   * of applicable {@link ControllerIdentity ControllerIdentities}.
+   *
+   * @param <I> identity type of a controllable object.
+   */
+  interface MapSupplier<I extends Identity> {
+
+    Map<I, Set<ControllerIdentity>> getControllerMapping();
   }
 
   /**
