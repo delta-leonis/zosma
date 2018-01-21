@@ -1,28 +1,87 @@
 package io.leonis.zosma.ipc.peripheral;
 
-import io.leonis.zosma.game.Identity;
-import java.util.*;
-import org.reactivestreams.Publisher;
+import com.studiohartman.jamepad.*;
+import java.time.Duration;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.*;
+import lombok.Value;
+import org.reactivestreams.*;
+import reactor.core.publisher.Flux;
 
 /**
- * The Interface ControllerPublisher.
+ * The Class ControllerPublisher.
  *
- * This interface describes the functionality of a {@link Publisher} which publishes mappings of
- * {@link Controller} to the entities they control.
+ * Publishes all connected controllers at a provided interval.
  *
- * @param <I> The type of identifier used to identify the controller.
- * @param <J> The type of identifier used to identify the entities which are being controlled.
- * @param <C> The type of {@link Controller}.
+ * @param <C> Identity of {@link Controller}.
  * @author Jeroen de Jong
  */
-public interface ControllerPublisher<
-    I extends Identity,
-    J extends Identity,
-    C extends Controller<I, ?>>
-    extends Publisher<Controller.MappingSupplier<C, J>> {
+@Value
+public class ControllerPublisher<C extends Controller>
+    implements Publisher<Controller.SetSupplier<C>> {
 
   /**
-   * @return Mapping of applicable agents per controller identifier
+   * Duration between polls.
    */
-  Map<I, Set<J>> getControllerMapping();
+  private final Duration interval;
+  /**
+   * Adapter used to transform jamepad state.
+   */
+  private final Function<ControllerIndex, C> adapter;
+  /**
+   * Jamepad backend for managing controllers
+   */
+  private final ControllerManager manager;
+
+  /**
+   * Constructs ControllerPublisher and initializes native extensions.
+   *
+   * @param interval Duration between polls.
+   * @param adapter Adapter used to transform jamepad state.
+   * @param amount Amount of controllers to listen for.
+   */
+  public ControllerPublisher(
+      final Duration interval,
+      final Function<ControllerIndex, C> adapter,
+      final int amount
+  ) {
+    this.manager = new ControllerManager(amount);
+    this.manager.initSDLGamepad();
+    this.interval = interval;
+    this.adapter = adapter;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void subscribe(final Subscriber<? super Controller.SetSupplier<C>> subscriber) {
+    Flux.interval(interval)
+        .map(tick ->
+            // Loop all controllers
+            IntStream.range(0, manager.getNumControllers())
+                // grab the states
+                .mapToObj(manager::getControllerIndex)
+                // ignore any disconnected controller
+                .filter(ControllerIndex::isConnected)
+                // map to custom state and collect as a set.
+                .map(adapter)
+                .collect(Collectors.toSet()))
+        .map(Frame::new)
+        .subscribe(subscriber);
+  }
+
+  /**
+   * The Class Frame.
+   *
+   * @author Jeroen de Jong
+   */
+  @Value
+  private class Frame implements Controller.SetSupplier<C> {
+    /**
+     * The {@link Set} of {@link Controller controllers} captured in this frame.
+     */
+    private Set<C> controllerSet;
+  }
 }
