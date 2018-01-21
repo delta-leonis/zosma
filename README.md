@@ -96,13 +96,13 @@ supply an identity (getters omitted for brevity):
 ```java
 @Value
 public class ChessPiece implements Identity.Supplier {
-  private final Location            location;
-  private final ChessPiece.Identity identity;
+  private final Location           location;
+  private final ChessPieceIdentity identity;
 
   @Value
-  public static class Identity implements io.leonis.zosma.game.Identity {
-    private final ChessPiece.Type type;
-    private final ChessGame.Player    owner;
+  public static class ChessPieceIdentity implements Identity {
+    private final ChessPiece.Type  type;
+    private final ChessGame.Player owner;
   }
   
   public enum Type {
@@ -178,7 +178,7 @@ Flux.from(chessGamePublisher)
     .transform(new ChessFormationDeducer())
 ```
 
-**N.B.**: There is a `Deducer.Identity` for when the input-type is the same as the output-type. Examples
+**N.B.**: There is a `IdentityDeducer` for when the input-type is the same as the output-type. Examples
 of use cases where this may occur include application of filters and other correction mechanism. 
 
 #### Parallelizing deducers
@@ -289,7 +289,7 @@ public class AnotherInputType implements Rule.SetSupplier {
 To be acted on by the following `Deducer`:
 
 ```java
-public class ExampleDeducer<I implements Rule.SetSupplier> implements Deducer.Identity<I> { /** ... */ }
+public class ExampleDeducer<I implements Rule.SetSupplier> implements IdentityDeducer<I> { /** ... */ }
 ```
 
 Notice that Java [allows multiple bounds](https://docs.oracle.com/javase/tutorial/java/generics/bounded.html) 
@@ -297,7 +297,7 @@ on type parameters, so it is possible to require multiple suppliers on the gener
 
 ```java
 public class AnotherExampleDeducer<I implements Rule.SetSupplier & Controller.MappingSupplier> 
-    implements Deducer.Identity<I>{ /** ... */ }
+    implements IdentityDeducer<I>{ /** ... */ }
 ```
 
 ### Helpers
