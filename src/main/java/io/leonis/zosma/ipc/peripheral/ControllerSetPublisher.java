@@ -58,7 +58,7 @@ public class ControllerSetPublisher<C extends Controller>
   @Override
   public void subscribe(final Subscriber<? super Controller.SetSupplier<C>> subscriber) {
     Flux.interval(interval)
-        .map(tick ->
+        .<Controller.SetSupplier<C>>map(tick ->
             // Loop all controllers
             () -> IntStream.range(0, manager.getNumControllers())
                     // grab the states
