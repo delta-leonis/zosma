@@ -75,8 +75,8 @@ public final class ControllerPublisher<I extends Identity, C extends Controller>
     Flux.combineLatest(setSupplierPublisher, mapSupplierPublisher, Frame::new).subscribe(s);
   }
 
-  @Value
-  static class Frame<C extends Controller, I extends Identity>
+  @AllArgsConstructor
+  static final class Frame<C extends Controller, I extends Identity>
       implements Controller.SetSupplier<C>, Controller.MapSupplier<I> {
     @lombok.experimental.Delegate
     Controller.SetSupplier<C> set;
