@@ -60,28 +60,14 @@ public class ControllerSetPublisher<C extends Controller>
     Flux.interval(interval)
         .map(tick ->
             // Loop all controllers
-            IntStream.range(0, manager.getNumControllers())
-                // grab the states
-                .mapToObj(manager::getControllerIndex)
-                // ignore any disconnected controller
-                .filter(ControllerIndex::isConnected)
-                // map to custom state and collect as a set.
-                .map(adapter)
-                .collect(Collectors.toSet()))
-        .map(Frame::new)
+            () -> IntStream.range(0, manager.getNumControllers())
+                    // grab the states
+                    .mapToObj(manager::getControllerIndex)
+                    // ignore any disconnected controller
+                    .filter(ControllerIndex::isConnected)
+                    // map to custom state and collect as a set.
+                    .map(adapter)
+                    .collect(Collectors.toSet()))
         .subscribe(subscriber);
-  }
-
-  /**
-   * The Class Frame.
-   *
-   * @author Jeroen de Jong
-   */
-  @Value
-  private class Frame implements Controller.SetSupplier<C> {
-    /**
-     * The {@link Set} of {@link Controller controllers} captured in this frame.
-     */
-    private Set<C> controllerSet;
   }
 }
