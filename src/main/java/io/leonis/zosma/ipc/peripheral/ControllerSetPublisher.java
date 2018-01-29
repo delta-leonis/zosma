@@ -37,14 +37,14 @@ public class ControllerSetPublisher<C extends Controller>
   /**
    * Constructs ControllerSetPublisher and initializes native extensions.
    *
+   * @param amount Amount of controllers to listen for.
    * @param interval Duration between polls.
    * @param adapter Adapter used to transform jamepad state.
-   * @param amount Amount of controllers to listen for.
    */
   public ControllerSetPublisher(
+      final int amount,
       final Duration interval,
-      final Function<ControllerIndex, C> adapter,
-      final int amount
+      final Function<ControllerIndex, C> adapter
   ) {
     this.manager = new ControllerManager(amount);
     this.manager.initSDLGamepad();
@@ -58,9 +58,10 @@ public class ControllerSetPublisher<C extends Controller>
   @Override
   public void subscribe(final Subscriber<? super Controller.SetSupplier<C>> subscriber) {
     Flux.interval(interval)
-        .<Controller.SetSupplier<C>>map(tick ->
+        .doOnNext(tick -> manager.update())
+        .map(tick ->
             // Loop all controllers
-            () -> IntStream.range(0, manager.getNumControllers())
+            IntStream.range(0, manager.getNumControllers())
                     // grab the states
                     .mapToObj(manager::getControllerIndex)
                     // ignore any disconnected controller
@@ -68,6 +69,7 @@ public class ControllerSetPublisher<C extends Controller>
                     // map to custom state and collect as a set.
                     .map(adapter)
                     .collect(Collectors.toSet()))
+        .<Controller.SetSupplier<C>>map(set -> () -> set)
         .subscribe(subscriber);
   }
 }
