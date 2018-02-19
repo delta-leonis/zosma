@@ -1,11 +1,13 @@
-plugins {
-    id 'com.github.ksoichiro.console.reporter' version '0.5.0'
-}
+import io.franzbecker.gradle.lombok.task.DelombokTask
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'signing'
-apply plugin: 'maven'
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.11'
+    id 'com.github.ksoichiro.console.reporter' version '0.5.0'
+    id 'java'
+    id 'jacoco'
+    id 'signing'
+    id 'maven'
+}
 
 group 'io.leonis'
 version '0.0.8'
@@ -20,8 +22,22 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
+
+task delombok(type: DelombokTask) {
+    description = 'Generates delomboked source.'
+
+    sourceSets.all {
+        if ( it.name != SourceSet.TEST_SOURCE_SET_NAME ) {
+            it.allJava.srcDirs.each {
+                args( it, '-d', "${buildDir}/${delombok.name}" )
+            }
+        }
+    }
+}
+
 javadoc {
-    source = sourceSets.main.allJava
+    dependsOn delombok
+    source = file( "${buildDir}/${delombok.name}" )
     classpath = configurations.compile
 }
 
