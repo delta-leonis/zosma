@@ -17,8 +17,4 @@ public interface Formation<A, V> {
    * @return The formation vector for the specified entity.
    */
   V getFormationFor(A identity);
-
-  interface Supplier<F extends Formation> {
-    F getFormation();
-  }
 }
