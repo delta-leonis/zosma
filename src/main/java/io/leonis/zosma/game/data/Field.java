@@ -33,10 +33,6 @@ public interface Field extends Serializable {
    */
   Set<FieldArc> getArcs();
 
-  interface Supplier {
-    Field getField();
-  }
-
   @Value
   class State implements Field {
     private final double width;

@@ -3,7 +3,6 @@ package io.leonis.zosma.game.data;
 import io.leonis.algieba.*;
 import io.leonis.algieba.statistic.*;
 import java.io.Serializable;
-import java.util.Set;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -60,14 +59,6 @@ public interface Ball extends Spatial, Temporal, Serializable {
   @Override
   default INDArray getPosition() {
     return this.getState().getMean().get(NDArrayIndex.interval(1, 4), NDArrayIndex.all());
-  }
-
-  interface SetSupplier {
-    Set<Ball> getBalls();
-  }
-
-  interface Supplier {
-    Ball getBall();
   }
 
   @Value

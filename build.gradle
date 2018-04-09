@@ -29,29 +29,17 @@ dependencies {
     // delta-leonis
     compile 'io.leonis:algieba:0.0.6'
     compile 'io.leonis:subra-protocol:0.0.2'
-    
-    // rx
-    compile 'io.projectreactor:reactor-core:3.1.2.RELEASE'
-    compile 'io.projectreactor.ipc:reactor-ipc:0.6.2.RELEASE'
-    compile 'io.projectreactor.ipc:reactor-netty:0.7.2.RELEASE'
+    compile 'io.leonis:Mx:0.0.2'
 
     // logging
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'org.slf4j:slf4j-simple:1.7.25'
 
-    // db
-    compile 'org.influxdb:influxdb-java:2.8'
-
-    // ipc
-    compile 'com.github.WilliamAHartman:Jamepad:1.2'
-
     // java impl
     compile 'org.projectlombok:lombok:1.16.20'
-    compile 'com.google.code.gson:gson:2.8.2'
 
     // tests
     testCompile 'org.testng:testng:6.13.1'
-    testCompile 'io.projectreactor:reactor-test:3.1.2.RELEASE'
 }
 
 test {

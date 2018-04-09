@@ -24,21 +24,6 @@ public interface PlayerMeasurements {
    */
   Map<String, Double> getMeasurements();
 
-  /**
-   * The Interface Supplier.
-   *
-   * Supplies a {@link PlayerMeasurements}.
-   *
-   * @author Jeroen de Jong
-   */
-  interface Supplier {
-
-    /**
-     * @return The measurements of a specific player.
-     */
-    PlayerMeasurements getPlayerMeasurements();
-  }
-
   @Value
   class State implements PlayerMeasurements {
     private final PlayerIdentity playerIdentity;

@@ -9,7 +9,5 @@ import java.util.Map;
  * @author Rimon Oz
  */
 public interface Strategy {
-  interface Supplier {
-    Map<PlayerIdentity, PlayerCommand> getStrategy();
-  }
+  Map<PlayerIdentity, PlayerCommand> getAssignments();
 }

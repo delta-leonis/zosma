@@ -95,10 +95,6 @@ public interface Referee extends Temporal, Serializable {
     UNRECOGNIZED;
   }
 
-  interface Supplier {
-    Referee getReferee();
-  }
-
   @Value
   class State implements Referee {
     private final long timestamp;

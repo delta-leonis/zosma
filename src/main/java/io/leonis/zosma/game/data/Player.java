@@ -3,9 +3,9 @@ package io.leonis.zosma.game.data;
 import io.leonis.algieba.*;
 import io.leonis.algieba.geometry.Orientation;
 import io.leonis.algieba.statistic.*;
-import io.leonis.zosma.game.Identity;
+import io.leonis.zosma.Identifiable;
+import io.leonis.zosma.game.data.Team.TeamIdentity;
 import java.io.Serializable;
-import java.util.Set;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -18,7 +18,7 @@ import org.nd4j.linalg.indexing.NDArrayIndex;
  *
  * @author Rimon Oz
  */
-public interface Player extends Spatial, Identity.Supplier, Orientation, Temporal, Serializable {
+public interface Player extends Spatial, Identifiable, Orientation, Temporal, Serializable {
 
   /**
    * @return The X-position coordinate of the {@link Player} in mm.
@@ -75,7 +75,7 @@ public interface Player extends Spatial, Identity.Supplier, Orientation, Tempora
    * @return The identity for the {@link Player}, containing only its identifier and team color.
    */
   default PlayerIdentity getIdentity() {
-    return new PlayerIdentity(this.getId(), this.getTeamColor());
+    return new PlayerIdentity(this.getId(), this.getTeamIdentity());
   }
 
   /**
@@ -84,16 +84,9 @@ public interface Player extends Spatial, Identity.Supplier, Orientation, Tempora
   int getId();
 
   /**
-   * @return The {@link TeamColor} of the {@link Team} to which this Player belongs.
+   * @return The {@link TeamIdentity} of the team to which this Player belongs.
    */
-  TeamColor getTeamColor();
-
-  /**
-   * Represents the functionality of an object which can supply a {@link Set} of {@link Player}.
-   */
-  interface SetSupplier {
-    Set<Player> getPlayers();
-  }
+  TeamIdentity getTeamIdentity();
 
   /**
    * Represents the measured state of a {@link Player}.
@@ -103,7 +96,7 @@ public interface Player extends Spatial, Identity.Supplier, Orientation, Tempora
   class State implements Player {
     private final int id;
     private final Distribution state;
-    private final TeamColor teamColor;
+    private final TeamIdentity teamIdentity;
 
     public State(
         final int id,
@@ -111,7 +104,7 @@ public interface Player extends Spatial, Identity.Supplier, Orientation, Tempora
         final double x,
         final double y,
         final double orientation,
-        final TeamColor teamColor
+        final TeamIdentity teamIdentity
     ) {
       this(
           id,
@@ -123,16 +116,16 @@ public interface Player extends Spatial, Identity.Supplier, Orientation, Tempora
                   orientation
               },
               new int[]{4, 1}), Nd4j.eye(4)),
-          teamColor);
+          teamIdentity);
     }
   }
 
   /**
-   * The {@link io.leonis.zosma.game.Identity identity} of the robot.
+   * The identity of the robot.
    */
   @Value
-  class PlayerIdentity implements Identity {
+  class PlayerIdentity {
     private final int id;
-    private final TeamColor teamColor;
+    private final TeamIdentity teamIdentity;
   }
 }

@@ -2,7 +2,6 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.Spatial;
 import io.leonis.zosma.game.data.Team.TeamIdentity;
-import java.util.Set;
 import lombok.Value;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
@@ -13,12 +12,16 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  *
  * @author Jeroen de Jong
  */
-public interface Goal extends GoalDimension.Supplier, Spatial, FieldHalf.Supplier {
+public interface Goal extends Spatial {
 
   /**
    * @return The {@link TeamIdentity} defending to this goal.
    */
   TeamIdentity getTeamIdentity();
+
+  FieldHalf getFieldHalf();
+
+  GoalDimension getDimension();
 
   /**
    * @return The X-position coordinate of the {@link Goal}.
@@ -34,13 +37,9 @@ public interface Goal extends GoalDimension.Supplier, Spatial, FieldHalf.Supplie
     return this.getPosition().getDouble(1, 0);
   }
 
-  interface SetSupplier {
-    Set<Goal> getGoals();
-  }
-
   @Value
   class State implements Goal {
-    private final GoalDimension goalDimension;
+    private final GoalDimension dimension;
     private final INDArray position;
     private final TeamIdentity teamIdentity;
     private final FieldHalf fieldHalf;

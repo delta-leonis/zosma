@@ -2,7 +2,6 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.spatial.Moving;
 import io.leonis.algieba.statistic.*;
-import java.util.Set;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -50,36 +49,13 @@ public interface MovingBall extends Ball, Moving {
     return this.getState().getMean().get(NDArrayIndex.interval(4, 7), NDArrayIndex.all());
   }
 
-  interface SetSupplier {
-    Set<MovingBall> getBalls();
-  }
-
-  interface Supplier {
-    MovingBall getBall();
-  }
-
   @Value
   @AllArgsConstructor
   class State implements MovingBall {
     private final Distribution state;
 
-    /**
-     * Creates a representation of the current {@link Ball} with velocity data.
-     *
-     * @param currentBall  The current state of the {@link Ball}.
-     * @param previousBall The previous state of the {@link Ball}.
-     */
-    public State(final Ball currentBall, final Ball previousBall) {
-      this(currentBall.getTimestamp(),
-          currentBall.getX(),
-          currentBall.getY(),
-          currentBall.getZ(),
-          (currentBall.getX() - previousBall.getX())
-              / (currentBall.getTimestamp() - previousBall.getTimestamp()),
-          (currentBall.getY() - previousBall.getY())
-              / (currentBall.getTimestamp() - previousBall.getTimestamp()),
-          (currentBall.getZ() - previousBall.getZ())
-              / (currentBall.getTimestamp() - previousBall.getTimestamp()));
+    public State(final double timestamp, final double x, final double y, final double z) {
+      this(timestamp, x, y, z, 0, 0, 0);
     }
 
     public State(

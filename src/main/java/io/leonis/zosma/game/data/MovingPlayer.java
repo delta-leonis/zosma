@@ -2,7 +2,7 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.spatial.Moving;
 import io.leonis.algieba.statistic.*;
-import java.util.Set;
+import io.leonis.zosma.game.data.Team.TeamIdentity;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -54,14 +54,6 @@ public interface MovingPlayer extends Player, Moving {
   }
 
   /**
-   * Represents the functionality of an object which can supply a {@link Set} of {@link
-   * MovingPlayer}.
-   */
-  interface SetSupplier {
-    Set<MovingPlayer> getPlayers();
-  }
-
-  /**
    * Represents the calculated state of a {@link MovingPlayer}.
    */
   @Value
@@ -69,27 +61,17 @@ public interface MovingPlayer extends Player, Moving {
   class State implements MovingPlayer {
     private final int id;
     private final Distribution state;
-    private final TeamColor teamColor;
+    private final TeamIdentity teamIdentity;
 
-    /**
-     * Creates an state representation of the current {@link Player} with velocity data.
-     *
-     * @param currentPlayer  The current state of the {@link Player}.
-     * @param previousPlayer The previous state of the {@link Player}.
-     */
-    public State(final Player currentPlayer, final Player previousPlayer) {
-      this(currentPlayer.getId(),
-          currentPlayer.getTimestamp(),
-          currentPlayer.getX(),
-          currentPlayer.getY(),
-          currentPlayer.getOrientation(),
-          (currentPlayer.getX() - previousPlayer.getX())
-              / (currentPlayer.getTimestamp() - previousPlayer.getTimestamp()),
-          (currentPlayer.getY() - previousPlayer.getY())
-              / (currentPlayer.getTimestamp() - previousPlayer.getTimestamp()),
-          (currentPlayer.getOrientation() - previousPlayer.getOrientation())
-              / (currentPlayer.getTimestamp() - previousPlayer.getTimestamp()),
-          currentPlayer.getTeamColor());
+    public State(
+        final int id,
+        final double timestamp,
+        final double x,
+        final double y,
+        final double orientation,
+        final TeamIdentity teamIdentity
+    ) {
+      this(id, timestamp, x, y, orientation, 0, 0, 0, teamIdentity);
     }
 
     public State(
@@ -101,7 +83,7 @@ public interface MovingPlayer extends Player, Moving {
         final double velocityX,
         final double velocityY,
         final double velocityR,
-        final TeamColor teamColor
+        final TeamIdentity teamIdentity
     ) {
       this(
           id,
@@ -116,8 +98,7 @@ public interface MovingPlayer extends Player, Moving {
                   velocityR
               },
               new int[]{7, 1}), Nd4j.eye(7)),
-          teamColor);
-
+          teamIdentity);
     }
   }
 }

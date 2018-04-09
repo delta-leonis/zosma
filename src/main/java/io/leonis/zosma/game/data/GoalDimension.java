@@ -34,10 +34,6 @@ public interface GoalDimension extends Serializable {
     return this.getState().getDouble(1, 0);
   }
 
-  interface Supplier {
-    GoalDimension getGoalDimension();
-  }
-
   @Value
   class State implements GoalDimension {
     private final INDArray state;
