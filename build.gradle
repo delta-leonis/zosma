@@ -26,6 +26,10 @@ javadoc {
 }
 
 dependencies {
+    // delta-leonis
+    compile 'io.leonis:algieba:0.0.6'
+    compile 'io.leonis:subra-protocol:0.0.2'
+    
     // rx
     compile 'io.projectreactor:reactor-core:3.1.2.RELEASE'
     compile 'io.projectreactor.ipc:reactor-ipc:0.6.2.RELEASE'
@@ -43,6 +47,7 @@ dependencies {
 
     // java impl
     compile 'org.projectlombok:lombok:1.16.20'
+    compile 'com.google.code.gson:gson:2.8.2'
 
     // tests
     testCompile 'org.testng:testng:6.13.1'
