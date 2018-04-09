@@ -31,6 +31,9 @@ dependencies {
     compile 'io.leonis:subra-protocol:0.0.2'
     compile 'io.leonis:Mx:0.0.2'
 
+    // controllers
+    compile 'com.github.WilliamAHartman:Jamepad:1.2'
+
     // logging
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'org.slf4j:slf4j-simple:1.7.25'
