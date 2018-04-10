@@ -3,8 +3,7 @@ package io.leonis.zosma.game.data;
 import io.leonis.algieba.Temporal;
 import io.leonis.zosma.game.data.Team.TeamIdentity;
 import java.io.Serializable;
-import java.util.Set;
-import lombok.Value;
+import lombok.*;
 
 /**
  * The Class RefereeState.
@@ -37,6 +36,10 @@ public interface Referee extends Temporal, Serializable {
    */
   double getCommandTimeStamp();
 
+  Team getOpponent();
+
+  Team getAlly();
+
   /**
    * @return The {@link TeamIdentity} playing on the {@link FieldHalf#POSITIVE positive field half}.
    */
@@ -45,17 +48,24 @@ public interface Referee extends Temporal, Serializable {
   /**
    * @return The {@link TeamIdentity} playing on the {@link FieldHalf#NEGATIVE negative field half}.
    */
-  TeamIdentity getNegativeHalfTeam();
+  default TeamIdentity getNegativeHalfTeam() {
+    if(this.getPositiveHalfTeam().equals(this.getAlly().getIdentity()))
+      return this.getOpponent().getIdentity();
+    return this.getAlly().getIdentity();
+  }
+
+  default FieldHalf getAllyFieldHalf() {
+    return getPositiveHalfTeam().equals(getAlly().getIdentity()) ? FieldHalf.POSITIVE : FieldHalf.NEGATIVE;
+  }
+
+  default FieldHalf getOpponentFieldHalf() {
+    return getPositiveHalfTeam().equals(getAlly().getIdentity()) ? FieldHalf.NEGATIVE : FieldHalf.POSITIVE;
+  }
 
   /**
    * @return The number of commands sent since the start of the game.
    */
   int getCommandCount();
-
-  /**
-   * @return All active teams in this game.
-   */
-  Set<Team> getTeams();
 
   enum Command {
     HALT,
@@ -96,14 +106,37 @@ public interface Referee extends Temporal, Serializable {
   }
 
   @Value
+  @AllArgsConstructor
   class State implements Referee {
-    private final long timestamp;
+    private final Team ally, opponent;
     private final Stage coarseStage;
     private final double timeLeftInStage;
     private final Command command;
-    private final Set<Team> teams;
     private final double commandTimeStamp;
-    private final TeamIdentity positiveHalfTeam, negativeHalfTeam;
+    private final TeamIdentity positiveHalfTeam;
     private final int commandCount;
+    private final long timestamp;
+
+    public State(
+       final TeamIdentity allyTeam,
+       final boolean blueTeamOnPositiveHalf,
+       final Team blueTeam,
+       final Team yellowTeam,
+       final Stage coarseStage,
+       final double timeLeftInStage,
+       final Command command,
+       final double commandTimeStamp,
+       final int commandCount,
+       final long timestamp
+    ) {
+      this(
+        blueTeam.getIdentity().equals(allyTeam) ? blueTeam : yellowTeam,
+        blueTeam.getIdentity().equals(allyTeam) ? yellowTeam : blueTeam,
+        coarseStage,
+        timeLeftInStage,
+        command, commandTimeStamp,
+        (blueTeamOnPositiveHalf ? blueTeam : yellowTeam).getIdentity(),
+        commandCount, timestamp);
+    }
   }
 }

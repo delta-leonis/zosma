@@ -1,5 +1,6 @@
 package io.leonis.zosma.ipc.serialization.protobuf.refbox;
 
+import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import io.leonis.zosma.game.data.Team;
 import io.leonis.zosma.game.data.Team.TeamIdentity;
 import io.reactivex.functions.Function;
@@ -28,7 +29,7 @@ public final class TeamSelector implements Function<SSL_Referee, Team> {
       Collections.unmodifiableList(teamInfo.getYellowCardTimesList()),
       teamInfo.getTimeouts(),
       teamInfo.getTimeoutTime(),
-      teamInfo.getGoalie(),
-      teamIdentity);
+      new PlayerIdentity(teamInfo.getGoalie(), this.teamIdentity),
+      this.teamIdentity);
   }
 }

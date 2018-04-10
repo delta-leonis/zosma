@@ -2,6 +2,7 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.Temporal;
 import io.leonis.zosma.Identifiable;
+import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Value;
@@ -57,9 +58,9 @@ public interface Team extends Identifiable, Serializable, Temporal {
   long getTimeOutTimeLeft();
 
   /**
-   * @return The number of the goalie.
+   * @return The identity of the goalie.
    */
-  int getGoalieNumber();
+  PlayerIdentity getGoalie();
 
   /**
    * The Interface TeamIdentity.
@@ -86,7 +87,7 @@ public interface Team extends Identifiable, Serializable, Temporal {
     private final List<Integer> yellowCards;
     private final int timeOutsLeft;
     private final long timeOutTimeLeft;
-    private final int goalieNumber;
+    private final PlayerIdentity goalie;
     private final TeamIdentity identity;
   }
 }
