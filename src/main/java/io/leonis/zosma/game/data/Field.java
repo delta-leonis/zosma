@@ -34,13 +34,11 @@ public interface Field extends Serializable {
    */
   Set<FieldArc> getArcs();
 
-  Goal getPositiveGoal();
-
-  Goal getNegativeGoal();
-
-  default Goal getGoal(FieldHalf fieldHalf) {
-    return fieldHalf.equals(FieldHalf.POSITIVE) ? getPositiveGoal() : getNegativeGoal();
-  }
+  /**
+   * @param fieldHalf field half the goal is on.
+   * @return The {@link Goal} on the specified field half.
+   */
+  Goal getGoal(FieldHalf fieldHalf);
 
   @Value
   @AllArgsConstructor
@@ -49,16 +47,17 @@ public interface Field extends Serializable {
     private final double length;
     private final Set<FieldLine> lines;
     private final Set<FieldArc> arcs;
-    private final GoalDimension goalDimension;
+    private final Goal positiveHalfGoal, negativeHalfGoal;
 
-    @Override
-    public Goal getPositiveGoal() {
-      return new PositiveGoal(this, goalDimension);
+    public State(double width, double length, Set<FieldLine> lines, Set<FieldArc> arcs, GoalDimension dimension) {
+      this(width, length, lines, arcs,
+        new PositiveHalfGoal(length, dimension),
+        new NegativeHalfGoal(length, dimension));
     }
 
     @Override
-    public Goal getNegativeGoal() {
-      return new NegativeGoal(this, goalDimension);
+    public Goal getGoal(final FieldHalf fieldHalf) {
+      return fieldHalf.equals(FieldHalf.POSITIVE) ? positiveHalfGoal : negativeHalfGoal;
     }
   }
 }

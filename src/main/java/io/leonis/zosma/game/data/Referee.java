@@ -36,12 +36,28 @@ public interface Referee extends Temporal, Serializable {
    */
   double getCommandTimeStamp();
 
+  /**
+   * @param allegiance allegiance of the team.
+   * @return the team of specified allegiance.
+   */
   Team getTeam(Allegiance allegiance);
 
+  /**
+   * @param fieldHalf field half the team defends..
+   * @return the team of specified field half.
+   */
   Team getTeam(FieldHalf fieldHalf);
 
+  /**
+   * @param identity identity of the team.
+   * @return the team state with the specified identity.
+   */
   Team getTeam(TeamIdentity identity);
 
+  /**
+   * @param allegiance allegiance of the team.
+   * @return the field half of a specified allegiance.
+   */
   default FieldHalf getFieldHalf(Allegiance allegiance) {
     return getTeam(FieldHalf.POSITIVE).equals(getTeam(allegiance)) ? FieldHalf.POSITIVE : FieldHalf.NEGATIVE;
   }

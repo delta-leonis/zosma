@@ -15,8 +15,14 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  */
 public interface Goal extends Spatial {
 
+  /**
+   * @return The field half this goal is located.
+   */
   FieldHalf getFieldHalf();
 
+  /**
+   * @return The dimension of the goal.
+   */
   GoalDimension getDimension();
 
   /**
@@ -40,26 +46,32 @@ public interface Goal extends Spatial {
     private final FieldHalf fieldHalf;
   }
 
-  class PositiveGoal implements Goal {
+  /**
+   * A Goal on the positive half of the field.
+   */
+  class PositiveHalfGoal implements Goal {
     @Delegate
     private final Goal.State goal;
 
-    public PositiveGoal(final Field field, final GoalDimension goalDimension) {
+    public PositiveHalfGoal(double fieldLength, final GoalDimension goalDimension) {
       this.goal = new Goal.State(
           goalDimension,
-          Vectors.columnVector((field.getLength() + goalDimension.getDepth()) / 2f, 0f),
+          Vectors.columnVector((fieldLength + goalDimension.getDepth()) / 2f, 0f),
           FieldHalf.POSITIVE);
     }
   }
 
-  class NegativeGoal implements Goal {
+  /**
+   * A Goal on the negative half of the field.
+   */
+  class NegativeHalfGoal implements Goal {
     @Delegate
     private final Goal.State goal;
 
-    public NegativeGoal(final Field field, final GoalDimension goalDimension) {
+    public NegativeHalfGoal(final double fieldLength, final GoalDimension goalDimension) {
       this.goal = new Goal.State(
           goalDimension,
-          Vectors.columnVector(-1f * ((field.getLength() + goalDimension.getDepth()) / 2f), 0f),
+          Vectors.columnVector(-1f * ((fieldLength + goalDimension.getDepth()) / 2f), 0f),
           FieldHalf.NEGATIVE);
     }
   }
