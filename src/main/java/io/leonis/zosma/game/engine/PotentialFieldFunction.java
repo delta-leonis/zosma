@@ -2,7 +2,6 @@ package io.leonis.zosma.game.engine;
 
 import io.leonis.algieba.spatial.*;
 import io.leonis.zosma.game.data.*;
-import io.leonis.zosma.game.data.Strategy;
 import io.leonis.zosma.game.data.Team.TeamIdentity;
 import io.reactivex.functions.Function3;
 import java.util.Set;

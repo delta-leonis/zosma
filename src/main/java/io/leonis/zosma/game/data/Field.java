@@ -1,7 +1,6 @@
 package io.leonis.zosma.game.data;
 
 import io.leonis.zosma.game.data.Goal.*;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
 import java.io.Serializable;
 import java.util.Set;
 import lombok.*;

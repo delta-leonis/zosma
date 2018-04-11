@@ -101,29 +101,6 @@ public interface Referee extends Temporal, Serializable {
     private final int commandCount;
     private final long timestamp;
 
-    // FIXME remove this constructor
-    public State(
-       final TeamIdentity allyTeam,
-       final boolean blueTeamOnPositiveHalf,
-       final Team blueTeam,
-       final Team yellowTeam,
-       final Stage coarseStage,
-       final double timeLeftInStage,
-       final Command command,
-       final double commandTimeStamp,
-       final int commandCount,
-       final long timestamp
-    ) {
-      this(
-        blueTeam.getIdentity().equals(allyTeam) ? blueTeam : yellowTeam,
-        blueTeam.getIdentity().equals(allyTeam) ? yellowTeam : blueTeam,
-        coarseStage,
-        timeLeftInStage,
-        command, commandTimeStamp,
-        (blueTeamOnPositiveHalf ? blueTeam : yellowTeam).getIdentity(),
-        commandCount, timestamp);
-    }
-
     @Override
     public Team getTeam(final Allegiance allegiance) {
       return allegiance.equals(Allegiance.ALLY) ? ally : opponent;

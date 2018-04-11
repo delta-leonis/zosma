@@ -22,15 +22,16 @@ public final class SSLRefboxSelector implements Function<SSL_Referee, Referee> {
 
   @Override
   public Referee apply(final SSL_Referee packet) throws Exception {
+    Team blueTeam = blueTeamSelector.apply(packet);
+    Team yellowTeam = yellowTeamSelector.apply(packet);
     return new Referee.State(
-      allyTeam,
-      packet.getBlueTeamOnPositiveHalf(),
-      blueTeamSelector.apply(packet),
-      yellowTeamSelector.apply(packet),
+      blueTeam.getIdentity().equals(allyTeam) ? blueTeam : yellowTeam,
+      blueTeam.getIdentity().equals(allyTeam) ? yellowTeam : blueTeam,
       Stage.valueOf(packet.getStage().name()),
       packet.getStageTimeLeft(),
       Command.valueOf(packet.getCommand().name()),
       packet.getCommandTimestamp(),
+      (packet.getBlueTeamOnPositiveHalf() ? blueTeam : yellowTeam).getIdentity(),
       packet.getCommandCounter(),
       packet.getPacketTimestamp());
   }

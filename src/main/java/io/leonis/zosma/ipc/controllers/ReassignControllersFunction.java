@@ -1,7 +1,6 @@
 package io.leonis.zosma.ipc.controllers;
 
-import static com.studiohartman.jamepad.ControllerButton.DPAD_LEFT;
-import static com.studiohartman.jamepad.ControllerButton.DPAD_RIGHT;
+import static com.studiohartman.jamepad.ControllerButton.*;
 import static java.util.stream.Collectors.toCollection;
 
 import com.google.common.collect.ImmutableSet;

@@ -1,7 +1,7 @@
 package io.leonis.zosma.ipc.serialization.protobuf.refbox;
 
-import io.leonis.zosma.game.data.*;
 import io.leonis.zosma.game.data.Player.PlayerIdentity;
+import io.leonis.zosma.game.data.Team;
 import io.leonis.zosma.game.data.Team.TeamIdentity;
 import io.reactivex.functions.Function;
 import java.util.Collections;
