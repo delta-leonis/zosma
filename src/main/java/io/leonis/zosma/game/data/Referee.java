@@ -36,30 +36,14 @@ public interface Referee extends Temporal, Serializable {
    */
   double getCommandTimeStamp();
 
-  Team getOpponent();
+  Team getTeam(Allegiance allegiance);
 
-  Team getAlly();
+  Team getTeam(FieldHalf fieldHalf);
 
-  /**
-   * @return The {@link TeamIdentity} playing on the {@link FieldHalf#POSITIVE positive field half}.
-   */
-  TeamIdentity getPositiveHalfTeam();
+  Team getTeam(TeamIdentity identity);
 
-  /**
-   * @return The {@link TeamIdentity} playing on the {@link FieldHalf#NEGATIVE negative field half}.
-   */
-  default TeamIdentity getNegativeHalfTeam() {
-    if(this.getPositiveHalfTeam().equals(this.getAlly().getIdentity()))
-      return this.getOpponent().getIdentity();
-    return this.getAlly().getIdentity();
-  }
-
-  default FieldHalf getAllyFieldHalf() {
-    return getPositiveHalfTeam().equals(getAlly().getIdentity()) ? FieldHalf.POSITIVE : FieldHalf.NEGATIVE;
-  }
-
-  default FieldHalf getOpponentFieldHalf() {
-    return getPositiveHalfTeam().equals(getAlly().getIdentity()) ? FieldHalf.NEGATIVE : FieldHalf.POSITIVE;
+  default FieldHalf getFieldHalf(Allegiance allegiance) {
+    return getTeam(FieldHalf.POSITIVE).equals(getTeam(allegiance)) ? FieldHalf.POSITIVE : FieldHalf.NEGATIVE;
   }
 
   /**
@@ -117,6 +101,7 @@ public interface Referee extends Temporal, Serializable {
     private final int commandCount;
     private final long timestamp;
 
+    // FIXME remove this constructor
     public State(
        final TeamIdentity allyTeam,
        final boolean blueTeamOnPositiveHalf,
@@ -137,6 +122,23 @@ public interface Referee extends Temporal, Serializable {
         command, commandTimeStamp,
         (blueTeamOnPositiveHalf ? blueTeam : yellowTeam).getIdentity(),
         commandCount, timestamp);
+    }
+
+    @Override
+    public Team getTeam(final Allegiance allegiance) {
+      return allegiance.equals(Allegiance.ALLY) ? ally : opponent;
+    }
+
+    @Override
+    public Team getTeam(final FieldHalf fieldHalf) {
+      if(positiveHalfTeam.equals(ally.getIdentity()))
+        return fieldHalf.equals(FieldHalf.POSITIVE) ? ally : opponent;
+      return fieldHalf.equals(FieldHalf.POSITIVE) ? opponent : ally;
+    }
+
+    @Override
+    public Team getTeam(final TeamIdentity identity) {
+      return ally.getIdentity().equals(identity) ? ally : opponent;
     }
   }
 }

@@ -33,6 +33,7 @@ public class FieldSelector implements Function<GeometryData, Field> {
                     fieldCircularArc.getA2(),
                     fieldCircularArc.getThickness(),
                     fieldCircularArc.getRadius()))
-            .collect(Collectors.toSet()));
+            .collect(Collectors.toSet()),
+        new GoalDimensionSelector().apply(geometryData));
   }
 }

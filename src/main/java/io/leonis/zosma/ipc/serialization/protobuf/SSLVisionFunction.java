@@ -2,10 +2,10 @@ package io.leonis.zosma.ipc.serialization.protobuf;
 
 import io.leonis.algieba.Temporal;
 import io.leonis.mx.Mx;
+import io.leonis.zosma.game.data.Field;
 import io.leonis.zosma.ipc.serialization.protobuf.SSLVisionFunction.VisionPacket;
 import io.leonis.zosma.ipc.serialization.protobuf.vision.*;
 import io.leonis.zosma.ipc.serialization.protobuf.vision.DetectionFrameFunction.DetectionFrame;
-import io.leonis.zosma.ipc.serialization.protobuf.vision.GeometryFunction.GeometryFrame;
 import io.reactivex.functions.Function;
 import lombok.*;
 import lombok.experimental.Delegate;
@@ -36,7 +36,7 @@ public class SSLVisionFunction implements Function<WrapperPacket, VisionPacket> 
   @AllArgsConstructor
   public final static class VisionPacket implements Temporal {
     @Delegate
-    private final GeometryFrame geometryContainer;
+    private final Field field;
     @Delegate
     private final DetectionFrame detectionContainer;
     @Getter
