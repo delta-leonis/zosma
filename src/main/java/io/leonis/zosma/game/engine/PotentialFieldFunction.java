@@ -2,7 +2,6 @@ package io.leonis.zosma.game.engine;
 
 import io.leonis.algieba.spatial.*;
 import io.leonis.zosma.game.data.*;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
 import io.reactivex.functions.Function3;
 import java.util.Set;
 import java.util.stream.*;
@@ -18,7 +17,6 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 public final class PotentialFieldFunction
     implements Function3<Set<MovingPlayer>, Set<MovingBall>, Field, Strategy> {
 
-  private final TeamIdentity teamIdentity;
   private final INDArray origin;
   private final java.util.function.Function<MovingPlayer, PotentialField> playerFieldGenerator;
   private final java.util.function.Function<MovingBall, PotentialField> ballFieldGenerator;
@@ -28,7 +26,7 @@ public final class PotentialFieldFunction
   public Strategy apply(final Set<MovingPlayer> players, final Set<MovingBall> balls,
       final Field field) {
     return () -> players.stream()
-        .filter(player -> player.getTeamIdentity().equals(teamIdentity))
+        .filter(player -> player.getAllegiance().equals(Allegiance.ALLY))
         .collect(Collectors.toMap(
             Player::getIdentity,
             player -> this.commandGenerator.apply(player,

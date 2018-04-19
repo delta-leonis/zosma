@@ -20,14 +20,13 @@ import org.nd4j.linalg.ops.transforms.Transforms;
 @Value
 public class BallTrackerFormationFunction
     implements BiFunction<Set<Player>, Ball, PositionFormation> {
-  private final TeamColor teamColor;
   private final double distanceFromBall;
 
   @Override
   public PositionFormation apply(final Set<Player> players, final Ball ball) {
     return new PositionFormation(
         players.stream()
-            .filter(player -> player.getTeamIdentity().equals(this.getTeamColor()))
+            .filter(player -> player.getAllegiance().equals(Allegiance.ALLY))
             .collect(Collectors.toMap(
                 Player::getIdentity,
                 player ->

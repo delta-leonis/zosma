@@ -1,9 +1,11 @@
 package io.leonis.zosma.ipc.serialization.protobuf.refbox;
 
+import static io.leonis.zosma.game.data.Allegiance.*;
+
 import io.leonis.zosma.game.data.*;
 import io.leonis.zosma.game.data.Referee.*;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
-import io.reactivex.functions.Function;
+import io.leonis.zosma.game.data.Team.*;
+import io.reactivex.functions.BiFunction;
 import lombok.AllArgsConstructor;
 import org.robocup.ssl.Referee.SSL_Referee;
 
@@ -15,23 +17,22 @@ import org.robocup.ssl.Referee.SSL_Referee;
  * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public final class SSLRefboxSelector implements Function<SSL_Referee, Referee> {
-  private final TeamIdentity allyTeam;
-  private final Function<SSL_Referee, Team> blueTeamSelector = new TeamSelector(SSL_Referee::getBlue, TeamColor.BLUE);
-  private final Function<SSL_Referee, Team> yellowTeamSelector = new TeamSelector(SSL_Referee::getYellow, TeamColor.YELLOW);
+public final class SSLRefboxSelector implements BiFunction<SSL_Referee, Allegiance, Referee> {
+  private final TeamSelector<AllyTeam> allyTeamSelector = new TeamSelector<>(AllyTeam::new);
+  private final TeamSelector<OpponentTeam> opponentTeamSelector = new TeamSelector<>(OpponentTeam::new);
 
   @Override
-  public Referee apply(final SSL_Referee packet) throws Exception {
-    final Team blueTeam = blueTeamSelector.apply(packet);
-    final Team yellowTeam = yellowTeamSelector.apply(packet);
+  public Referee apply(final SSL_Referee packet, final Allegiance blueTeamAllegiance) throws Exception {
+    final AllyTeam ally = allyTeamSelector.apply(blueTeamAllegiance.equals(ALLY) ? packet.getBlue() : packet.getYellow(), packet.getPacketTimestamp());
+    final OpponentTeam opponent = opponentTeamSelector.apply(blueTeamAllegiance.equals(OPPONENT) ? packet.getBlue() : packet.getYellow(), packet.getPacketTimestamp());
     return new Referee.State(
-      blueTeam.getIdentity().equals(allyTeam) ? blueTeam : yellowTeam,
-      blueTeam.getIdentity().equals(allyTeam) ? yellowTeam : blueTeam,
+      ally,
+      opponent,
       Stage.valueOf(packet.getStage().name()),
       packet.getStageTimeLeft(),
       Command.valueOf(packet.getCommand().name()),
       packet.getCommandTimestamp(),
-      (packet.getBlueTeamOnPositiveHalf() ? blueTeam : yellowTeam).getIdentity(),
+      blueTeamAllegiance.equals(ALLY) && packet.getBlueTeamOnPositiveHalf() ? ALLY : OPPONENT,
       packet.getCommandCounter(),
       packet.getPacketTimestamp());
   }

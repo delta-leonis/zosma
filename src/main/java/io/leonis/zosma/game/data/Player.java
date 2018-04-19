@@ -4,7 +4,6 @@ import io.leonis.algieba.*;
 import io.leonis.algieba.geometry.Orientation;
 import io.leonis.algieba.statistic.*;
 import io.leonis.zosma.Identifiable;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
 import java.io.Serializable;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -75,7 +74,7 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
    * @return The identity for the {@link Player}, containing only its identifier and team color.
    */
   default PlayerIdentity getIdentity() {
-    return new PlayerIdentity(this.getId(), this.getTeamIdentity());
+    return new PlayerIdentity(this.getId(), this.getAllegiance());
   }
 
   /**
@@ -84,9 +83,9 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
   int getId();
 
   /**
-   * @return The {@link TeamIdentity} of the team to which this Player belongs.
+   * @return The {@link Allegiance} of the team to which this Player belongs.
    */
-  TeamIdentity getTeamIdentity();
+  Allegiance getAllegiance();
 
   /**
    * Represents the measured state of a {@link Player}.
@@ -96,7 +95,7 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
   class State implements Player {
     private final int id;
     private final Distribution state;
-    private final TeamIdentity teamIdentity;
+    private final Allegiance allegiance;
 
     public State(
         final int id,
@@ -104,7 +103,7 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
         final double x,
         final double y,
         final double orientation,
-        final TeamIdentity teamIdentity
+        final Allegiance allegiance
     ) {
       this(
           id,
@@ -116,7 +115,7 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
                   orientation
               },
               new int[]{4, 1}), Nd4j.eye(4)),
-          teamIdentity);
+          allegiance);
     }
   }
 
@@ -126,6 +125,6 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
   @Value
   class PlayerIdentity {
     private final int id;
-    private final TeamIdentity teamIdentity;
+    private final Allegiance allegiance;
   }
 }

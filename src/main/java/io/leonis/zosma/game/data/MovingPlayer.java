@@ -2,7 +2,6 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.spatial.Moving;
 import io.leonis.algieba.statistic.*;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -61,7 +60,7 @@ public interface MovingPlayer extends Player, Moving {
   class State implements MovingPlayer {
     private final int id;
     private final Distribution state;
-    private final TeamIdentity teamIdentity;
+    private final Allegiance allegiance;
 
     public State(
         final int id,
@@ -69,9 +68,9 @@ public interface MovingPlayer extends Player, Moving {
         final double x,
         final double y,
         final double orientation,
-        final TeamIdentity teamIdentity
+        final Allegiance allegiance
     ) {
-      this(id, timestamp, x, y, orientation, 0, 0, 0, teamIdentity);
+      this(id, timestamp, x, y, orientation, 0, 0, 0, allegiance);
     }
 
     public State(
@@ -83,7 +82,7 @@ public interface MovingPlayer extends Player, Moving {
         final double velocityX,
         final double velocityY,
         final double velocityR,
-        final TeamIdentity teamIdentity
+        final Allegiance allegiance
     ) {
       this(
           id,
@@ -98,7 +97,7 @@ public interface MovingPlayer extends Player, Moving {
                   velocityR
               },
               new int[]{7, 1}), Nd4j.eye(7)),
-          teamIdentity);
+          allegiance);
     }
   }
 }

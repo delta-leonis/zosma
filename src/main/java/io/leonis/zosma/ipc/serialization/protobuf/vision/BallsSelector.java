@@ -9,7 +9,7 @@ import org.robocup.ssl.Detection.DetectionFrame;
 /**
  * @author jeroen.dejong.
  */
-public class BallSelector implements Function<DetectionFrame, Set<Ball>> {
+public class BallsSelector implements Function<DetectionFrame, Set<Ball>> {
 
   @Override
   public Set<Ball> apply(final DetectionFrame detectionFrame) {

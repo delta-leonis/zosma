@@ -2,8 +2,7 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.Spatial;
 import io.leonis.algieba.geometry.Vectors;
-import lombok.Value;
-import lombok.experimental.Delegate;
+import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 /**
@@ -26,6 +25,11 @@ public interface Goal extends Spatial {
   GoalDimension getDimension();
 
   /**
+   * @return The Allegiance defending this goal.
+   */
+  Allegiance getAllegiance();
+
+  /**
    * @return The X-position coordinate of the {@link Goal}.
    */
   default double getX() {
@@ -39,40 +43,39 @@ public interface Goal extends Spatial {
     return this.getPosition().getDouble(1, 0);
   }
 
-  @Value
-  class State implements Goal {
-    private final GoalDimension dimension;
-    private final INDArray position;
-    private final FieldHalf fieldHalf;
-  }
-
   /**
-   * A Goal on the positive half of the field.
+   * A Goal defended by the Ally.
    */
-  class PositiveHalfGoal implements Goal {
-    @Delegate
-    private final Goal.State goal;
+  @Value @AllArgsConstructor
+  class AllyGoal implements Goal {
+    private final GoalDimension dimension;
+    private final FieldHalf fieldHalf;
+    private final Allegiance allegiance = Allegiance.ALLY;
+    private final double fieldLength;
 
-    public PositiveHalfGoal(double fieldLength, final GoalDimension goalDimension) {
-      this.goal = new Goal.State(
-          goalDimension,
-          Vectors.columnVector((fieldLength + goalDimension.getDepth()) / 2f, 0f),
-          FieldHalf.POSITIVE);
+    @Override
+    public INDArray getPosition() {
+      return fieldHalf.equals(FieldHalf.NEGATIVE) ?
+          Vectors.columnVector((fieldLength + getDimension().getDepth()) / 2f, 0f)
+          : Vectors.columnVector(-1f * ((fieldLength + getDimension().getDepth()) / 2f), 0f);
     }
   }
 
   /**
-   * A Goal on the negative half of the field.
+   * A Goal defended by the Opponent.
    */
-  class NegativeHalfGoal implements Goal {
-    @Delegate
-    private final Goal.State goal;
+  @Value @AllArgsConstructor
+  class OpponentGoal implements Goal {
+    private final GoalDimension dimension;
+    private final FieldHalf fieldHalf;
+    private final Allegiance allegiance = Allegiance.OPPONENT;
+    private final double fieldLength;
 
-    public NegativeHalfGoal(final double fieldLength, final GoalDimension goalDimension) {
-      this.goal = new Goal.State(
-          goalDimension,
-          Vectors.columnVector(-1f * ((fieldLength + goalDimension.getDepth()) / 2f), 0f),
-          FieldHalf.NEGATIVE);
+    @Override
+    public INDArray getPosition() {
+      return fieldHalf.equals(FieldHalf.NEGATIVE) ?
+          Vectors.columnVector((fieldLength + getDimension().getDepth()) / 2f, 0f)
+          : Vectors.columnVector(-1f * ((fieldLength + getDimension().getDepth()) / 2f), 0f);
     }
   }
 }

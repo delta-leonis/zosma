@@ -2,8 +2,8 @@ package io.leonis.zosma.game.engine;
 
 import io.leonis.subra.protocol.Robot;
 import io.leonis.subra.protocol.Robot.Measurements;
-import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import io.leonis.zosma.game.data.*;
+import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import io.reactivex.functions.Function;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -18,12 +18,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public final class RobotMeasurementsFunction
     implements Function<Robot.Measurements, PlayerMeasurements> {
-  private final TeamColor color;
 
   @Override
   public PlayerMeasurements apply(final Robot.Measurements measurements) {
     return new PlayerMeasurements.State(
-        new PlayerIdentity(measurements.getRobotId(), this.color),
+        new PlayerIdentity(measurements.getRobotId(), Allegiance.ALLY),
         measurements.getMeasurementsList().stream()
             .collect(Collectors.toMap(
                 Measurements.Single::getLabel,

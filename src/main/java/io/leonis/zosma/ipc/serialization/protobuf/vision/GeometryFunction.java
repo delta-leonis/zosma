@@ -1,6 +1,5 @@
 package io.leonis.zosma.ipc.serialization.protobuf.vision;
 
-import io.leonis.algieba.geometry.Vectors;
 import io.leonis.zosma.game.data.*;
 import io.reactivex.functions.Function;
 import java.util.stream.Collectors;
@@ -38,10 +37,6 @@ public class GeometryFunction implements Function<GeometryData, Field> {
                     fieldCircularArc.getA2(),
                     fieldCircularArc.getThickness(),
                     fieldCircularArc.getRadius()))
-            .collect(Collectors.toSet()),
-        new GoalDimension.State(
-            Vectors.columnVector(
-                geometryData.getField().getGoalWidth(),
-                geometryData.getField().getGoalDepth())));
+            .collect(Collectors.toSet()));
   }
 }

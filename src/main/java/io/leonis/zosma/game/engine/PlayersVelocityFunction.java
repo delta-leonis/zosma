@@ -34,7 +34,7 @@ public class PlayersVelocityFunction implements BiFunction<Set<Player>, Set<Play
                             / (currentPlayer.getTimestamp() - previousPlayer.getTimestamp()),
                         (currentPlayer.getOrientation() - previousPlayer.getOrientation())
                             / (currentPlayer.getTimestamp() - previousPlayer.getTimestamp()),
-                        currentPlayer.getTeamIdentity()))
+                        currentPlayer.getAllegiance()))
                 .orElse(
                     new MovingPlayer.State(
                         currentPlayer.getId(),
@@ -42,7 +42,7 @@ public class PlayersVelocityFunction implements BiFunction<Set<Player>, Set<Play
                         currentPlayer.getX(),
                         currentPlayer.getY(),
                         currentPlayer.getOrientation(),
-                        currentPlayer.getTeamIdentity())))
+                        currentPlayer.getAllegiance())))
         .collect(Collectors.toSet());
   }
 }

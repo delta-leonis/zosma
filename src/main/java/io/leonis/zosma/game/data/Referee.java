@@ -1,7 +1,7 @@
 package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.Temporal;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
+import io.leonis.zosma.game.data.Team.*;
 import java.io.Serializable;
 import lombok.*;
 
@@ -36,36 +36,17 @@ public interface Referee extends Temporal, Serializable {
    */
   double getCommandTimeStamp();
 
-  /**
-   * @param allegiance allegiance of the team.
-   * @return the team of specified allegiance.
-   */
-  Team getTeam(Allegiance allegiance);
+  OpponentTeam getOpponent();
 
-  /**
-   * @param fieldHalf field half the team defends..
-   * @return the team of specified field half.
-   */
-  Team getTeam(FieldHalf fieldHalf);
-
-  /**
-   * @param identity identity of the team.
-   * @return the team state with the specified identity.
-   */
-  Team getTeam(TeamIdentity identity);
-
-  /**
-   * @param allegiance allegiance of the team.
-   * @return the field half of a specified allegiance.
-   */
-  default FieldHalf getFieldHalf(Allegiance allegiance) {
-    return getTeam(FieldHalf.POSITIVE).equals(getTeam(allegiance)) ? FieldHalf.POSITIVE : FieldHalf.NEGATIVE;
-  }
+  AllyTeam getAlly();
 
   /**
    * @return The number of commands sent since the start of the game.
    */
   int getCommandCount();
+
+  // TODO decide upon
+  Allegiance getPositiveHalfAllegiance();
 
   enum Command {
     HALT,
@@ -108,30 +89,14 @@ public interface Referee extends Temporal, Serializable {
   @Value
   @AllArgsConstructor
   class State implements Referee {
-    private final Team ally, opponent;
+    private final AllyTeam ally;
+    private final OpponentTeam opponent;
     private final Stage coarseStage;
     private final double timeLeftInStage;
     private final Command command;
     private final double commandTimeStamp;
-    private final TeamIdentity positiveHalfTeam;
+    private final Allegiance positiveHalfAllegiance;
     private final int commandCount;
     private final long timestamp;
-
-    @Override
-    public Team getTeam(final Allegiance allegiance) {
-      return allegiance.equals(Allegiance.ALLY) ? ally : opponent;
-    }
-
-    @Override
-    public Team getTeam(final FieldHalf fieldHalf) {
-      if(positiveHalfTeam.equals(ally.getIdentity()))
-        return fieldHalf.equals(FieldHalf.POSITIVE) ? ally : opponent;
-      return fieldHalf.equals(FieldHalf.POSITIVE) ? opponent : ally;
-    }
-
-    @Override
-    public Team getTeam(final TeamIdentity identity) {
-      return ally.getIdentity().equals(identity) ? ally : opponent;
-    }
   }
 }

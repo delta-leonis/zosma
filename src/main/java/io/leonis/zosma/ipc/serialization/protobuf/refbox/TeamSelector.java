@@ -1,27 +1,21 @@
 package io.leonis.zosma.ipc.serialization.protobuf.refbox;
 
-import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import io.leonis.zosma.game.data.Team;
-import io.leonis.zosma.game.data.Team.TeamIdentity;
-import io.reactivex.functions.Function;
-import java.util.Collections;
+import io.reactivex.functions.*;
+import java.util.*;
 import lombok.AllArgsConstructor;
-import org.robocup.ssl.Referee.SSL_Referee;
 import org.robocup.ssl.Referee.SSL_Referee.TeamInfo;
 
 /**
  * @author jeroen.dejong.
  */
 @AllArgsConstructor
-public final class TeamSelector implements Function<SSL_Referee, Team> {
-  private final Function<SSL_Referee, TeamInfo> getter;
-  private final TeamIdentity teamIdentity;
-
+public final class TeamSelector<T extends Team> implements BiFunction<TeamInfo, Long, T> {
+  Function9<Long, String, Integer, Integer, Integer, List<Integer>, Integer, Integer, Integer, T> constructor;
   @Override
-  public Team apply(final SSL_Referee ssl_referee) throws Exception {
-    final TeamInfo teamInfo = getter.apply(ssl_referee);
-    return new Team.State(
-        ssl_referee.getPacketTimestamp(),
+  public T apply(final TeamInfo teamInfo, Long timestamp) throws Exception {
+    return constructor.apply(
+        timestamp,
         teamInfo.getName(),
         teamInfo.getScore(),
         teamInfo.getRedCards(),
@@ -29,7 +23,6 @@ public final class TeamSelector implements Function<SSL_Referee, Team> {
         Collections.unmodifiableList(teamInfo.getYellowCardTimesList()),
         teamInfo.getTimeouts(),
         teamInfo.getTimeoutTime(),
-        new PlayerIdentity(teamInfo.getGoalie(), teamIdentity),
-        teamIdentity);
+        teamInfo.getGoalie());
   }
 }

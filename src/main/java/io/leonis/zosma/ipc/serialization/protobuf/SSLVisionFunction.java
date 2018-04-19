@@ -2,11 +2,11 @@ package io.leonis.zosma.ipc.serialization.protobuf;
 
 import io.leonis.algieba.Temporal;
 import io.leonis.mx.Mx;
-import io.leonis.zosma.game.data.Field;
+import io.leonis.zosma.game.data.*;
 import io.leonis.zosma.ipc.serialization.protobuf.SSLVisionFunction.VisionPacket;
 import io.leonis.zosma.ipc.serialization.protobuf.vision.*;
-import io.leonis.zosma.ipc.serialization.protobuf.vision.DetectionFrameFunction.DetectionFrame;
 import io.reactivex.functions.Function;
+import java.util.Set;
 import lombok.*;
 import lombok.experimental.Delegate;
 import org.robocup.ssl.Wrapper.WrapperPacket;
@@ -29,16 +29,17 @@ public class SSLVisionFunction implements Function<WrapperPacket, VisionPacket> 
         .join(Mx.first(WrapperPacket::getGeometry)
           .add(new GeometryFunction()))
         .join(Mx.first(WrapperPacket::getDetection)
-          .add(new DetectionFrameFunction()))
+          .add(new BallsSelector()))
+//          .add(new PlayersSelector())) // TODO I need the blueTeamAllegiance (and thus referee)
         .demux(VisionPacket::new);
   }
 
-  @AllArgsConstructor
+  @Value @AllArgsConstructor
   public final static class VisionPacket implements Temporal {
     @Delegate
     private final Field field;
-    @Delegate
-    private final DetectionFrame detectionContainer;
+    private final Set<Ball> balls;
+//    private final Set<Player> players;
     @Getter
     private final long timestamp = System.currentTimeMillis();
   }

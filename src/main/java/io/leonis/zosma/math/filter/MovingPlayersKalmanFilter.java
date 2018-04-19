@@ -96,7 +96,7 @@ public class MovingPlayersKalmanFilter
                             foundPlayer.getState().getMean(),
                             MEASUREMENT_COVARIANCE_MATRIX),
                         previousPlayer.getState()),
-                    foundPlayer.getTeamIdentity()))
+                    foundPlayer.getAllegiance()))
                 .orElse(foundPlayer))
         .collect(Collectors.toSet());
   }

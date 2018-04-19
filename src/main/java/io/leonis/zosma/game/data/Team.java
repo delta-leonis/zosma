@@ -1,7 +1,6 @@
 package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.Temporal;
-import io.leonis.zosma.Identifiable;
 import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import java.io.Serializable;
 import java.util.List;
@@ -15,12 +14,7 @@ import lombok.Value;
  * @author Rimon Oz
  * @author Jeroen de Jong
  */
-public interface Team extends Identifiable, Serializable, Temporal {
-
-  /**
-   * @return The {@link TeamIdentity identity} of the team.
-   */
-  TeamIdentity getIdentity();
+public interface Team extends Serializable, Temporal {
 
   /**
    * @return The name of the team.
@@ -53,9 +47,9 @@ public interface Team extends Identifiable, Serializable, Temporal {
   int getTimeOutsLeft();
 
   /**
-   * @return The time out time left for this team.
+   * @return The time out time left for this team in seconds.
    */
-  long getTimeOutTimeLeft();
+  int getTimeOutTimeLeft();
 
   /**
    * @return The identity of the goalie.
@@ -63,22 +57,12 @@ public interface Team extends Identifiable, Serializable, Temporal {
   PlayerIdentity getGoalie();
 
   /**
-   * The Interface TeamIdentity.
-   *
-   * Describes the identity of a Team.
-   *
-   * @author Jeroen de Jong
+   * @return The allegiance of this team.
    */
-  interface TeamIdentity {
-
-    /**
-     * @return The color that identifies this team.
-     */
-    String getColor();
-  }
+  Allegiance getAllegiance();
 
   @Value
-  class State implements Team {
+  class AllyTeam implements Team {
     private final long timestamp;
     private final String name;
     private final int score;
@@ -86,8 +70,33 @@ public interface Team extends Identifiable, Serializable, Temporal {
     private final int yellowCardCount;
     private final List<Integer> yellowCards;
     private final int timeOutsLeft;
-    private final long timeOutTimeLeft;
-    private final PlayerIdentity goalie;
-    private final TeamIdentity identity;
+    private final int timeOutTimeLeft;
+    private final int goalieId;
+    private final Allegiance allegiance = Allegiance.ALLY;
+
+    @Override
+    public PlayerIdentity getGoalie() {
+      return new PlayerIdentity(goalieId, Allegiance.ALLY);
+    }
   }
+
+  @Value
+  class OpponentTeam implements Team {
+    private final long timestamp;
+    private final String name;
+    private final int score;
+    private final int redCardCount;
+    private final int yellowCardCount;
+    private final List<Integer> yellowCards;
+    private final int timeOutsLeft;
+    private final int timeOutTimeLeft;
+    private final int goalieId;
+    private final Allegiance allegiance = Allegiance.ALLY;
+
+    @Override
+    public PlayerIdentity getGoalie() {
+      return new PlayerIdentity(goalieId, Allegiance.ALLY);
+    }
+  }
+
 }

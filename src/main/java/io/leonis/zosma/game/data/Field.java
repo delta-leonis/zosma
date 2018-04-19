@@ -1,6 +1,5 @@
 package io.leonis.zosma.game.data;
 
-import io.leonis.zosma.game.data.Goal.*;
 import java.io.Serializable;
 import java.util.Set;
 import lombok.*;
@@ -34,12 +33,6 @@ public interface Field extends Serializable {
    */
   Set<FieldArc> getArcs();
 
-  /**
-   * @param fieldHalf field half the goal is on.
-   * @return The {@link Goal} on the specified field half.
-   */
-  Goal getGoal(FieldHalf fieldHalf);
-
   @Value
   @AllArgsConstructor
   class State implements Field {
@@ -47,17 +40,5 @@ public interface Field extends Serializable {
     private final double length;
     private final Set<FieldLine> lines;
     private final Set<FieldArc> arcs;
-    private final Goal positiveHalfGoal, negativeHalfGoal;
-
-    public State(double width, double length, Set<FieldLine> lines, Set<FieldArc> arcs, GoalDimension dimension) {
-      this(width, length, lines, arcs,
-        new PositiveHalfGoal(length, dimension),
-        new NegativeHalfGoal(length, dimension));
-    }
-
-    @Override
-    public Goal getGoal(final FieldHalf fieldHalf) {
-      return fieldHalf.equals(FieldHalf.POSITIVE) ? positiveHalfGoal : negativeHalfGoal;
-    }
   }
 }
