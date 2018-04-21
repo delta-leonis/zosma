@@ -8,5 +8,9 @@ package io.leonis.zosma.game.data;
  * @author Jeroen de Jong
  */
 public enum FieldHalf {
-  POSITIVE, NEGATIVE
+  POSITIVE, NEGATIVE;
+
+  public FieldHalf opposite() {
+    return this.equals(POSITIVE) ? NEGATIVE : POSITIVE;
+  }
 }

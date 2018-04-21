@@ -43,32 +43,16 @@ public interface Goal extends Spatial {
     return this.getPosition().getDouble(1, 0);
   }
 
-  /**
-   * A Goal defended by the Ally.
-   */
-  @Value @AllArgsConstructor
-  class AllyGoal implements Goal {
-    private final GoalDimension dimension;
-    private final FieldHalf fieldHalf;
-    private final Allegiance allegiance = Allegiance.ALLY;
-    private final double fieldLength;
-
-    @Override
-    public INDArray getPosition() {
-      return fieldHalf.equals(FieldHalf.NEGATIVE) ?
-          Vectors.columnVector((fieldLength + getDimension().getDepth()) / 2f, 0f)
-          : Vectors.columnVector(-1f * ((fieldLength + getDimension().getDepth()) / 2f), 0f);
-    }
+  @Value
+  class Goals {
+    private Goal ally, opponent;
   }
 
-  /**
-   * A Goal defended by the Opponent.
-   */
-  @Value @AllArgsConstructor
-  class OpponentGoal implements Goal {
+  @Value
+  class State implements Goal {
     private final GoalDimension dimension;
     private final FieldHalf fieldHalf;
-    private final Allegiance allegiance = Allegiance.OPPONENT;
+    private final Allegiance allegiance;
     private final double fieldLength;
 
     @Override

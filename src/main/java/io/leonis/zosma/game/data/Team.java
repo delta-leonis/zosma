@@ -62,26 +62,12 @@ public interface Team extends Serializable, Temporal {
   Allegiance getAllegiance();
 
   @Value
-  class AllyTeam implements Team {
-    private final long timestamp;
-    private final String name;
-    private final int score;
-    private final int redCardCount;
-    private final int yellowCardCount;
-    private final List<Integer> yellowCards;
-    private final int timeOutsLeft;
-    private final int timeOutTimeLeft;
-    private final int goalieId;
-    private final Allegiance allegiance = Allegiance.ALLY;
-
-    @Override
-    public PlayerIdentity getGoalie() {
-      return new PlayerIdentity(goalieId, Allegiance.ALLY);
-    }
+  class Teams {
+    private final Team ally, opponent;
   }
 
   @Value
-  class OpponentTeam implements Team {
+  class State implements Team {
     private final long timestamp;
     private final String name;
     private final int score;
@@ -91,11 +77,11 @@ public interface Team extends Serializable, Temporal {
     private final int timeOutsLeft;
     private final int timeOutTimeLeft;
     private final int goalieId;
-    private final Allegiance allegiance = Allegiance.ALLY;
+    private final Allegiance allegiance;
 
     @Override
     public PlayerIdentity getGoalie() {
-      return new PlayerIdentity(goalieId, Allegiance.ALLY);
+      return new PlayerIdentity(goalieId, allegiance);
     }
   }
 

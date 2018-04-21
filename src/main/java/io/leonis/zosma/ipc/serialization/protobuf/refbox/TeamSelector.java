@@ -1,20 +1,18 @@
 package io.leonis.zosma.ipc.serialization.protobuf.refbox;
 
-import io.leonis.zosma.game.data.Team;
-import io.reactivex.functions.*;
-import java.util.*;
-import lombok.AllArgsConstructor;
+import io.leonis.zosma.game.data.*;
+import io.reactivex.functions.Function3;
+import java.util.Collections;
 import org.robocup.ssl.Referee.SSL_Referee.TeamInfo;
 
 /**
  * @author jeroen.dejong.
  */
-@AllArgsConstructor
-public final class TeamSelector<T extends Team> implements BiFunction<TeamInfo, Long, T> {
-  Function9<Long, String, Integer, Integer, Integer, List<Integer>, Integer, Integer, Integer, T> constructor;
+public final class TeamSelector implements Function3<TeamInfo, Allegiance, Long, Team> {
+
   @Override
-  public T apply(final TeamInfo teamInfo, Long timestamp) throws Exception {
-    return constructor.apply(
+  public Team apply(final TeamInfo teamInfo, final Allegiance allegiance, final Long timestamp) {
+    return new Team.State(
         timestamp,
         teamInfo.getName(),
         teamInfo.getScore(),
@@ -23,6 +21,7 @@ public final class TeamSelector<T extends Team> implements BiFunction<TeamInfo, 
         Collections.unmodifiableList(teamInfo.getYellowCardTimesList()),
         teamInfo.getTimeouts(),
         teamInfo.getTimeoutTime(),
-        teamInfo.getGoalie());
+        teamInfo.getGoalie(),
+        allegiance);
   }
 }

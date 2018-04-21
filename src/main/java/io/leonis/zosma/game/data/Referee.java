@@ -36,17 +36,10 @@ public interface Referee extends Temporal, Serializable {
    */
   double getCommandTimeStamp();
 
-  OpponentTeam getOpponent();
-
-  AllyTeam getAlly();
-
   /**
    * @return The number of commands sent since the start of the game.
    */
   int getCommandCount();
-
-  // TODO decide upon
-  Allegiance getPositiveHalfAllegiance();
 
   enum Command {
     HALT,
@@ -89,8 +82,6 @@ public interface Referee extends Temporal, Serializable {
   @Value
   @AllArgsConstructor
   class State implements Referee {
-    private final AllyTeam ally;
-    private final OpponentTeam opponent;
     private final Stage coarseStage;
     private final double timeLeftInStage;
     private final Command command;
