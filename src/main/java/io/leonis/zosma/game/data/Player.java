@@ -1,5 +1,6 @@
 package io.leonis.zosma.game.data;
 
+import com.google.common.collect.ImmutableSet;
 import io.leonis.algieba.*;
 import io.leonis.algieba.geometry.Orientation;
 import io.leonis.algieba.statistic.*;
@@ -89,7 +90,7 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
   Allegiance getAllegiance();
 
   @Value
-  class Players {
+  class Players implements SetSupplier<Player> {
     private final Set<Player> ally, opponent;
   }
 

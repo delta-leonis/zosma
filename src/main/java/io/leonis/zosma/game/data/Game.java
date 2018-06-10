@@ -1,20 +1,11 @@
 package io.leonis.zosma.game.data;
 
-import io.leonis.algieba.Temporal;
-import io.leonis.zosma.game.data.Team.*;
-import java.io.Serializable;
 import lombok.*;
 
 /**
- * The Class RefereeState.
- *
- * This class represents the state of a Small Size League referee object, based on <a href="https://github.com/RoboCup-SSL/ssl-refbox/blob/0bc7511caffe0ed0e6026f2c652a00fb1eea47e3/referee.proto"
- * >RoboCup-SSL/ssl-refbox</a>
- *
- * @author Rimon Oz
- * @author Jeroen de Jong
+ * @author jeroen.dejong.
  */
-public interface Referee extends Temporal, Serializable {
+public interface Game {
 
   /**
    * @return The coarse {@link Stage}.
@@ -81,12 +72,11 @@ public interface Referee extends Temporal, Serializable {
 
   @Value
   @AllArgsConstructor
-  class State implements Referee {
+  class State implements Game {
     private final Stage coarseStage;
     private final double timeLeftInStage;
     private final Command command;
     private final double commandTimeStamp;
-    private final Allegiance positiveHalfAllegiance;
     private final int commandCount;
     private final long timestamp;
   }

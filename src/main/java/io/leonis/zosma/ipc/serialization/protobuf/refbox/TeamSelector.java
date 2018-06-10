@@ -13,15 +13,17 @@ public final class TeamSelector implements Function3<TeamInfo, Allegiance, Long,
   @Override
   public Team apply(final TeamInfo teamInfo, final Allegiance allegiance, final Long timestamp) {
     return new Team.State(
-        timestamp,
-        teamInfo.getName(),
+      timestamp,
+      teamInfo.getName(),
+      teamInfo.getGoalie(),
+      allegiance,
+      new TeamData.State(
         teamInfo.getScore(),
         teamInfo.getRedCards(),
         teamInfo.getYellowCardTimesCount(),
         Collections.unmodifiableList(teamInfo.getYellowCardTimesList()),
         teamInfo.getTimeouts(),
         teamInfo.getTimeoutTime(),
-        teamInfo.getGoalie(),
-        allegiance);
+        timestamp));
   }
 }

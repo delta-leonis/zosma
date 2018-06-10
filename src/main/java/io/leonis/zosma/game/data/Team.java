@@ -22,36 +22,6 @@ public interface Team extends Serializable, Temporal {
   String getName();
 
   /**
-   * @return The number of goals scored since the beginning of the game.
-   */
-  int getScore();
-
-  /**
-   * @return The amount of red cards issued to the team.
-   */
-  int getRedCardCount();
-
-  /**
-   * @return The amount of yellow cards issued to the team.
-   */
-  int getYellowCardCount();
-
-  /**
-   * @return Timestamps (in seconds) describing time since epoch when yellow cards were issued.
-   */
-  List<Integer> getYellowCards();
-
-  /**
-   * @return The number of time outs left for this team.
-   */
-  int getTimeOutsLeft();
-
-  /**
-   * @return The time out time left for this team in seconds.
-   */
-  int getTimeOutTimeLeft();
-
-  /**
    * @return The identity of the goalie.
    */
   PlayerIdentity getGoalie();
@@ -61,8 +31,13 @@ public interface Team extends Serializable, Temporal {
    */
   Allegiance getAllegiance();
 
+  /**
+   * @return The most recent statistics of this team in the current game.
+   */
+  TeamData getTeamData();
+
   @Value
-  class Teams {
+  class Teams implements Supplier<Team> {
     private final Team ally, opponent;
   }
 
@@ -70,14 +45,9 @@ public interface Team extends Serializable, Temporal {
   class State implements Team {
     private final long timestamp;
     private final String name;
-    private final int score;
-    private final int redCardCount;
-    private final int yellowCardCount;
-    private final List<Integer> yellowCards;
-    private final int timeOutsLeft;
-    private final int timeOutTimeLeft;
     private final int goalieId;
     private final Allegiance allegiance;
+    private final TeamData teamData;
 
     @Override
     public PlayerIdentity getGoalie() {

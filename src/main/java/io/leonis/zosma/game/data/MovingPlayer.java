@@ -2,7 +2,7 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.spatial.Moving;
 import io.leonis.algieba.statistic.*;
-import java.util.Set;
+import java.util.*;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -54,8 +54,10 @@ public interface MovingPlayer extends Player, Moving {
   }
 
   @Value
-  class MovingPlayers {
-    Set<MovingPlayer> ally, opponent;
+  class MovingPlayers implements SetSupplier<MovingPlayer>   {
+    public final static MovingPlayers EMPTY = new MovingPlayers(
+        Collections.emptySet(), Collections.emptySet());
+    private final Set<MovingPlayer> ally, opponent;
   }
 
   /**

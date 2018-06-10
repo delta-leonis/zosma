@@ -11,14 +11,16 @@ import org.robocup.ssl.Detection.DetectionFrame;
  * @author jeroen.dejong.
  */
 public class PlayersSelector implements BiFunction<DetectionFrame, Allegiance, Players> {
-  private final PlayerSelector blueTeamSelector = new PlayerSelector(DetectionFrame::getRobotsBlueList);
-  private final PlayerSelector yellowTeamSelector = new PlayerSelector(DetectionFrame::getRobotsYellowList);
+  private final PlayerSelector bluePlayersSelector = new PlayerSelector(DetectionFrame::getRobotsBlueList);
+  private final PlayerSelector yellowPlayerSelector = new PlayerSelector(DetectionFrame::getRobotsYellowList);
 
   @Override
   public Players apply(final DetectionFrame detectionFrame, final Allegiance blueTeamAllegiance)
       throws Exception {
     return new Players(
-        blueTeamAllegiance.equals(ALLY) ? blueTeamSelector.apply(detectionFrame, ALLY) : yellowTeamSelector.apply(detectionFrame, ALLY),
-        blueTeamAllegiance.equals(OPPONENT) ? blueTeamSelector.apply(detectionFrame, OPPONENT) : yellowTeamSelector.apply(detectionFrame, OPPONENT));
+        blueTeamAllegiance.equals(ALLY) ? bluePlayersSelector.apply(detectionFrame, ALLY) : yellowPlayerSelector
+            .apply(detectionFrame, ALLY),
+        blueTeamAllegiance.equals(OPPONENT) ? bluePlayersSelector.apply(detectionFrame, OPPONENT) : yellowPlayerSelector
+            .apply(detectionFrame, OPPONENT));
   }
 }

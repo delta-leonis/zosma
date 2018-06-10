@@ -44,8 +44,8 @@ public interface Goal extends Spatial {
   }
 
   @Value
-  class Goals {
-    private Goal ally, opponent;
+  class Goals implements Supplier<Goal> {
+    private final Goal ally, opponent;
   }
 
   @Value
