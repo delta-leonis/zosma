@@ -16,8 +16,8 @@ public final class TeamsSelector implements BiFunction<SSL_Referee, Allegiance, 
 
   @Override
   public Teams apply(final SSL_Referee ssl_referee, final Allegiance blueTeamAllegiance) {
-    TeamInfo allyTeam = blueTeamAllegiance.equals(ALLY) ? ssl_referee.getBlue() : ssl_referee.getYellow();
-    TeamInfo opponentTeam = blueTeamAllegiance.equals(OPPONENT) ? ssl_referee.getBlue() : ssl_referee.getYellow();
+    final TeamInfo allyTeam = blueTeamAllegiance.equals(ALLY) ? ssl_referee.getBlue() : ssl_referee.getYellow();
+    final TeamInfo opponentTeam = blueTeamAllegiance.equals(OPPONENT) ? ssl_referee.getBlue() : ssl_referee.getYellow();
     return new Teams(
       teamSelector.apply(allyTeam, ALLY, ssl_referee.getPacketTimestamp()),
       teamSelector.apply(opponentTeam, OPPONENT, ssl_referee.getPacketTimestamp()));

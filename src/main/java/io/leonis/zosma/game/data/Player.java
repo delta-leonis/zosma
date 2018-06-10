@@ -1,6 +1,5 @@
 package io.leonis.zosma.game.data;
 
-import com.google.common.collect.ImmutableSet;
 import io.leonis.algieba.*;
 import io.leonis.algieba.geometry.Orientation;
 import io.leonis.algieba.statistic.*;

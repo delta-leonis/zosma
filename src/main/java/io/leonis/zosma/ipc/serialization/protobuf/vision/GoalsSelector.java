@@ -15,11 +15,10 @@ public class GoalsSelector implements BiFunction<GeometryData, Allegiance, Goals
   private final GoalDimensionSelector goalDimensionSelector = new GoalDimensionSelector();
 
   @Override
-  public Goals apply(final GeometryData geometry, final Allegiance positiveTeamAllegiance)
-      throws Exception {
+  public Goals apply(final GeometryData geometry, final Allegiance positiveTeamAllegiance) {
     // TODO Muxify
-    GoalDimension dimension = goalDimensionSelector.apply(geometry);
-    FieldHalf allyFieldHalf = positiveTeamAllegiance.equals(ALLY) ? POSITIVE : NEGATIVE;
+    final GoalDimension dimension = goalDimensionSelector.apply(geometry);
+    final FieldHalf allyFieldHalf = positiveTeamAllegiance.equals(ALLY) ? POSITIVE : NEGATIVE;
 
     return new Goals(
         new Goal.State(dimension, allyFieldHalf, ALLY, geometry.getField().getFieldLength()),
