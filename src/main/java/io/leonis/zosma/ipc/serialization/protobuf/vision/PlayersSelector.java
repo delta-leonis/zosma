@@ -1,26 +1,28 @@
 package io.leonis.zosma.ipc.serialization.protobuf.vision;
 
 import static io.leonis.zosma.game.data.Allegiance.*;
+import static io.leonis.zosma.game.data.TeamColor.BLUE;
 
-import io.leonis.zosma.game.data.Allegiance;
-import io.leonis.zosma.game.data.Player.Players;
+import io.leonis.zosma.game.data.*;
 import io.reactivex.functions.BiFunction;
+import java.util.Set;
 import org.robocup.ssl.Detection.DetectionFrame;
 
 /**
  * @author jeroen.dejong.
  */
-public class PlayersSelector implements BiFunction<DetectionFrame, Allegiance, Players> {
-  private final PlayerSelector bluePlayersSelector = new PlayerSelector(DetectionFrame::getRobotsBlueList);
-  private final PlayerSelector yellowPlayerSelector = new PlayerSelector(DetectionFrame::getRobotsYellowList);
+public final class PlayersSelector implements
+    BiFunction<DetectionFrame, AllegianceTuple<Team>, AllegianceTuple<Set<Player>>> {
 
   @Override
-  public Players apply(final DetectionFrame detectionFrame, final Allegiance blueTeamAllegiance)
-      throws Exception {
-    return new Players(
-        blueTeamAllegiance.equals(ALLY) ? bluePlayersSelector.apply(detectionFrame, ALLY) : yellowPlayerSelector
-            .apply(detectionFrame, ALLY),
-        blueTeamAllegiance.equals(OPPONENT) ? bluePlayersSelector.apply(detectionFrame, OPPONENT) : yellowPlayerSelector
-            .apply(detectionFrame, OPPONENT));
+  public AllegianceTuple<Set<Player>> apply(
+      final DetectionFrame detectionFrame,
+      final AllegianceTuple<Team> teams
+  ) throws Exception {
+    return new AllegianceTuple<>(
+        new PlayerSelector(ALLY,
+            teams.getAlly().getTeamColor().equals(BLUE) ? DetectionFrame::getRobotsBlueList : DetectionFrame::getRobotsYellowList).apply(detectionFrame),
+        new PlayerSelector(OPPONENT,
+            teams.getOpponent().getTeamColor().equals(BLUE) ? DetectionFrame::getRobotsBlueList : DetectionFrame::getRobotsYellowList).apply(detectionFrame));
   }
 }

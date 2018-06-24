@@ -53,13 +53,6 @@ public interface MovingPlayer extends Player, Moving {
     return this.getState().getMean().get(NDArrayIndex.interval(4, 7), NDArrayIndex.all());
   }
 
-  @Value
-  class MovingPlayers implements SetSupplier<MovingPlayer>   {
-    public final static MovingPlayers EMPTY = new MovingPlayers(
-        Collections.emptySet(), Collections.emptySet());
-    private final Set<MovingPlayer> ally, opponent;
-  }
-
   /**
    * Represents the calculated state of a {@link MovingPlayer}.
    */

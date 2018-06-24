@@ -88,11 +88,6 @@ public interface Player extends Spatial, Identifiable, Orientation, Temporal, Se
    */
   Allegiance getAllegiance();
 
-  @Value
-  class Players implements SetSupplier<Player> {
-    private final Set<Player> ally, opponent;
-  }
-
   /**
    * Represents the measured state of a {@link Player}.
    */
