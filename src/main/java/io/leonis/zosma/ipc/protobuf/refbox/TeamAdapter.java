@@ -22,7 +22,7 @@ public final class TeamAdapter implements BiFunction<SSL_Referee, TeamColor, Tea
 
   @Override
   public Team apply(final SSL_Referee referee, final TeamColor teamColor) {
-    TeamInfo teamInfo = teamColor.equals(BLUE) ? referee.getBlue() : referee.getYellow();
+    final TeamInfo teamInfo = teamColor.equals(BLUE) ? referee.getBlue() : referee.getYellow();
     return new Team.State(
       referee.getPacketTimestamp(),
       teamInfo.getName(),
