@@ -7,14 +7,14 @@ import lombok.AllArgsConstructor;
 import org.robocup.ssl.Referee.SSL_Referee;
 
 /**
- * The Class GameSelector
+ * The Class GameAdapter.
  *
- * Reads {@link SSL_Referee} and formats this into a {@link Game}.
+ * Adapts a {@link SSL_Referee} into a {@link Game}.
  *
  * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public final class GameSelector implements Function<SSL_Referee, Game> {
+public final class GameAdapter implements Function<SSL_Referee, Game> {
 
   @Override
   public Game apply(final SSL_Referee packet) {

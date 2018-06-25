@@ -10,12 +10,15 @@ import lombok.AllArgsConstructor;
 import org.robocup.ssl.Referee.SSL_Referee;
 
 /**
+ * The Class TeamsAdapter.
+ *
+ * Adapts a {@link SSL_Referee} into a an {@link AllegianceTuple} of {@link Team}.
  * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public final class TeamsSelector implements Function<SSL_Referee, AllegianceTuple<Team>> {
-  private final TeamSelector allySelector = new TeamSelector(ALLY);
-  private final TeamSelector opponentSelector = new TeamSelector(OPPONENT);
+public final class TeamsAdapter implements Function<SSL_Referee, AllegianceTuple<Team>> {
+  private final TeamAdapter allySelector = new TeamAdapter(ALLY);
+  private final TeamAdapter opponentSelector = new TeamAdapter(OPPONENT);
   private final String allyTeamName;
 
   @Override
@@ -27,10 +30,9 @@ public final class TeamsSelector implements Function<SSL_Referee, AllegianceTupl
         !referee.getYellow().getName().equalsIgnoreCase(allyTeamName)) {
       throw new IllegalArgumentException("Neither team has the ally team name!");
     }
-    final boolean allyIsBlue = referee.getBlue().getName().equalsIgnoreCase(allyTeamName);
-    final TeamColor allyColor = allyIsBlue ? BLUE : YELLOW;
+    final TeamColor allyColor = referee.getBlue().getName().equalsIgnoreCase(allyTeamName) ? BLUE : YELLOW;
     return new AllegianceTuple<>(
-      allySelector.apply(allyIsBlue ? referee.getBlue() : referee.getYellow(), allyColor, referee.getPacketTimestamp()),
-      opponentSelector.apply(allyIsBlue ? referee.getYellow() : referee.getBlue(), allyColor.opponent(), referee.getPacketTimestamp()));
+      allySelector.apply(referee, allyColor),
+      opponentSelector.apply(referee, allyColor.opponent()));
   }
 }

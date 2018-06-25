@@ -6,9 +6,13 @@ import java.util.stream.Collectors;
 import org.robocup.ssl.Geometry.GeometryData;
 
 /**
- * @author jeroen.dejong.
+ * The Class FieldAdapter.
+ *
+ * Adapts a {@link GeometryData} into a {@link Field}.
+ *
+ * @author Rimon Oz
  */
-public class FieldSelector implements Function<GeometryData, Field> {
+public class FieldAdapter implements Function<GeometryData, Field> {
 
   @Override
   public Field apply(final GeometryData geometryData) {

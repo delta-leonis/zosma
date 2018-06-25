@@ -7,9 +7,12 @@ import java.util.stream.Collectors;
 import org.robocup.ssl.Detection.DetectionFrame;
 
 /**
- * @author jeroen.dejong.
+ * The Class BallsAdapter.
+ *
+ * Adapts a {@link DetectionFrame} into a {@link Set} of {@link Ball Balls}.
+ * @author Jeroen de Jong
  */
-public class BallsSelector implements Function<DetectionFrame, Set<Ball>> {
+public class BallsAdapter implements Function<DetectionFrame, Set<Ball>> {
 
   @Override
   public Set<Ball> apply(final DetectionFrame detectionFrame) {

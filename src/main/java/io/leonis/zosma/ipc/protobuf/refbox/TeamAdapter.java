@@ -1,22 +1,30 @@
 package io.leonis.zosma.ipc.protobuf.refbox;
 
+import static io.leonis.zosma.game.data.TeamColor.BLUE;
+
 import io.leonis.zosma.game.data.*;
-import io.reactivex.functions.Function3;
+import io.reactivex.functions.*;
 import java.util.Collections;
 import lombok.AllArgsConstructor;
+import org.robocup.ssl.Referee.SSL_Referee;
 import org.robocup.ssl.Referee.SSL_Referee.TeamInfo;
 
 /**
- * @author jeroen.dejong.
+ * The Class TeamAdapter.
+ *
+ * Adapts a {@link SSL_Referee} into a {@link Team}.
+ *
+ * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public final class TeamSelector implements Function3<TeamInfo, TeamColor, Long, Team> {
+public final class TeamAdapter implements BiFunction<SSL_Referee, TeamColor, Team> {
   private final Allegiance allegiance;
 
   @Override
-  public Team apply(final TeamInfo teamInfo, final TeamColor teamColor, final Long timestamp) {
+  public Team apply(final SSL_Referee referee, final TeamColor teamColor) {
+    TeamInfo teamInfo = teamColor.equals(BLUE) ? referee.getBlue() : referee.getYellow();
     return new Team.State(
-      timestamp,
+      referee.getPacketTimestamp(),
       teamInfo.getName(),
       teamColor,
       teamInfo.getGoalie(),

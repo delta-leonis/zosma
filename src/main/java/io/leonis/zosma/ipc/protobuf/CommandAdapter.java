@@ -6,13 +6,13 @@ import io.leonis.zosma.game.data.PlayerCommand;
 import io.reactivex.functions.BiFunction;
 
 /**
- * The Class SSLCommandFunction.
+ * The Class CommandAdapter.
  *
  * Deduces a {@link io.leonis.zosma.game.data.Strategy} to individual {@link Command Commands}.
  *
  * @author Jeroen de Jong
  */
-public class SSLCommandFunction implements BiFunction<PlayerIdentity, PlayerCommand, Command> {
+public class CommandAdapter implements BiFunction<PlayerIdentity, PlayerCommand, Command> {
   @Override
   public Command apply(final PlayerIdentity playerIdentity, final PlayerCommand playerCommand) {
     return Command.newBuilder()

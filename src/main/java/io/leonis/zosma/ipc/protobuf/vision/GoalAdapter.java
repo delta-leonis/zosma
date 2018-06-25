@@ -8,15 +8,18 @@ import io.reactivex.functions.BiFunction;
 import org.robocup.ssl.Geometry.GeometryData;
 
 /**
- * @author jeroen.dejong.
+ * The Class GoalAdapter.
+ *
+ * Adapts a {@link GeometryData} into one {@link Goal} per allegiance.
+ *
+ * @author Jeroen de Jong
  */
-public class GoalsSelector implements BiFunction<GeometryData, Allegiance, AllegianceTuple<Goal>> {
-  private final GoalDimensionSelector goalDimensionSelector = new GoalDimensionSelector();
+public class GoalAdapter implements BiFunction<GeometryData, Allegiance, AllegianceTuple<Goal>> {
+  private final GoalDimensionAdapter goalDimensionAdapter = new GoalDimensionAdapter();
 
   @Override
   public AllegianceTuple<Goal> apply(final GeometryData geometry, final Allegiance positiveTeamAllegiance) {
-    // TODO Muxify
-    final GoalDimension dimension = goalDimensionSelector.apply(geometry);
+    final GoalDimension dimension = goalDimensionAdapter.apply(geometry);
     final FieldHalf allyFieldHalf = positiveTeamAllegiance.equals(ALLY) ? POSITIVE : NEGATIVE;
 
     return new AllegianceTuple<>(

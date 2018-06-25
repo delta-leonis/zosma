@@ -28,9 +28,9 @@ public class SSLVisionFunction implements BiFunction<WrapperPacket, AllegianceTu
       final AllegianceTuple<Team> teams
   ) throws Exception {
     return new VisionPacket(
-        new GeometryFunction().apply(wrapperPacket.getGeometry()),
-        new BallsSelector().apply(wrapperPacket.getDetection()),
-        new PlayersSelector().apply(wrapperPacket.getDetection(), teams));
+        new FieldAdapter().apply(wrapperPacket.getGeometry()),
+        new BallsAdapter().apply(wrapperPacket.getDetection()),
+        new PlayersAdapter().apply(wrapperPacket.getDetection(), teams));
   }
 
   @Value @AllArgsConstructor

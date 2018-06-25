@@ -6,9 +6,13 @@ import io.reactivex.functions.Function;
 import org.robocup.ssl.Geometry.GeometryData;
 
 /**
- * @author jeroen.dejong.
+ * The Class GoalDimensionAdapter.
+ *
+ * Adapts a {@link GeometryData} into a common {@link GoalDimension} for all goals.
+ *
+ * @author Jeroen de Jong
  */
-public class GoalDimensionSelector implements Function<GeometryData, GoalDimension> {
+public class GoalDimensionAdapter implements Function<GeometryData, GoalDimension> {
 
   @Override
   public GoalDimension apply(final GeometryData geometryData) {
