@@ -1,4 +1,4 @@
-package io.leonis.zosma.ipc.serialization.protobuf.vision;
+package io.leonis.zosma.ipc.protobuf.vision;
 
 import io.leonis.algieba.geometry.Vectors;
 import io.leonis.zosma.game.data.GoalDimension;

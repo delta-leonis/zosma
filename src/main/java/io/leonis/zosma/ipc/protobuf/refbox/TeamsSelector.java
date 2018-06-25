@@ -1,4 +1,4 @@
-package io.leonis.zosma.ipc.serialization.protobuf.refbox;
+package io.leonis.zosma.ipc.protobuf.refbox;
 
 import static io.leonis.zosma.game.data.Allegiance.*;
 import static io.leonis.zosma.game.data.TeamColor.BLUE;

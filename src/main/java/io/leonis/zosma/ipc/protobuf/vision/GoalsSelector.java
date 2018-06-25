@@ -1,4 +1,4 @@
-package io.leonis.zosma.ipc.serialization.protobuf.vision;
+package io.leonis.zosma.ipc.protobuf.vision;
 
 import static io.leonis.zosma.game.data.Allegiance.*;
 import static io.leonis.zosma.game.data.FieldHalf.*;

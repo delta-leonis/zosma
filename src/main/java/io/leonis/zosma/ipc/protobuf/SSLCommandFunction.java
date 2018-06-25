@@ -1,4 +1,4 @@
-package io.leonis.zosma.ipc.serialization.protobuf;
+package io.leonis.zosma.ipc.protobuf;
 
 import io.leonis.subra.protocol.Robot.Command;
 import io.leonis.zosma.game.data.Player.PlayerIdentity;

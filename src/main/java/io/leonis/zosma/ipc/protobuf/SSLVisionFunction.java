@@ -1,9 +1,9 @@
-package io.leonis.zosma.ipc.serialization.protobuf;
+package io.leonis.zosma.ipc.protobuf;
 
 import io.leonis.algieba.Temporal;
 import io.leonis.zosma.game.data.*;
-import io.leonis.zosma.ipc.serialization.protobuf.SSLVisionFunction.VisionPacket;
-import io.leonis.zosma.ipc.serialization.protobuf.vision.*;
+import io.leonis.zosma.ipc.protobuf.SSLVisionFunction.VisionPacket;
+import io.leonis.zosma.ipc.protobuf.vision.*;
 import io.reactivex.functions.*;
 import java.util.Set;
 import lombok.*;

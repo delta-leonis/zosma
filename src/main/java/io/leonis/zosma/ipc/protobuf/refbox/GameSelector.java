@@ -1,4 +1,4 @@
-package io.leonis.zosma.ipc.serialization.protobuf.refbox;
+package io.leonis.zosma.ipc.protobuf.refbox;
 
 import io.leonis.zosma.game.data.*;
 import io.leonis.zosma.game.data.Game.*;

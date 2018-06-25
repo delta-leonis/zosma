@@ -1,4 +1,4 @@
-package io.leonis.zosma.ipc.serialization.protobuf;
+package io.leonis.zosma.ipc.protobuf;
 
 import com.google.protobuf.Message;
 import java.net.DatagramPacket;
