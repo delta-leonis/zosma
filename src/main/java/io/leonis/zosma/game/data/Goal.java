@@ -2,7 +2,7 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.Spatial;
 import io.leonis.algieba.geometry.Vectors;
-import lombok.*;
+import lombok.Value;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 /**
@@ -25,7 +25,7 @@ public interface Goal extends Spatial {
   GoalDimension getDimension();
 
   /**
-   * @return The Allegiance defending this goal.
+   * @return The allegiance of the team defending this goal.
    */
   Allegiance getAllegiance();
 

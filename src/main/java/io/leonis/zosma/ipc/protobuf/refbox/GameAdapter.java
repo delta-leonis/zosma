@@ -1,6 +1,6 @@
 package io.leonis.zosma.ipc.protobuf.refbox;
 
-import io.leonis.zosma.game.data.*;
+import io.leonis.zosma.game.data.Game;
 import io.leonis.zosma.game.data.Game.*;
 import io.reactivex.functions.Function;
 import lombok.AllArgsConstructor;

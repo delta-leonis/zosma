@@ -2,7 +2,6 @@ package io.leonis.zosma.game.data;
 
 import io.leonis.algieba.spatial.Moving;
 import io.leonis.algieba.statistic.*;
-import java.util.*;
 import lombok.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;

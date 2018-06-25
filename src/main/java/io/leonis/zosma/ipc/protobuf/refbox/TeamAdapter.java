@@ -3,7 +3,7 @@ package io.leonis.zosma.ipc.protobuf.refbox;
 import static io.leonis.zosma.game.data.TeamColor.BLUE;
 
 import io.leonis.zosma.game.data.*;
-import io.reactivex.functions.*;
+import io.reactivex.functions.BiFunction;
 import java.util.Collections;
 import lombok.AllArgsConstructor;
 import org.robocup.ssl.Referee.SSL_Referee;

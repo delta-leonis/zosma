@@ -1,8 +1,7 @@
 package io.leonis.zosma.ipc.protobuf.refbox;
 
 import static io.leonis.zosma.game.data.Allegiance.*;
-import static io.leonis.zosma.game.data.TeamColor.BLUE;
-import static io.leonis.zosma.game.data.TeamColor.YELLOW;
+import static io.leonis.zosma.game.data.TeamColor.*;
 
 import io.leonis.zosma.game.data.*;
 import io.reactivex.functions.Function;
