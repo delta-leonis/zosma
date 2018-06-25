@@ -2,7 +2,7 @@ package io.leonis.zosma.ipc.protobuf;
 
 import io.leonis.algieba.Temporal;
 import io.leonis.zosma.game.data.*;
-import io.leonis.zosma.ipc.protobuf.SSLVisionFunction.VisionPacket;
+import io.leonis.zosma.ipc.protobuf.VisionPacketAdapter.VisionPacket;
 import io.leonis.zosma.ipc.protobuf.vision.*;
 import io.reactivex.functions.*;
 import java.util.Set;
@@ -11,7 +11,7 @@ import lombok.experimental.Delegate;
 import org.robocup.ssl.Wrapper.WrapperPacket;
 
 /**
- * The Class SSLVisionFunction.
+ * The Class VisionPacketAdapter.
  *
  * This class represents a {@link Function} which creates {@link VisionPacket} from {@link
  * WrapperPacket}.
@@ -20,7 +20,7 @@ import org.robocup.ssl.Wrapper.WrapperPacket;
  * @author Rimon Oz
  */
 @AllArgsConstructor
-public class SSLVisionFunction implements BiFunction<WrapperPacket, AllegianceTuple<Team>, VisionPacket> {
+public class VisionPacketAdapter implements BiFunction<WrapperPacket, AllegianceTuple<Team>, VisionPacket> {
 
   @Override
   public VisionPacket apply(
