@@ -12,7 +12,8 @@ import io.reactivex.functions.BiFunction;
  *
  * @author Jeroen de Jong
  */
-public class CommandAdapter implements BiFunction<PlayerIdentity, PlayerCommand, Command> {
+public final class CommandAdapter implements BiFunction<PlayerIdentity, PlayerCommand, Command> {
+
   @Override
   public Command apply(final PlayerIdentity playerIdentity, final PlayerCommand playerCommand) {
     return Command.newBuilder()

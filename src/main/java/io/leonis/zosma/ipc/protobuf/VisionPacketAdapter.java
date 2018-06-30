@@ -20,7 +20,8 @@ import org.robocup.ssl.Wrapper.WrapperPacket;
  * @author Rimon Oz
  */
 @AllArgsConstructor
-public class VisionPacketAdapter implements BiFunction<WrapperPacket, AllegianceTuple<Team>, VisionPacket> {
+public final class VisionPacketAdapter implements
+    BiFunction<WrapperPacket, AllegianceTuple<Team>, VisionPacket> {
 
   @Override
   public VisionPacket apply(
@@ -33,9 +34,8 @@ public class VisionPacketAdapter implements BiFunction<WrapperPacket, Allegiance
         new PlayersAdapter().apply(wrapperPacket.getDetection(), teams));
   }
 
-  @Value @AllArgsConstructor
-  public final static class VisionPacket implements Temporal {
-    @Delegate
+  @Value
+  public static class VisionPacket implements Temporal {
     private final Field field;
     private final Set<Ball> balls;
     private final AllegianceTuple<Set<Player>> players;

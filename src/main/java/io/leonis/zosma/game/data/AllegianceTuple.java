@@ -3,7 +3,11 @@ package io.leonis.zosma.game.data;
 import lombok.Value;
 
 /**
- * @author jeroen.dejong.
+ * The Class AllegianceTuple.
+ *
+ * A class containing two instances of type {@code T} for each allegiance.
+ *
+ * @author Jeroen de Jong
  */
 @Value
 public class AllegianceTuple<T> {

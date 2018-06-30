@@ -16,7 +16,7 @@ import org.robocup.ssl.Referee.SSL_Referee;
  *
  * @author Jeroen de Jong
  */
-public class GoalAdapter implements
+public final class GoalAdapter implements
     Function3<GeometryData, SSL_Referee, AllegianceTuple<Team>, AllegianceTuple<Goal>> {
 
   private final GoalDimensionAdapter goalDimensionAdapter = new GoalDimensionAdapter();

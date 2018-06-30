@@ -12,7 +12,7 @@ import java.util.function.Function;
  * @param <M> The type of {@link Message} to convert to a {@link DatagramPacket}.
  * @author Jeroen de Jong
  */
-public class DatagramPacketAdapter<M extends Message> implements Function<M, DatagramPacket> {
+public final class DatagramPacketAdapter<M extends Message> implements Function<M, DatagramPacket> {
 
   @Override
   public DatagramPacket apply(final M msg) {

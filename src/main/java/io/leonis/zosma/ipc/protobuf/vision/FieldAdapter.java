@@ -12,7 +12,7 @@ import org.robocup.ssl.Geometry.GeometryData;
  *
  * @author Rimon Oz
  */
-public class FieldAdapter implements Function<GeometryData, Field> {
+public final class FieldAdapter implements Function<GeometryData, Field> {
 
   @Override
   public Field apply(final GeometryData geometryData) {

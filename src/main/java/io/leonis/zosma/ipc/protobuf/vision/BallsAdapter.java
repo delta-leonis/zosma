@@ -12,7 +12,7 @@ import org.robocup.ssl.Detection.DetectionFrame;
  * Adapts a {@link DetectionFrame} into a {@link Set} of {@link Ball Balls}.
  * @author Jeroen de Jong
  */
-public class BallsAdapter implements Function<DetectionFrame, Set<Ball>> {
+public final class BallsAdapter implements Function<DetectionFrame, Set<Ball>> {
 
   @Override
   public Set<Ball> apply(final DetectionFrame detectionFrame) {

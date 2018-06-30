@@ -12,7 +12,7 @@ import org.robocup.ssl.Geometry.GeometryData;
  *
  * @author Jeroen de Jong
  */
-public class GoalDimensionAdapter implements Function<GeometryData, GoalDimension> {
+public final class GoalDimensionAdapter implements Function<GeometryData, GoalDimension> {
 
   @Override
   public GoalDimension apply(final GeometryData geometryData) {

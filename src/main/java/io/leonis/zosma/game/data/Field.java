@@ -34,7 +34,6 @@ public interface Field extends Serializable {
   Set<FieldArc> getArcs();
 
   @Value
-  @AllArgsConstructor
   class State implements Field {
     private final double width;
     private final double length;
