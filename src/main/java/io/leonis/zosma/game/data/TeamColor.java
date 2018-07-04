@@ -1,8 +1,11 @@
 package io.leonis.zosma.game.data;
 
 /**
- * @author jeroen.dejong.
- * FIXME should be removed as most logic should rely on allegiance
+ * The Enum TeamColor.
+ *
+ * Describes the color of a team. 
+ *
+ * @author Jeroen de Jong
  */
 public enum TeamColor {
   YELLOW, BLUE;
