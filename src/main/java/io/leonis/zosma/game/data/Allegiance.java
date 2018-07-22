@@ -11,7 +11,7 @@ public enum Allegiance {
   ALLY, OPPONENT;
 
   /**
-   * @return Opponent of current team (Ally for Opponent and vise versa)
+   * @return Opponent of current team.
    */
   public Allegiance opponent() {
     return this.equals(ALLY) ? OPPONENT : ALLY;

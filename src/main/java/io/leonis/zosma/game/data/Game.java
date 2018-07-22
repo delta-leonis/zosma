@@ -3,7 +3,12 @@ package io.leonis.zosma.game.data;
 import lombok.*;
 
 /**
- * @author jeroen.dejong.
+ * The Interface Game.
+ *
+ * Describes the state of a game.
+ *
+ * @author Jeroen de Jong
+ * @author Rimon Oz
  */
 public interface Game {
 
