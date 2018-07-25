@@ -1,4 +1,4 @@
-package io.leonis.zosma.game.engine.association;
+package io.leonis.zosma.game.engine.role;
 
 import io.leonis.zosma.game.data.Player.PlayerIdentity;
 import io.leonis.zosma.game.data.PlayerCommand;
@@ -15,7 +15,7 @@ import lombok.Value;
  * @author Jeroen de Jong
  */
 @Value
-public class HaltStrategy implements AssociationStrategy {
+public class HaltStrategy implements RoleBasedStrategy {
   private final long timestamp = System.currentTimeMillis();
   private final Set<Assignment> assignments;
 

@@ -1,4 +1,4 @@
-package io.leonis.zosma.game.engine.association;
+package io.leonis.zosma.game.engine.role;
 
 /**
  * @author jeroen.dejong.

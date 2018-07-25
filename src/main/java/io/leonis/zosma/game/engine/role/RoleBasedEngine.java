@@ -1,4 +1,4 @@
-package io.leonis.zosma.game.engine.association;
+package io.leonis.zosma.game.engine.role;
 
 import com.google.common.collect.ImmutableMap;
 import io.leonis.zosma.game.data.*;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 
 /**
- * The Class AssociationEngine.
+ * The Class RoleBasedEngine.
  *
  * Assigns a {@link Role} to the provided {@link Player Players} accodring to the provided
  * assignmentFunciton. Dispatches handeling of the individual {@link Player} according to the
@@ -21,20 +21,20 @@ import lombok.AllArgsConstructor;
 // TODO maybe move players to team and make them allegiance-unaware
 // TOOD do the same for the goal
 @AllArgsConstructor
-public class AssociationEngine implements
-    Function7<AssociationStrategy, Game, AllegianceTuple<Team>, AllegianceTuple<Set<MovingPlayer>>, MovingBall, Field, AllegianceTuple<Goal>, AssociationStrategy> {
+public class RoleBasedEngine implements
+    Function7<RoleBasedStrategy, Game, AllegianceTuple<Team>, AllegianceTuple<Set<MovingPlayer>>, MovingBall, Field, AllegianceTuple<Goal>, RoleBasedStrategy> {
 
   private final AssignmentFunction assignFunction;
   private final Map<Role, RoleHandler> roleHandlers;
 
-  public AssociationEngine() {
+  public RoleBasedEngine() {
     this(new AssignmentFunction(Duration.ofSeconds(5), new RoleFunction(Collections.emptyMap())),
         ImmutableMap.of(Role.GOALIE, new GoalieHandler()));
   }
 
   @Override
-  public AssociationStrategy apply(
-      final AssociationStrategy previousStrategy,
+  public RoleBasedStrategy apply(
+      final RoleBasedStrategy previousStrategy,
       final Game game,
       final AllegianceTuple<Team> teams,
       final AllegianceTuple<Set<MovingPlayer>> players,
@@ -48,7 +48,7 @@ public class AssociationEngine implements
     if(game.getCommand().equals(Command.HALT))
       return new HaltStrategy(assignments);
 
-    return new AssociationStrategy.State(
+    return new RoleBasedStrategy.State(
         assignments,
         assignments.stream()
         .filter(assignment -> roleHandlers.containsKey(assignment.getRole()))
@@ -67,7 +67,7 @@ public class AssociationEngine implements
       final Assignment assignment
       ) {
     try{
-      Player player = players.getAlly().stream()
+      MovingPlayer player = players.getAlly().stream()
           .filter(p -> p.getIdentity().equals(assignment.getAssignee()))
           .findFirst().orElse(null); // FIXME this shouldn't happen, make sure it doesnt
       return roleHandlers.get(assignment.getRole()).apply(game, teams, players, ball, field, goals, player);
